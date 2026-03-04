@@ -18,7 +18,7 @@ export const initialAdminTasks = [
   { id: "t2", title: "Competitor research summary", description: "Summarize 5 competitors and their specific positioning.", intern: "Alex", deadline: "Mar 08", status: "Submitted" as TaskStatus },
 ];
 
-export const interns = ["Sam", "Alex", "Taylor", "Jordan"];
+export const interns = ["Andleeb", "Sam", "Alex", "Taylor", "Jordan"];
 
 export const initialSubmissions = [
   { id: "s1", intern: "Alex", task: "Competitor research summary", date: "Mar 02", status: "Pending" as const },

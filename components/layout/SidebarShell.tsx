@@ -1,8 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function SidebarShell({
   sidebar,
@@ -13,18 +12,6 @@ export function SidebarShell({
   topbarTitle: string;
   children: React.ReactNode;
 }) {
-  const [collapsed, setCollapsed] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("kyzor_sidebar_collapsed");
-    setCollapsed(saved === "1");
-  }, []);
-
-  function toggle() {
-    const next = !collapsed;
-    setCollapsed(next);
-    localStorage.setItem("kyzor_sidebar_collapsed", next ? "1" : "0");
-  }
 
   return (
     <div className="min-h-screen">
@@ -46,28 +33,24 @@ export function SidebarShell({
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-[auto_1fr]">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-[auto_1fr] animate-in">
         {/* Desktop sidebar */}
-        <aside className="hidden lg:block">
-          <div
-            className={[
-              "rounded-2xl border border-white/10 bg-white/5 backdrop-blur",
-              collapsed ? "w-20" : "w-64",
-              "transition-[width] duration-200",
-            ].join(" ")}
-          >
-            <div className="flex items-center justify-between px-4 py-3">
-              <div className="text-sm font-semibold">{collapsed ? "K" : "KYZOR"}</div>
-              <Button
-                variant="ghost"
-                className="rounded-xl"
-                onClick={toggle}
-                title="Collapse"
-              >
-                {collapsed ? "→" : "←"}
-              </Button>
+        <aside className="hidden lg:block sticky top-6 self-start">
+          <div className="w-64 rounded-2xl glass transition-all duration-300 ease-in-out">
+            <div className="flex items-center gap-3 px-4 py-5 border-b border-white/5">
+              <div className="relative h-7 w-7">
+                <Image
+                  src="/logo1.png"
+                  alt="KYZOR"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="text-base font-bold tracking-wider bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                KYZOR
+              </div>
             </div>
-            <div className="px-2 pb-3">{sidebar}</div>
+            <div className="px-2 py-3">{sidebar}</div>
           </div>
         </aside>
 

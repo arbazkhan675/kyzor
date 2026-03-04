@@ -81,14 +81,18 @@ export function CreateTaskModal({
               ))}
             </SelectContent>
           </Select>
-          <Input
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            placeholder="Deadline (e.g., Mar 10)"
-          />
+          <div className="grid gap-1.5 px-1">
+            <label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Deadline Date</label>
+            <Input
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              type="date"
+              className="rounded-xl border-white/10 bg-white/5 [color-scheme:dark]"
+            />
+          </div>
 
-          <Button className="rounded-xl" onClick={save}>
-            Save
+          <Button className="rounded-xl bg-indigo-500 hover:bg-indigo-600 font-bold uppercase tracking-widest text-xs h-11" onClick={save}>
+            Deploy Mission
           </Button>
         </div>
       </DialogContent>

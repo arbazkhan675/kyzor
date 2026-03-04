@@ -50,23 +50,28 @@ export function CreateAnnouncementModal({
           <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Announcement Title"
+            className="rounded-xl border-white/10 bg-white/5"
           />
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={4}
-            placeholder="Message"
+            placeholder="What's the news?"
+            className="rounded-xl border-white/10 bg-white/5 resize-none"
           />
-          <Input
-            value={expiry}
-            onChange={(e) => setExpiry(e.target.value)}
-            type="date"
-            placeholder="Expiry Date"
-          />
+          <div className="grid gap-1.5 px-1">
+            <label className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Announce Date</label>
+            <Input
+              value={expiry}
+              onChange={(e) => setExpiry(e.target.value)}
+              type="date"
+              className="rounded-xl border-white/10 bg-white/5 [color-scheme:dark]"
+            />
+          </div>
 
-          <Button className="rounded-xl" onClick={save}>
-            Save
+          <Button className="rounded-xl bg-indigo-500 hover:bg-indigo-600 font-bold uppercase tracking-widest text-xs h-11" onClick={save}>
+            Post Announcement
           </Button>
         </div>
       </DialogContent>

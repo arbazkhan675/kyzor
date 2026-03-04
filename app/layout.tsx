@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "AI Automation Agency — chatbots, agents, and workflow automations.",
 };
 
+import { LightingEffect } from "@/components/effects/LightingEffect";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,11 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground relative overflow-x-hidden`}>
+        <LightingEffect />
         {/* Subtle background glow */}
-        <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.14),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.12),transparent_55%)]" />
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-slate-950">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.08),transparent_55%)]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
         </div>
 
         {children}

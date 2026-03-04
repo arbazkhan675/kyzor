@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Bot, Workflow, Brain, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; import { FuturisticBackground } from "@/components/FuturisticBackground";
 
 const services = [
   { title: "AI Chatbots", desc: "Customer support and lead capture that runs 24/7.", icon: Bot },
@@ -14,28 +14,38 @@ export default function LandingPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            AI Automation for Growing Businesses
-          </h1>
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            We build chatbots, AI agents, and workflow automations that scale startups and agencies.
-          </p>
+      <FuturisticBackground className="py-20 sm:py-24 border-b border-white/5">
+        <section className="mx-auto max-w-6xl px-4 relative z-10">
+          <div className="max-w-2xl animate-in">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-indigo-300 mb-6 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              </span>
+              Now Global
+            </div>
+            <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl text-white drop-shadow-2xl leading-[1.1]">
+              AI Automation for <br />
+              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Growing Businesses</span>
+            </h1>
+            <p className="mt-6 text-lg text-white/70 sm:text-xl drop-shadow-md leading-relaxed font-medium">
+              We build chatbots, AI agents, and workflow automations that scale startups and agencies with surgical precision.
+            </p>
 
-          <div className="mt-8 flex items-center gap-4">
-            <Button asChild className="rounded-xl">
-              <Link href="/book">Book Free Consultation</Link>
-            </Button>
-            <Link
-              href="/login"
-              className="text-sm text-muted-foreground hover:text-foreground"
-            >
-              Intern Login
-            </Link>
+            <div className="mt-10 flex items-center gap-6 relative z-20 pointer-events-auto">
+              <Button asChild size="lg" className="rounded-2xl shadow-2xl shadow-indigo-500/20 bg-indigo-500 hover:bg-indigo-600 font-bold px-8">
+                <Link href="/book">Schedule a Sync</Link>
+              </Button>
+              <Link
+                href="/login"
+                className="text-sm font-bold text-white/50 hover:text-white transition-all underline underline-offset-8 decoration-white/10 hover:decoration-white/40"
+              >
+                Intern Access
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </FuturisticBackground>
 
       {/* Services */}
       <section className="mx-auto max-w-6xl px-4 pb-8">
