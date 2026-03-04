@@ -132,7 +132,8 @@
 
 @layer utilities {
   .glass {
-    @apply backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.37)];
+    @apply backdrop-blur-xl bg-white/[0.03] border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
   .glass-card {
