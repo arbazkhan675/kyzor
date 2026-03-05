@@ -18,10 +18,7 @@ export function Footer() {
         </div>
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <span>© 2024 KYZOR</span>
-          <Link href="/login" className="hover:text-foreground">
-            Intern Login
-          </Link>
+          <span>© 2026 KYZOR</span>
         </div>
       </div>
     </footer>

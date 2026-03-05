@@ -33,25 +33,33 @@ export default function AdminSubmissionsPage() {
   async function updateStatus(
     submissionId: string,
     taskId: string,
-    status: "Approved" | "Rejected",
-    score: number
+    status: "Approved" | "Rejected" | "Pending",
+    score: number | null
   ) {
     try {
-      const safeScore = Number.isFinite(score)
+      const safeScore = score !== null && Number.isFinite(score)
         ? Math.max(0, Math.min(100, Math.round(score)))
-        : 0;
+        : null;
+
+      let rejectReason: string | null = null;
+      if (status === "Rejected") {
+        const reason = window.prompt("Optional: Enter a reason for rejection to show to the intern:", "");
+        if (reason !== null && reason.trim() !== "") {
+          rejectReason = reason.trim();
+        }
+      }
 
       // 1. Update submission status
       const { error: submissionError } = await supabase
         .from("submissions")
-        .update({ status, score: safeScore })
+        .update({ status, score: safeScore, reject_reason: rejectReason })
         .eq("id", submissionId);
       if (submissionError) throw submissionError;
 
       // 2. Update task status
       const { error: taskError } = await supabase
         .from("tasks")
-        .update({ status, score: safeScore })
+        .update({ status, score: safeScore, reject_reason: rejectReason })
         .eq("id", taskId);
       if (taskError) throw taskError;
 
@@ -171,6 +179,20 @@ export default function AdminSubmissionsPage() {
                               <XCircle className="h-3 w-3" /> Reject
                             </Button>
                           </>
+                        )}
+                        {(r.status === "Approved" || r.status === "Rejected") && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="rounded-xl h-8 gap-1.5 border-orange-500/20 text-orange-400 hover:bg-orange-500/10 hover:text-orange-300"
+                            onClick={async () => {
+                              if (window.confirm("Are you sure you want to revert this decision back to Pending? The score will be cleared.")) {
+                                await updateStatus(r.id, r.task_id, "Pending", null);
+                              }
+                            }}
+                          >
+                            Undo Decision
+                          </Button>
                         )}
                         {/* <FeedbackModal onSave={(text) => console.log("Feedback saved:", text)} /> */}
                       </div>

@@ -98,28 +98,36 @@ export default function TasksPage() {
                   </Badge>
                 </CardHeader>
 
-                <CardContent className="flex items-center justify-between pt-4">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2 group">
-                      <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
-                        Due: {t.deadline}
+                <CardContent className="flex flex-col gap-4 pt-4">
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2 group">
+                        <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                        <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                          Due: {t.deadline}
+                        </div>
                       </div>
+                      {score !== null && (
+                        <div className="text-[10px] text-indigo-300 font-bold uppercase tracking-widest">
+                          Score: {score}/100
+                        </div>
+                      )}
                     </div>
-                    {score !== null && (
-                      <div className="text-[10px] text-indigo-300 font-bold uppercase tracking-widest">
-                        Score: {score}/100
-                      </div>
-                    )}
+                    <SubmitWorkModal
+                      taskId={t.id}
+                      taskTitle={t.title}
+                      internName={userEmail?.split('@')[0].replace('.', ' ') || "Intern"}
+                      status={t.status}
+                      deadline={t.deadline}
+                      onSuccess={fetchTasks}
+                    />
                   </div>
-                  <SubmitWorkModal
-                    taskId={t.id}
-                    taskTitle={t.title}
-                    internName={userEmail?.split('@')[0].replace('.', ' ') || "Intern"}
-                    status={t.status}
-                    deadline={t.deadline}
-                    onSuccess={fetchTasks}
-                  />
+                  {t.status === "Rejected" && t.reject_reason && (
+                    <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-200">
+                      <span className="font-bold uppercase tracking-widest text-[9px] text-red-300 block mb-1">Rejection Feedback</span>
+                      {t.reject_reason}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             );

@@ -56,12 +56,49 @@ export default function AdminTasksPage() {
     }
 
     async function setStatus(id: string, status: string) {
-        const { error } = await supabase
+        let finalScore: number | null = null;
+        let rejectReason: string | null = null;
+
+        if (status === "Approved" || status === "Rejected") {
+            const initial = status === "Approved" ? "100" : "0";
+            const input = window.prompt(`Enter score for this task (0-100):`, initial);
+            if (input === null) return;
+            const value = Number(input);
+            if (!Number.isFinite(value)) {
+                window.alert("Please enter a valid number between 0 and 100.");
+                return;
+            }
+            finalScore = Math.max(0, Math.min(100, Math.round(value)));
+
+            if (status === "Rejected") {
+                const reason = window.prompt("Optional: Enter a reason for rejection to show to the intern:", "");
+                if (reason !== null && reason.trim() !== "") {
+                    rejectReason = reason.trim();
+                }
+            }
+        }
+
+        const { error: taskError } = await supabase
             .from("tasks")
-            .update({ status })
+            .update({ status, score: finalScore, reject_reason: rejectReason })
             .eq("id", id);
 
-        if (!error) fetchTasks();
+        if (!taskError) {
+            const { data: subData, error: subError } = await supabase
+                .from("submissions")
+                .update({ status, score: finalScore, reject_reason: rejectReason })
+                .eq("task_id", id)
+                .select();
+
+            if (subError) {
+                console.error("Submission sync error:", subError);
+                window.alert("Failed to sync status to submission: " + subError.message);
+            } else if (!subData || subData.length === 0) {
+                window.alert("Warning: Task was updated, but we could not find a corresponding Submission to sync with.");
+            }
+        }
+
+        fetchTasks();
     }
 
     async function remove(id: string) {
@@ -142,6 +179,11 @@ export default function AdminTasksPage() {
                                                 <DropdownMenuItem onClick={() => setStatus(r.id, "Rejected")} className="text-red-400">
                                                     Mark Rejected
                                                 </DropdownMenuItem>
+                                                {(r.status === "Approved" || r.status === "Rejected") && (
+                                                    <DropdownMenuItem onClick={() => setStatus(r.id, "Pending")} className="text-orange-400">
+                                                        Undo Decision (Set Pending)
+                                                    </DropdownMenuItem>
+                                                )}
                                                 <div className="h-px bg-white/5 my-1" />
                                                 <DropdownMenuItem className="text-red-500 font-bold" onClick={() => remove(r.id)}>
                                                     Delete
