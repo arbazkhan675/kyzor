@@ -1,0 +1,46 @@
+Tasks:
+[
+  {
+    "id": "9ea66f4d-cd81-417e-a81b-2ff8f38c2c18",
+    "title": "Week 1 · Day 1 — Linux CLI Mastery",
+    "status": "Submitted",
+    "score": null
+  },
+  {
+    "id": "0d81f618-adbd-4dac-9d96-c8ed87884220",
+    "title": "dwwf",
+    "status": "Rejected",
+    "score": 34
+  },
+  {
+    "id": "e541434d-fad7-4c54-b1fc-be034e84df67",
+    "title": "sample",
+    "status": "Rejected",
+    "score": 14
+  }
+]
+
+Submissions:
+[
+  {
+    "id": "15a978b4-a904-4eba-b931-20015df4a2d0",
+    "task_id": "0d81f618-adbd-4dac-9d96-c8ed87884220",
+    "task": "dwwf",
+    "status": "Rejected",
+    "score": 34
+  },
+  {
+    "id": "407446bf-d397-4526-8ea9-d17abbd37b1c",
+    "task_id": "e541434d-fad7-4c54-b1fc-be034e84df67",
+    "task": "sample",
+    "status": "Approved",
+    "score": 14
+  },
+  {
+    "id": "c51657ee-6e5e-4f7c-9653-91d2520d8923",
+    "task_id": "9ea66f4d-cd81-417e-a81b-2ff8f38c2c18",
+    "task": "Week 1 · Day 1 — Linux CLI Mastery",
+    "status": "Approved",
+    "score": 99
+  }
+]

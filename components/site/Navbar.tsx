@@ -1,34 +1,104 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-indigo-500/10 bg-indigo-950/30 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-1 group">
-          <div className="relative h-12 w-12 mt-1 transition-transform group-hover:scale-110">
-            <Image
+    <header
+      style={{
+        position: "fixed",
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        backgroundColor: "rgba(15, 12, 30, 0.75)",
+        borderBottom: "1px solid rgba(97, 95, 255, 0.2)",
+        boxShadow: "0 1px 30px rgba(97, 95, 255, 0.08), 0 0 0 1px rgba(97,95,255,0.04)",
+      }}
+    >
+      <div
+        style={{
+          margin: "0 auto",
+          maxWidth: "72rem",
+          padding: "0 1.5rem",
+          height: "5rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Logo */}
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none", flexShrink: 0 }}>
+          <div style={{ position: "relative" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/logo1.png"
               alt="KYZOR Logo"
-              fill
-              className="object-contain scale-[1.5]"
-              priority
+              style={{ height: "3.5rem", width: "auto", objectFit: "contain" }}
             />
           </div>
-          <span className="text-xl font-black tracking-[0.15em] uppercase ml-1">KYZOR</span>
+          <span
+            style={{
+              fontFamily: "var(--font-syne), sans-serif",
+              fontWeight: 800,
+              fontSize: "1.2rem",
+              letterSpacing: "0.25em",
+              color: "#ffffff",
+              textTransform: "uppercase",
+              lineHeight: 1,
+            }}
+          >
+            KYZOR
+          </span>
         </Link>
 
-        <nav className="flex items-center gap-6">
+        {/* Nav links */}
+        <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Link
             href="/login"
-            className="text-[10px] font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+            style={{
+              fontFamily: "var(--font-space-mono), monospace",
+              fontSize: "0.78rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--muted)",
+              textDecoration: "none",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#615FFF")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
           >
             Login
           </Link>
-          <Button asChild size="sm" className="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-[10px] font-bold uppercase tracking-widest px-5 h-9">
-            <Link href="/book">Free Consultation</Link>
-          </Button>
+
+          {/* CTA Button */}
+          <Link
+            href="/book"
+            style={{
+              fontFamily: "var(--font-space-mono), monospace",
+              fontSize: "0.72rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              color: "#615FFF",
+              border: "1px solid #615FFF",
+              background: "transparent",
+              padding: "0.55rem 1.4rem",
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+              display: "inline-block",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(97,95,255,0.12)";
+              e.currentTarget.style.boxShadow = "0 0 16px rgba(97,95,255,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            Free Consultation
+          </Link>
         </nav>
       </div>
     </header>

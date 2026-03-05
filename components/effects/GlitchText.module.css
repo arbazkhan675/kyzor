@@ -1,0 +1,95 @@
+.wrapper {
+    position: relative;
+    display: inline-block;
+    color: #e8eaf0;
+}
+
+.wrapper::before,
+.wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+}
+
+/* Top half — pink */
+.wrapper::before {
+    color: #ff3cac;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: glitchTop 4s infinite;
+}
+
+/* Bottom half — purple */
+.wrapper::after {
+    color: #7b5fff;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    animation: glitchBot 4s 0.08s infinite;
+}
+
+@keyframes glitchTop {
+
+    0%,
+    89%,
+    100% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    90% {
+        transform: translateX(-6px);
+        opacity: 1;
+    }
+
+    92% {
+        transform: translateX(4px);
+        opacity: 1;
+    }
+
+    94% {
+        transform: translateX(-2px);
+        opacity: 1;
+    }
+
+    96% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+}
+
+@keyframes glitchBot {
+
+    0%,
+    89%,
+    100% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    90% {
+        transform: translateX(6px);
+        opacity: 1;
+    }
+
+    92% {
+        transform: translateX(-4px);
+        opacity: 1;
+    }
+
+    94% {
+        transform: translateX(2px);
+        opacity: 1;
+    }
+
+    96% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+}
