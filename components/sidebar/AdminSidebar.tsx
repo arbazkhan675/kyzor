@@ -12,6 +12,7 @@ const items = [
   { label: "Materials", href: "/admin/materials" },
   { label: "Announcements", href: "/admin/announcements" },
   { label: "Submissions", href: "/admin/submissions" },
+  { label: "Intern Chat", href: "/admin/chat" },
 ];
 
 export function AdminSidebar() {

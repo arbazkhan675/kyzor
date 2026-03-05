@@ -13,12 +13,14 @@ export function SubmitWorkModal({
   internName,
   status,
   deadline,
+  onSuccess,
 }: {
   taskId: string;
   taskTitle: string;
   internName?: string;
   status: string;
   deadline?: string;
+  onSuccess?: () => void;
 }) {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -91,14 +93,15 @@ export function SubmitWorkModal({
       }
 
       setDone(true);
+      onSuccess?.();
     } catch (error: any) {
       console.error("Submission failed:", error);
       const message =
         typeof error?.message === "string"
           ? error.message
           : typeof error === "string"
-          ? error
-          : "Unknown error";
+            ? error
+            : "Unknown error";
       alert(`Failed to submit work. Details: ${message}`);
     } finally {
       setLoading(false);
@@ -115,8 +118,8 @@ export function SubmitWorkModal({
           {lockedByStatus
             ? "Reflect on Status"
             : isOverdue
-            ? "Deadline Passed"
-            : "Submit Work"}
+              ? "Deadline Passed"
+              : "Submit Work"}
         </Button>
       </DialogTrigger>
 

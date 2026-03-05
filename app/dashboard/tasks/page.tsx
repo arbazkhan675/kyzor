@@ -118,6 +118,7 @@ export default function TasksPage() {
                     internName={userEmail?.split('@')[0].replace('.', ' ') || "Intern"}
                     status={t.status}
                     deadline={t.deadline}
+                    onSuccess={fetchTasks}
                   />
                 </CardContent>
               </Card>

@@ -10,6 +10,7 @@ const items = [
   { label: "My Tasks", href: "/dashboard/tasks" },
   { label: "Training Materials", href: "/dashboard/materials" },
   { label: "Announcements", href: "/dashboard/announcements" },
+  { label: "Support Chat", href: "/dashboard/chat" },
 ];
 
 export function InternSidebar() {
