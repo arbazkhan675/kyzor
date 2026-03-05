@@ -41,6 +41,28 @@ export default function TasksPage() {
     setLoading(false);
   }
 
+  function getTaskScore(t: any): number | null {
+    const rawDeadline = t.deadline as string | undefined;
+
+    let isOverdue = false;
+    if (rawDeadline && rawDeadline !== "TBD") {
+      const parsed = new Date(rawDeadline);
+      if (!Number.isNaN(parsed.getTime())) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        parsed.setHours(0, 0, 0, 0);
+        isOverdue = parsed < today;
+      }
+    }
+
+    const existingScore = typeof t.score === "number" ? t.score : null;
+    if (existingScore !== null) return existingScore;
+
+    if (isOverdue && t.status === "Pending") return 0;
+
+    return null;
+  }
+
   return (
     <div className="grid gap-6">
       <div>
@@ -52,43 +74,55 @@ export default function TasksPage() {
         <p className="text-sm text-muted-foreground font-mono animate-pulse">Loading tasks...</p>
       ) : (
         <div className="grid gap-4">
-          {tasks.map((t, idx) => (
-            <Card
-              key={t.id}
-              className="rounded-3xl glass-card animate-in border-none overflow-hidden"
-              style={{ animationDelay: `${idx * 100}ms` }}
-            >
-              <CardHeader className="flex flex-row items-center justify-between gap-4 pb-4 border-b border-white/5 bg-white/[0.01]">
-                <div className="flex-1">
-                  <CardTitle className="text-base font-bold tracking-tight uppercase">
-                    {t.title}
-                  </CardTitle>
-                  <div className="mt-2 text-sm text-muted-foreground/80 leading-relaxed">
-                    {t.description}
-                  </div>
-                </div>
+          {tasks.map((t, idx) => {
+            const score = getTaskScore(t);
 
-                <Badge variant={statusVariant(t.status)} className="rounded-full px-3 py-1 border-white/10 uppercase tracking-widest text-[9px] font-black">
-                  {t.status}
-                </Badge>
-              </CardHeader>
-
-              <CardContent className="flex items-center justify-between pt-4">
-                <div className="flex items-center gap-2 group">
-                  <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                  <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
-                    Due: {t.deadline}
+            return (
+              <Card
+                key={t.id}
+                className="rounded-3xl glass-card animate-in border-none overflow-hidden"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <CardHeader className="flex flex-row items-center justify-between gap-4 pb-4 border-b border-white/5 bg-white/[0.01]">
+                  <div className="flex-1">
+                    <CardTitle className="text-base font-bold tracking-tight uppercase">
+                      {t.title}
+                    </CardTitle>
+                    <div className="mt-2 text-sm text-muted-foreground/80 leading-relaxed">
+                      {t.description}
+                    </div>
                   </div>
-                </div>
-                <SubmitWorkModal
-                  taskId={t.id}
-                  taskTitle={t.title}
-                  internName={userEmail?.split('@')[0].replace('.', ' ') || "Intern"}
-                  status={t.status}
-                />
-              </CardContent>
-            </Card>
-          ))}
+
+                  <Badge variant={statusVariant(t.status)} className="rounded-full px-3 py-1 border-white/10 uppercase tracking-widest text-[9px] font-black">
+                    {t.status}
+                  </Badge>
+                </CardHeader>
+
+                <CardContent className="flex items-center justify-between pt-4">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2 group">
+                      <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                        Due: {t.deadline}
+                      </div>
+                    </div>
+                    {score !== null && (
+                      <div className="text-[10px] text-indigo-300 font-bold uppercase tracking-widest">
+                        Score: {score}/100
+                      </div>
+                    )}
+                  </div>
+                  <SubmitWorkModal
+                    taskId={t.id}
+                    taskTitle={t.title}
+                    internName={userEmail?.split('@')[0].replace('.', ' ') || "Intern"}
+                    status={t.status}
+                    deadline={t.deadline}
+                  />
+                </CardContent>
+              </Card>
+            );
+          })}
           {tasks.length === 0 && (
             <p className="text-sm text-muted-foreground p-12 text-center border border-dashed border-white/10 rounded-3xl bg-white/[0.02]">
               No tasks assigned yet. Enjoy the quiet!

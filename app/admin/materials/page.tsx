@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UploadMaterialModal } from "@/components/modals/UploadMaterialModal";
 import { ExternalLink, Trash2 } from "lucide-react";
+import { MaterialPreviewModal } from "@/components/materials/MaterialPreviewModal";
 
 export default function AdminMaterialsPage() {
   const [rows, setRows] = useState<any[]>([]);
@@ -71,16 +72,20 @@ export default function AdminMaterialsPage() {
                 </Button>
               </CardHeader>
               <CardContent className="flex gap-2">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="rounded-xl border-white/10 bg-white/5"
-                >
-                  <a href={m.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                    <ExternalLink className="h-3 w-3" /> Preview
-                  </a>
-                </Button>
+                <MaterialPreviewModal
+                  url={m.url}
+                  title={m.title}
+                  trigger={
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="rounded-xl border-white/10 bg-white/5 flex items-center gap-2"
+                    >
+                      <span><ExternalLink className="h-4 w-4" /> Preview</span>
+                    </Button>
+                  }
+                />
                 <Button
                   asChild
                   variant="outline"

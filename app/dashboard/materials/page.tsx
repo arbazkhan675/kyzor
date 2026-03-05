@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, Eye, AlertCircle } from "lucide-react";
+import { MaterialPreviewModal } from "@/components/materials/MaterialPreviewModal";
 
 export default function MaterialsPage() {
   const [materials, setMaterials] = useState<any[]>([]);
@@ -52,16 +53,20 @@ export default function MaterialsPage() {
               </CardHeader>
               <CardContent className="mt-auto flex flex-col gap-3 pt-0">
                 <div className="flex gap-2">
-                  <Button
-                    asChild
-                    variant="secondary"
-                    size="sm"
-                    className="flex-1 rounded-xl gap-2 text-[10px] uppercase tracking-widest font-black h-9 bg-white/5 hover:bg-white/10 border-white/5 transition-all"
-                  >
-                    <a href={m.url || "#"} target="_blank" rel="noopener noreferrer">
-                      <Eye className="h-3.5 w-3.5" /> Preview
-                    </a>
-                  </Button>
+                  <MaterialPreviewModal
+                    url={m.url || "#"}
+                    title={m.title}
+                    trigger={
+                      <Button
+                        asChild
+                        variant="secondary"
+                        size="sm"
+                        className="w-full rounded-xl gap-2 text-[10px] uppercase tracking-widest font-black h-9 bg-white/5 hover:bg-white/10 border-white/5 transition-all"
+                      >
+                        <span><Eye className="h-3.5 w-3.5" /> Preview</span>
+                      </Button>
+                    }
+                  />
 
                   {m.url ? (
                     <Button
@@ -70,7 +75,7 @@ export default function MaterialsPage() {
                       size="sm"
                       className="flex-1 rounded-xl gap-2 text-[10px] uppercase tracking-widest font-black h-9 border-white/10 bg-white/5 hover:bg-white/10 transition-all"
                     >
-                      <a href={`${m.url}?download=`} download>
+                      <a href={m.url} download>
                         <Download className="h-3.5 w-3.5" /> Get
                       </a>
                     </Button>

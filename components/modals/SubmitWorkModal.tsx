@@ -11,19 +11,35 @@ export function SubmitWorkModal({
   taskId,
   taskTitle,
   internName,
-  status
+  status,
+  deadline,
 }: {
   taskId: string;
   taskTitle: string;
   internName?: string;
   status: string;
+  deadline?: string;
 }) {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
-  const isLocked = ["Submitted", "Approved", "Rejected"].includes(status);
+  const lockedByStatus = ["Submitted", "Approved", "Rejected"].includes(status);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let isOverdue = false;
+  if (deadline && deadline !== "TBD") {
+    const parsed = new Date(deadline);
+    if (!Number.isNaN(parsed.getTime())) {
+      parsed.setHours(0, 0, 0, 0);
+      isOverdue = parsed < today;
+    }
+  }
+
+  const isLocked = lockedByStatus || isOverdue;
 
   async function handleSubmit() {
     if (!file && !comment) return;
@@ -57,10 +73,12 @@ export function SubmitWorkModal({
           intern_name: internName || "Unknown Intern",
           content: comment,
           file_url: uploadedUrl,
-          status: "Pending"
+          status: "Pending",
         }]);
 
-      if (subError) throw subError;
+      if (subError) {
+        throw subError;
+      }
 
       // 2. Update task status to 'Submitted'
       const { error: taskError } = await supabase
@@ -68,12 +86,20 @@ export function SubmitWorkModal({
         .update({ status: "Submitted" })
         .eq("id", taskId);
 
-      if (taskError) throw taskError;
+      if (taskError) {
+        throw taskError;
+      }
 
       setDone(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Submission failed:", error);
-      alert("Failed to submit work. Please try again.");
+      const message =
+        typeof error?.message === "string"
+          ? error.message
+          : typeof error === "string"
+          ? error
+          : "Unknown error";
+      alert(`Failed to submit work. Details: ${message}`);
     } finally {
       setLoading(false);
     }
@@ -84,9 +110,13 @@ export function SubmitWorkModal({
       <DialogTrigger asChild>
         <Button
           className="rounded-xl px-6 font-bold uppercase tracking-widest text-[10px]"
-          disabled={isLocked}
+          disabled={lockedByStatus}
         >
-          {isLocked ? "Reflect on Status" : "Submit Work"}
+          {lockedByStatus
+            ? "Reflect on Status"
+            : isOverdue
+            ? "Deadline Passed"
+            : "Submit Work"}
         </Button>
       </DialogTrigger>
 
@@ -94,6 +124,12 @@ export function SubmitWorkModal({
         <DialogHeader>
           <DialogTitle className="text-xl font-bold tracking-tight uppercase">Submit Your Work</DialogTitle>
         </DialogHeader>
+
+        {isOverdue && !lockedByStatus && (
+          <div className="mb-4 rounded-2xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-xs text-red-300 font-medium">
+            You can&apos;t submit this task now. The deadline has passed.
+          </div>
+        )}
 
         {done ? (
           <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-8 text-center animate-in">
@@ -131,7 +167,7 @@ export function SubmitWorkModal({
             <Button
               className="rounded-2xl w-full h-12 font-black uppercase tracking-[0.2em] text-xs bg-indigo-500 hover:bg-indigo-600 shadow-lg shadow-indigo-500/20"
               onClick={handleSubmit}
-              disabled={loading || (!file && !comment)}
+              disabled={loading || isOverdue || (!file && !comment)}
             >
               {loading ? "Uploading..." : "Sync Submission"}
             </Button>

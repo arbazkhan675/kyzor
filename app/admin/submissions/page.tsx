@@ -30,23 +30,42 @@ export default function AdminSubmissionsPage() {
     setLoading(false);
   }
 
-  async function updateStatus(submissionId: string, taskId: string, status: "Approved" | "Rejected") {
+  async function updateStatus(
+    submissionId: string,
+    taskId: string,
+    status: "Approved" | "Rejected",
+    score: number
+  ) {
     try {
+      const safeScore = Number.isFinite(score)
+        ? Math.max(0, Math.min(100, Math.round(score)))
+        : 0;
+
       // 1. Update submission status
-      await supabase
+      const { error: submissionError } = await supabase
         .from("submissions")
-        .update({ status })
+        .update({ status, score: safeScore })
         .eq("id", submissionId);
+      if (submissionError) throw submissionError;
 
       // 2. Update task status
-      await supabase
+      const { error: taskError } = await supabase
         .from("tasks")
-        .update({ status })
+        .update({ status, score: safeScore })
         .eq("id", taskId);
+      if (taskError) throw taskError;
 
       fetchSubmissions();
     } catch (err) {
       console.error("Failed to update status", err);
+      const anyErr = err as any;
+      const message =
+        typeof anyErr?.message === "string"
+          ? anyErr.message
+          : typeof err === "string"
+            ? err
+            : "Unknown error";
+      window.alert(`Failed to assign marks. Details: ${message}`);
     }
   }
 
@@ -73,6 +92,7 @@ export default function AdminSubmissionsPage() {
                   <TableHead className="py-4">Intern</TableHead>
                   <TableHead>Task</TableHead>
                   <TableHead>Submission Note</TableHead>
+                  <TableHead>Score</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -85,6 +105,9 @@ export default function AdminSubmissionsPage() {
                     <TableCell className="max-w-[150px] truncate" title={r.task_title}>{r.task_title}</TableCell>
                     <TableCell className="max-w-[200px] truncate text-muted-foreground text-sm" title={r.content}>
                       {r.content || "No comment provided"}
+                    </TableCell>
+                    <TableCell className="text-sm font-mono">
+                      {typeof r.score === "number" ? `${r.score}/100` : "-"}
                     </TableCell>
                     <TableCell>
                       <Badge
@@ -113,7 +136,18 @@ export default function AdminSubmissionsPage() {
                             <Button
                               size="sm"
                               className="rounded-xl h-8 gap-1.5"
-                              onClick={() => updateStatus(r.id, r.task_id, "Approved")}
+                              onClick={async () => {
+                                const initial = typeof r.score === "number" ? String(r.score) : "100";
+                                const input = window.prompt("Enter score for this task (0-100):", initial);
+                                if (input === null) return;
+                                const value = Number(input);
+                                if (!Number.isFinite(value)) {
+                                  window.alert("Please enter a valid number between 0 and 100.");
+                                  return;
+                                }
+                                const clamped = Math.max(0, Math.min(100, Math.round(value)));
+                                await updateStatus(r.id, r.task_id, "Approved", clamped);
+                              }}
                             >
                               <CheckCircle className="h-3 w-3" /> Approve
                             </Button>
@@ -121,7 +155,18 @@ export default function AdminSubmissionsPage() {
                               variant="destructive"
                               size="sm"
                               className="rounded-xl h-8 gap-1.5"
-                              onClick={() => updateStatus(r.id, r.task_id, "Rejected")}
+                              onClick={async () => {
+                                const initial = typeof r.score === "number" ? String(r.score) : "0";
+                                const input = window.prompt("Enter score for this task (0-100):", initial);
+                                if (input === null) return;
+                                const value = Number(input);
+                                if (!Number.isFinite(value)) {
+                                  window.alert("Please enter a valid number between 0 and 100.");
+                                  return;
+                                }
+                                const clamped = Math.max(0, Math.min(100, Math.round(value)));
+                                await updateStatus(r.id, r.task_id, "Rejected", clamped);
+                              }}
                             >
                               <XCircle className="h-3 w-3" /> Reject
                             </Button>
