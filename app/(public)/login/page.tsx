@@ -40,10 +40,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-12">
       <div className="mx-auto max-w-md">
-        <div className="flex flex-col justify-center items-center gap-4 mb-10">
-          <div className="relative h-14 w-14">
+        <div className="flex flex-col justify-center items-center gap-2 mb-8 transform transition-all duration-500 animate-in fade-in slide-in-from-top-4">
+          <div className="relative h-16 w-16 mb-1">
             <Image
               src="/logo1.png"
               alt="KYZOR Logo"
@@ -52,7 +52,7 @@ export default function LoginPage() {
               priority
             />
           </div>
-          <span className="text-2xl font-black tracking-[0.4em] uppercase">KYZOR</span>
+          <span className="text-xl font-bold tracking-[0.3em] uppercase opacity-90">KYZOR</span>
         </div>
         <Card className="rounded-xl border-white/10 bg-white/5 backdrop-blur">
           <CardHeader>

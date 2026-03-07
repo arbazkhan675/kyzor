@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 
 const items = [
   { label: "Dashboard", href: "/dashboard" },
+  { label: "Leaderboard", href: "/dashboard/leaderboard" },
   { label: "My Tasks", href: "/dashboard/tasks", key: "unreadTasks" },
   { label: "Training Materials", href: "/dashboard/materials", key: "unreadMaterials" },
   { label: "Announcements", href: "/dashboard/announcements", key: "unreadAnnouncements" },

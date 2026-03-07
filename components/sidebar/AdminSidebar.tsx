@@ -15,6 +15,7 @@ const items = [
   { label: "Materials", href: "/admin/materials" },
   { label: "Announcements", href: "/admin/announcements" },
   { label: "Submissions", href: "/admin/submissions" },
+  { label: "Leaderboard", href: "/admin/leaderboard" },
   { label: "Intern Chat", href: "/admin/chat", isChat: true },
 ];
 
