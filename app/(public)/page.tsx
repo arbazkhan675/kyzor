@@ -229,7 +229,7 @@ export default function LandingPage() {
           </ScrollReveal>
 
           <div className="how-it-works-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem", position: "relative" }}>
-            <div style={{ position: "absolute", top: "22px", left: "calc(12.5% + 22px)", right: "calc(12.5% + 22px)", height: "1px", background: "linear-gradient(to right, #615FFF, #3d3bcc, #615FFF)", opacity: 0.35, zIndex: 0, pointerEvents: "none" }} />
+            <div className="process-line" style={{ position: "absolute", top: "22px", left: "22px", right: "calc(25% - 22px)", height: "1px", background: "linear-gradient(to right, #615FFF, #3d3bcc, #615FFF)", opacity: 0.35, zIndex: 0, pointerEvents: "none" }} />
 
             {[
               { n: "01", title: "Discovery Call", desc: "We map your ops, identify automation opportunities, and define scope in a focused 30-minute call." },
@@ -300,6 +300,9 @@ export default function LandingPage() {
           }
           .stats-row {
             gap: 1.5rem !important;
+          }
+          .process-line {
+            display: none !important;
           }
         }
 

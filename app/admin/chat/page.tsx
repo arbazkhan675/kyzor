@@ -185,6 +185,28 @@ export default function AdminChatPage() {
         }
     }
 
+    async function deleteMessage(id: string) {
+        if (!window.confirm("Permanently delete this message?")) return;
+
+        // Optimistic update
+        const previousMessages = [...messages];
+        setMessages((prev) => prev.filter((m) => m.id !== id));
+
+        const { error } = await supabase
+            .from("direct_messages")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            console.error("Error deleting message:", error);
+            alert("Delete failed. Please check if you applied the SQL policy correctly. Error: " + error.message);
+            // Rollback on error
+            setMessages(previousMessages);
+        } else {
+            fetchConversations();
+        }
+    }
+
     function handleKeyDown(e: React.KeyboardEvent) {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -308,7 +330,7 @@ export default function AdminChatPage() {
                                     const showDate = !prevMsg || formatDate(prevMsg.created_at) !== formatDate(msg.created_at);
 
                                     return (
-                                        <div key={msg.id} className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                        <div key={msg.id} className="group space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                             {showDate && (
                                                 <div className="flex justify-center my-8">
                                                     <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 px-4 py-1.5 rounded-full border border-white/5 bg-white/[0.01]">
@@ -316,7 +338,16 @@ export default function AdminChatPage() {
                                                     </span>
                                                 </div>
                                             )}
-                                            <div className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+                                            <div className={`flex ${isMe ? "justify-end" : "justify-start"} items-center gap-3`}>
+                                                {isMe && (
+                                                    <button
+                                                        onClick={() => deleteMessage(msg.id)}
+                                                        className="opacity-0 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground/20 hover:text-red-400"
+                                                        title="Delete message"
+                                                    >
+                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                    </button>
+                                                )}
                                                 <div className={`max-w-[70%] space-y-1.5`}>
                                                     <div className={`
                             px-5 py-3 rounded-2xl text-sm leading-relaxed tracking-wide whitespace-pre-wrap
@@ -330,6 +361,15 @@ export default function AdminChatPage() {
                                                         {formatTime(msg.created_at)}
                                                     </div>
                                                 </div>
+                                                {!isMe && (
+                                                    <button
+                                                        onClick={() => deleteMessage(msg.id)}
+                                                        className="opacity-0 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground/20 hover:text-red-400"
+                                                        title="Delete message"
+                                                    >
+                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
                                     );
