@@ -34,7 +34,8 @@ export default function AdminSubmissionsPage() {
     submissionId: string,
     taskId: string,
     status: "Approved" | "Rejected" | "Pending",
-    score: number | null
+    score: number | null,
+    bonusPoints: number | null = null
   ) {
     try {
       const safeScore = score !== null && Number.isFinite(score)
@@ -52,14 +53,14 @@ export default function AdminSubmissionsPage() {
       // 1. Update submission status
       const { error: submissionError } = await supabase
         .from("submissions")
-        .update({ status, score: safeScore, reject_reason: rejectReason })
+        .update({ status, score: safeScore, bonus_points: bonusPoints, reject_reason: rejectReason })
         .eq("id", submissionId);
       if (submissionError) throw submissionError;
 
       // 2. Update task status
       const { error: taskError } = await supabase
         .from("tasks")
-        .update({ status, score: safeScore, reject_reason: rejectReason })
+        .update({ status, score: safeScore, bonus_points: bonusPoints, reject_reason: rejectReason })
         .eq("id", taskId);
       if (taskError) throw taskError;
 
@@ -115,7 +116,16 @@ export default function AdminSubmissionsPage() {
                       {r.content || "No comment provided"}
                     </TableCell>
                     <TableCell className="text-sm font-mono">
-                      {typeof r.score === "number" ? `${r.score}/100` : "-"}
+                      {typeof r.score === "number" ? (
+                        <div className="flex flex-col gap-1 items-start">
+                          <span>{r.score}/100</span>
+                          {r.bonus_points ? (
+                            <span className="text-emerald-400 text-[9px] uppercase tracking-widest font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded-md border border-emerald-500/20">
+                              +{r.bonus_points} Bonus
+                            </span>
+                          ) : null}
+                        </div>
+                      ) : "-"}
                     </TableCell>
                     <TableCell>
                       <Badge
@@ -154,7 +164,18 @@ export default function AdminSubmissionsPage() {
                                   return;
                                 }
                                 const clamped = Math.max(0, Math.min(100, Math.round(value)));
-                                await updateStatus(r.id, r.task_id, "Approved", clamped);
+
+                                const initialBonus = typeof r.bonus_points === "number" ? String(r.bonus_points) : "0";
+                                const bonusInput = window.prompt("Optional: Enter bonus points (0 or higher):", initialBonus);
+                                if (bonusInput === null) return;
+                                const bonusValue = Number(bonusInput);
+                                if (!Number.isFinite(bonusValue) || bonusValue < 0) {
+                                  window.alert("Please enter a valid positive number for bonus points.");
+                                  return;
+                                }
+                                const safeBonus = Math.max(0, Math.round(bonusValue));
+
+                                await updateStatus(r.id, r.task_id, "Approved", clamped, safeBonus);
                               }}
                             >
                               <CheckCircle className="h-3 w-3" /> Approve
@@ -173,7 +194,7 @@ export default function AdminSubmissionsPage() {
                                   return;
                                 }
                                 const clamped = Math.max(0, Math.min(100, Math.round(value)));
-                                await updateStatus(r.id, r.task_id, "Rejected", clamped);
+                                await updateStatus(r.id, r.task_id, "Rejected", clamped, 0);
                               }}
                             >
                               <XCircle className="h-3 w-3" /> Reject
@@ -187,7 +208,7 @@ export default function AdminSubmissionsPage() {
                             className="rounded-xl h-8 gap-1.5 border-orange-500/20 text-orange-400 hover:bg-orange-500/10 hover:text-orange-300"
                             onClick={async () => {
                               if (window.confirm("Are you sure you want to revert this decision back to Pending? The score will be cleared.")) {
-                                await updateStatus(r.id, r.task_id, "Pending", null);
+                                await updateStatus(r.id, r.task_id, "Pending", null, null);
                               }
                             }}
                           >

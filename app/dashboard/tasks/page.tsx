@@ -108,8 +108,13 @@ export default function TasksPage() {
                         </div>
                       </div>
                       {score !== null && (
-                        <div className="text-[10px] text-indigo-300 font-bold uppercase tracking-widest">
+                        <div className="text-[10px] text-indigo-300 font-bold uppercase tracking-widest flex items-center gap-1.5 flex-wrap">
                           Score: {score}/100
+                          {t.bonus_points ? (
+                            <span className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded-md border border-emerald-500/20">
+                              +{t.bonus_points} Bonus
+                            </span>
+                          ) : null}
                         </div>
                       )}
                     </div>

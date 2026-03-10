@@ -56,7 +56,7 @@ export default function DashboardPage() {
         let possible = 0;
         taskData.forEach(t => {
           if (typeof t.score === 'number') {
-            earned += t.score;
+            earned += t.score + (t.bonus_points || 0);
             possible += 100;
           }
         });
@@ -156,6 +156,7 @@ export default function DashboardPage() {
                     {typeof t.score === 'number' && (
                       <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 w-fit px-2 py-1 rounded-lg">
                         Score: {t.score}/100
+                        {t.bonus_points ? ` (+${t.bonus_points} Bonus)` : ''}
                       </div>
                     )}
                   </div>
