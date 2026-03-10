@@ -18,7 +18,16 @@ export function RequireRole({
   const [ok, setOk] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data: { user }, error }) => {
+      if (error) {
+        // Handle "Invalid Refresh Token" or other session errors
+        console.error("Auth error:", error.message);
+        supabase.auth.signOut().then(() => {
+          router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+        });
+        return;
+      }
+
       // 1. Check if user is logged in
       if (!user) {
         router.replace(`/login?next=${encodeURIComponent(pathname)}`);
@@ -26,8 +35,6 @@ export function RequireRole({
       }
 
       // 2. Sample Role Checking Logic
-      // In a real app, this would be stored in the database ('profiles' table) or JWT user metadata.
-      // For this sample, we check the email explicitly.
       const isSampleAdmin = user.email === "admin@kyzor.com";
       const role: Role = isSampleAdmin ? "admin" : "intern";
 

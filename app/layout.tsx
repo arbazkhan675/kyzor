@@ -16,8 +16,49 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KYZOR — AI Automation Agency",
-  description: "AI Automation Agency — chatbots, agents, and workflow automations.",
+  metadataBase: new URL("https://www.kyzor.online"),
+  title: {
+    default: "KYZOR — AI Automation Agency",
+    template: "%s | KYZOR",
+  },
+  description: "Expert AI Automation Agency specialized in custom chatbots, intelligent agents, and automated n8n pipelines for modern businesses.",
+  keywords: [
+    "AI Automation",
+    "Chatbots",
+    "n8n",
+    "Workflow Automation",
+    "AI Agents",
+    "Business Process Automation",
+    "KYZOR"
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "KYZOR — AI Automation Agency",
+    description: "Expert AI Automation Agency specialized in custom chatbots, intelligent agents, and automated n8n pipelines for modern businesses.",
+    url: "https://www.kyzor.online",
+    siteName: "KYZOR",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "KYZOR AI Automation Agency",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KYZOR — AI Automation Agency",
+    description: "Expert AI Automation Agency specialized in custom chatbots, intelligent agents, and automated n8n pipelines for modern businesses.",
+    images: ["/og-image.png"],
+  },
+  verification: {
+    google: "PASTE_YOUR_GOOGLE_VERIFICATION_CODE_HERE",
+  },
 };
 
 export default function RootLayout({
