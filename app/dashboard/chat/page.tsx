@@ -138,10 +138,10 @@ export default function InternChatPage() {
     }
 
     return (
-        <div className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto px-4">
-            <div className="mb-6">
-                <h1 className="text-xl font-bold tracking-tight uppercase">Support Chat</h1>
-                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">Direct encrypted line to Admin</p>
+        <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(100vh-140px)] max-w-4xl mx-auto px-2 md:px-4">
+            <div className="mb-4 md:mb-6">
+                <h1 className="text-lg md:text-xl font-bold tracking-tight uppercase">Support Chat</h1>
+                <p className="text-[9px] md:text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">Direct encrypted line to Admin</p>
             </div>
 
             <Card className="flex-1 overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.02] backdrop-blur-3xl flex flex-col shadow-2xl relative">
@@ -149,7 +149,7 @@ export default function InternChatPage() {
 
                 <div
                     ref={scrollRef}
-                    className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide"
+                    className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6 scrollbar-hide"
                 >
                     {messages.length === 0 && !loading && (
                         <div className="h-full flex flex-col items-center justify-center text-muted-foreground/30 text-xs italic space-y-4">
@@ -177,7 +177,7 @@ export default function InternChatPage() {
                                 <div className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
                                     <div className={`max-w-[75%] space-y-1.5`}>
                                         <div className={`
-                      px-5 py-3 rounded-2xl text-sm leading-relaxed tracking-wide whitespace-pre-wrap
+                      px-4 md:px-5 py-2.5 md:py-3 rounded-2xl text-xs md:text-sm leading-relaxed tracking-wide whitespace-pre-wrap break-words [overflow-wrap:anywhere]
                       ${isMe
                                                 ? "bg-indigo-500 text-white rounded-tr-none shadow-xl shadow-indigo-500/20"
                                                 : "bg-white/10 text-foreground rounded-tl-none border border-white/10 backdrop-blur-md"}
@@ -201,18 +201,18 @@ export default function InternChatPage() {
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder="Type a message... (Shift+Enter for new line)"
-                            className="min-h-[48px] max-h-[120px] rounded-2xl border-white/10 bg-white/[0.02] focus-visible:ring-indigo-500/20 text-sm px-5 py-3 resize-none"
+                            placeholder="Type a message..."
+                            className="min-h-[44px] md:min-h-[48px] max-h-[120px] rounded-2xl border-white/10 bg-white/[0.02] focus-visible:ring-indigo-500/20 text-xs md:text-sm px-4 md:px-5 py-2.5 md:py-3 resize-none"
                             rows={1}
                         />
                         <Button
                             id="send-button"
                             type="submit"
                             size="icon"
-                            className="rounded-2xl bg-indigo-500 hover:bg-indigo-600 shrink-0 h-12 w-12 shadow-lg shadow-indigo-500/20 transition-all active:scale-95"
+                            className="rounded-2xl bg-indigo-500 hover:bg-indigo-600 shrink-0 h-11 w-11 md:h-12 md:w-12 shadow-lg shadow-indigo-500/20 transition-all active:scale-95"
                             disabled={!newMessage.trim()}
                         >
-                            <Send className="h-5 w-5" />
+                            <Send className="h-4 w-4 md:h-5 md:w-5" />
                         </Button>
                     </form>
                 </div>

@@ -235,9 +235,12 @@ export default function AdminChatPage() {
                 </div>
             </div>
 
-            <div className="flex-1 flex gap-6 overflow-hidden">
+            <div className="flex-1 flex flex-col md:flex-row gap-4 md:gap-6 overflow-hidden">
                 {/* Contact List */}
-                <Card className="w-80 overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.02] flex flex-col shrink-0">
+                <Card className={`
+                    w-full md:w-80 overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.02] flex flex-col shrink-0
+                    ${selectedIntern ? "hidden md:flex" : "flex"}
+                `}>
                     <div className="p-4 border-b border-white/5 bg-white/[0.01]">
                         <div className="relative group">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground transition-colors group-focus-within:text-indigo-400" />
@@ -286,7 +289,10 @@ export default function AdminChatPage() {
                 </Card>
 
                 {/* Messaging Area */}
-                <Card className="flex-1 overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.02] flex flex-col relative">
+                <Card className={`
+                    flex-1 overflow-hidden rounded-[2rem] border-white/10 bg-white/[0.02] flex flex-col relative
+                    ${!selectedIntern ? "hidden md:flex" : "flex"}
+                `}>
                     {!selectedIntern ? (
                         <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground space-y-6">
                             <div className="h-24 w-24 rounded-full border border-dashed border-white/5 flex items-center justify-center">
@@ -296,10 +302,18 @@ export default function AdminChatPage() {
                         </div>
                     ) : (
                         <>
-                            <div className="px-8 py-5 border-b border-white/5 bg-white/[0.01] flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center">
-                                        <User className="h-5 w-5 text-indigo-400" />
+                            <div className="px-4 md:px-8 py-4 md:py-5 border-b border-white/5 bg-white/[0.01] flex items-center justify-between">
+                                <div className="flex items-center gap-3 md:gap-4">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => setSelectedIntern(null)}
+                                        className="md:hidden rounded-xl h-9 w-9 border border-white/5 mr-1"
+                                    >
+                                        <Search className="h-4 w-4 rotate-180" />
+                                    </Button>
+                                    <div className="h-8 w-8 md:h-10 md:w-10 rounded-xl md:rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center">
+                                        <User className="h-4 w-4 md:h-5 md:w-5 text-indigo-400" />
                                     </div>
                                     <div>
                                         <div className="text-sm font-bold tracking-tight">{selectedIntern}</div>
@@ -313,16 +327,17 @@ export default function AdminChatPage() {
                                     variant="ghost"
                                     size="sm"
                                     onClick={handleResetChat}
-                                    className="rounded-xl h-9 gap-2 text-[10px] font-black uppercase tracking-widest text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-white/5"
+                                    className="rounded-xl h-8 md:h-9 px-2 md:px-3 gap-1.5 md:gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-white/5"
                                 >
-                                    <Trash2 className="h-3.5 w-3.5" />
-                                    Reset Conversation
+                                    <Trash2 className="h-3 md:h-3.5 w-3 md:w-3.5" />
+                                    <span className="hidden xs:inline">Reset Conversation</span>
+                                    <span className="xs:hidden">Reset</span>
                                 </Button>
                             </div>
 
                             <div
                                 ref={scrollRef}
-                                className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-hide"
+                                className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 scrollbar-hide"
                             >
                                 {messages.map((msg, i) => {
                                     const isMe = msg.sender_email === ADMIN_EMAIL;
@@ -341,16 +356,19 @@ export default function AdminChatPage() {
                                             <div className={`flex ${isMe ? "justify-end" : "justify-start"} items-center gap-3`}>
                                                 {isMe && (
                                                     <button
-                                                        onClick={() => deleteMessage(msg.id)}
-                                                        className="opacity-0 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground/20 hover:text-red-400"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            deleteMessage(msg.id);
+                                                        }}
+                                                        className="opacity-20 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground hover:text-red-400"
                                                         title="Delete message"
                                                     >
                                                         <Trash2 className="h-3.5 w-3.5" />
                                                     </button>
                                                 )}
-                                                <div className={`max-w-[70%] space-y-1.5`}>
+                                                <div className={`max-w-[85%] md:max-w-[70%] space-y-1.5`}>
                                                     <div className={`
-                            px-5 py-3 rounded-2xl text-sm leading-relaxed tracking-wide whitespace-pre-wrap
+                            px-4 md:px-5 py-2.5 md:py-3 rounded-2xl text-xs md:text-sm leading-relaxed tracking-wide whitespace-pre-wrap break-words [overflow-wrap:anywhere]
                             ${isMe
                                                             ? "bg-indigo-500 text-white rounded-tr-none shadow-xl shadow-indigo-500/20"
                                                             : "bg-white/10 text-foreground rounded-tl-none border border-white/10 backdrop-blur-md shadow-lg"}
@@ -363,8 +381,11 @@ export default function AdminChatPage() {
                                                 </div>
                                                 {!isMe && (
                                                     <button
-                                                        onClick={() => deleteMessage(msg.id)}
-                                                        className="opacity-0 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground/20 hover:text-red-400"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            deleteMessage(msg.id);
+                                                        }}
+                                                        className="opacity-20 group-hover:opacity-100 transition-opacity p-2 text-muted-foreground hover:text-red-400"
                                                         title="Delete message"
                                                     >
                                                         <Trash2 className="h-3.5 w-3.5" />
@@ -384,17 +405,17 @@ export default function AdminChatPage() {
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type a reply... (Shift+Enter for new line)"
-                                        className="min-h-[56px] max-h-[150px] rounded-2xl border-white/10 bg-white/[0.02] focus-visible:ring-indigo-500/20 text-sm px-6 py-4 resize-none"
+                                        className="min-h-[48px] md:min-h-[56px] max-h-[150px] rounded-2xl border-white/10 bg-white/[0.02] focus-visible:ring-indigo-500/20 text-xs md:text-sm px-4 md:px-6 py-3 md:py-4 resize-none"
                                         rows={1}
                                     />
                                     <Button
                                         id="admin-send-button"
                                         type="submit"
                                         size="icon"
-                                        className="rounded-2xl bg-indigo-500 hover:bg-indigo-600 shrink-0 h-14 w-14 shadow-xl shadow-indigo-500/30 transition-all active:scale-95"
+                                        className="rounded-2xl bg-indigo-500 hover:bg-indigo-600 shrink-0 h-12 w-12 md:h-14 md:w-14 shadow-xl shadow-indigo-500/30 transition-all active:scale-95"
                                         disabled={!newMessage.trim()}
                                     >
-                                        <Send className="h-6 w-6" />
+                                        <Send className="h-5 w-5 md:h-6 md:w-6" />
                                     </Button>
                                 </form>
                             </div>
