@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #09090b;
+    --foreground: #f4f4f5;
+    
+    --card: #18181b;
+    --card-foreground: #f4f4f5;
+    
+    --popover: #18181b;
+    --popover-foreground: #f4f4f5;
+    
+    --primary: #7c3aed;
+    --primary-foreground: #ffffff;
+    
+    --secondary: #2563eb;
+    --secondary-foreground: #ffffff;
+    
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+    
+    --accent: #7c3aed;
+    --accent-foreground: #ffffff;
+
+    --success: #10b981;
+    --success-foreground: #ffffff;
+    
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --border: #27272a;
+    --input: #27272a;
+    --ring: #a855f7;
+    
+    --radius: 0.5rem;
+  }
+}
+
+/* Base Body Setup */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Code / Mono Font Setup */
+code, kbd, .font-mono, pre {
+  font-family: var(--font-geist-mono), monospace !important;
+}
+
+/* Transition speed rule (150ms - 250ms) */
+* {
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Visible Focus Indicator for Accessibility */
+*:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Clean Accent Gradient without Excessive Glow */
+.bg-accent-gradient {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
