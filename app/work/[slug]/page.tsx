@@ -43,6 +43,10 @@ export default async function CaseStudyDetailPage({ params }: Props) {
     notFound();
   }
 
+  const resultsList: string[] = Array.isArray(item.results)
+    ? (item.results as string[])
+    : [];
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 space-y-12">
       {/* Back Link */}
@@ -103,11 +107,11 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       </div>
 
       {/* Key Results / Outcomes */}
-      {item.results && item.results.length > 0 && (
+      {resultsList.length > 0 && (
         <div className="rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 p-8 space-y-6">
           <h2 className="text-xl font-bold text-white">Architectural Results & Outcomes</h2>
           <ul className="grid grid-cols-1 gap-3 text-sm text-zinc-200">
-            {item.results.map((res: string, idx: number) => (
+            {resultsList.map((res: string, idx: number) => (
               <li key={idx} className="flex items-start gap-3 bg-zinc-950/60 p-3.5 rounded-lg border border-zinc-800/80">
                 <CheckCircle2 className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
                 <span>{res}</span>

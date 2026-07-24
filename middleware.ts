@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import type { Database } from "@/lib/types/database.types";
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -12,7 +13,7 @@ export async function middleware(request: NextRequest) {
 
   // Protect /admin routes except /admin/login
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const supabase = createServerClient(
+    const supabase = createServerClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
@@ -20,7 +21,7 @@ export async function middleware(request: NextRequest) {
           getAll() {
             return request.cookies.getAll();
           },
-          setAll(cookiesToSet) {
+          setAll(cookiesToSet: { name: string; value: string; options: any }[]) {
             cookiesToSet.forEach(({ name, value, options }) =>
               request.cookies.set(name, value)
             );
@@ -28,7 +29,7 @@ export async function middleware(request: NextRequest) {
               request,
             });
             cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value)
+              response.cookies.set(name, value, options)
             );
           },
         },
