@@ -1,0 +1,137 @@
+"use client";
+
+import { useState, useRef, KeyboardEvent } from "react";
+import Link from "next/link";
+import { ArrowRight, ShoppingBag, Cpu } from "lucide-react";
+
+export function HeroTabSection() {
+  const [activeTab, setActiveTab] = useState<"ecommerce" | "automations">("ecommerce");
+  const tabListRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, currentTab: "ecommerce" | "automations") => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      const nextTab = currentTab === "ecommerce" ? "automations" : "ecommerce";
+      setActiveTab(nextTab);
+      const nextButton = tabListRef.current?.querySelector<HTMLButtonElement>(`button[data-tab="${nextTab}"]`);
+      nextButton?.focus();
+    }
+  };
+
+  return (
+    <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-zinc-800/60 bg-zinc-950">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+        {/* Accessible Tab Switcher */}
+        <div className="flex justify-center">
+          <div
+            ref={tabListRef}
+            role="tablist"
+            aria-label="Core Agency Capabilities"
+            className="inline-flex items-center rounded-xl bg-zinc-900/90 p-1.5 border border-zinc-800 shadow-inner"
+          >
+            <button
+              id="tab-ecommerce"
+              role="tab"
+              data-tab="ecommerce"
+              aria-selected={activeTab === "ecommerce"}
+              aria-controls="panel-ecommerce"
+              tabIndex={activeTab === "ecommerce" ? 0 : -1}
+              onClick={() => setActiveTab("ecommerce")}
+              onKeyDown={(e) => handleKeyDown(e, "ecommerce")}
+              className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 ${
+                activeTab === "ecommerce"
+                  ? "bg-zinc-800 text-white shadow-sm"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <ShoppingBag className="h-4 w-4 text-purple-400" />
+              Custom E-commerce
+            </button>
+
+            <button
+              id="tab-automations"
+              role="tab"
+              data-tab="automations"
+              aria-selected={activeTab === "automations"}
+              aria-controls="panel-automations"
+              tabIndex={activeTab === "automations" ? 0 : -1}
+              onClick={() => setActiveTab("automations")}
+              onKeyDown={(e) => handleKeyDown(e, "automations")}
+              className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 ${
+                activeTab === "automations"
+                  ? "bg-zinc-800 text-white shadow-sm"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <Cpu className="h-4 w-4 text-blue-400" />
+              Business Automations
+            </button>
+          </div>
+        </div>
+
+        {/* Tab Panel Content */}
+        <div className="mx-auto max-w-3xl text-center space-y-6">
+          {activeTab === "ecommerce" ? (
+            <div
+              id="panel-ecommerce"
+              role="tabpanel"
+              aria-labelledby="tab-ecommerce"
+              className="space-y-6 animate-in fade-in duration-200"
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                Custom e-commerce applications, built around your business.
+              </h1>
+              <p className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+                We design and build complete online stores from scratch - storefront, admin dashboard, payments, orders, inventory, deployment and ongoing support.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                <Link
+                  href="/consultation"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-accent-gradient px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-400"
+                >
+                  Book a Consultation
+                </Link>
+                <Link
+                  href="/ecommerce"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/80 px-6 py-3.5 text-base font-semibold text-zinc-200 hover:bg-zinc-800 hover:text-white transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400"
+                >
+                  Explore E-commerce
+                  <ArrowRight className="ml-2 h-4 w-4 text-purple-400" />
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div
+              id="panel-automations"
+              role="tabpanel"
+              aria-labelledby="tab-automations"
+              className="space-y-6 animate-in fade-in duration-200"
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                Automate the work slowing your business down.
+              </h1>
+              <p className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+                We build custom workflows, AI agents, chatbots, voice assistants and integrations that help your business run with less manual effort.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                <Link
+                  href="/consultation"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-accent-gradient px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-400"
+                >
+                  Book a Consultation
+                </Link>
+                <Link
+                  href="/automations"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/80 px-6 py-3.5 text-base font-semibold text-zinc-200 hover:bg-zinc-800 hover:text-white transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400"
+                >
+                  Explore Automations
+                  <ArrowRight className="ml-2 h-4 w-4 text-blue-400" />
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
