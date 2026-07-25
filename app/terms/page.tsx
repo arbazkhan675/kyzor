@@ -1,43 +1,98 @@
+/*
+  OWNER REVIEW REQUIRED:
+  Please have qualified legal counsel review this Terms of Service text prior to commercial operations.
+*/
+
+import Link from "next/link";
+import { FileText, Mail, ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service",
-  description: "Kyzor Terms of Service for agency software development services.",
+  title: "Terms of Service | Kyzor",
+  description: "Terms of Service governing the use of Kyzor agency website and consultation requests.",
 };
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 space-y-8 text-zinc-300">
-      <h1 className="text-3xl sm:text-4xl font-extrabold text-white">Terms of Service</h1>
-      <p className="text-xs text-zinc-500">Effective Date: July 2026 | Kyzor (https://kyzor.online)</p>
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 space-y-10">
+      <div>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
+      </div>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">1. Scope of Services</h2>
-        <p className="text-sm leading-relaxed">
-          Kyzor provides bespoke software development services, specifically custom e-commerce applications built from scratch and business automation workflows (including WhatsApp integrations, AI agents, document processing, and CRM pipelines).
-        </p>
-      </section>
+      <div className="border-b border-zinc-800 pb-8 space-y-3">
+        <div className="flex items-center gap-2 text-purple-400">
+          <FileText className="h-6 w-6" />
+          <span className="text-xs font-mono uppercase tracking-wider">Legal Terms</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Terms of Service</h1>
+        <p className="text-xs font-mono text-zinc-400">Last Updated: July 2026</p>
+      </div>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">2. Intellectual Property & Code Ownership</h2>
-        <p className="text-sm leading-relaxed">
-          Upon final project delivery and settlement of agreed service fees, all client-specific custom source code, application architectures, and assets created under a formal statement of work belong to the client.
-        </p>
-      </section>
+      <div className="space-y-8 text-sm text-zinc-300 leading-relaxed">
+        {/* Section 1 */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-white">1. Informational Website Use</h2>
+          <p>
+            Welcome to Kyzor (https://kyzor.online). By accessing or browsing this website, you agree to comply with and be bound by these Terms of Service. This website is provided solely to present our custom software engineering capabilities, business automation services, concept portfolios, and consultation scheduling mechanisms.
+          </p>
+        </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">3. Portfolio & Concept Projects</h2>
-        <p className="text-sm leading-relaxed">
-          Demonstration assets and concept benchmarks published on our website (https://kyzor.online) marked as Demo or Concept represent architectural capabilities engineered by Kyzor to showcase technical capabilities.
-        </p>
-      </section>
+        {/* Section 2 */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-white">2. Separate Client Project Contracts</h2>
+          <p>
+            These website Terms of Service govern your informational use of this website only. Submitting a consultation form or requesting a project proposal does not create a binding development agreement or contractual relationship.
+          </p>
+          <p className="text-zinc-400">
+            All custom e-commerce applications, business automations, and engineering client engagements are governed exclusively by separate, formal Master Service Agreements (MSA), Statements of Work (SOW), or written client contracts signed by both parties prior to project commencement.
+          </p>
+        </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">4. Contact Information</h2>
-        <p className="text-sm leading-relaxed">
-          For legal or service inquiries, reach out to <a href="mailto:contact@kyzor.online" className="text-purple-400 hover:underline">contact@kyzor.online</a>.
-        </p>
-      </section>
+        {/* Section 3 */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-white">3. Intellectual Property Rights</h2>
+          <p>
+            All original content, branding, visual designs, brand artwork (`public/logo.png`), code architecture, and documentation published on this website are the exclusive intellectual property of Kyzor. Unauthorised reproduction, copying, or redistribution of our brand materials or site content without express written consent is prohibited.
+          </p>
+          <p className="text-zinc-400">
+            Portfolio case studies marked as "Demo" or "Concept" represent internal engineering benchmarks and design demonstrations created by Kyzor to illustrate system capabilities.
+          </p>
+        </section>
+
+        {/* Section 4 */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-white">4. Website Availability & Service Disclaimers</h2>
+          <p>
+            This website and its content are provided on an "as is" and "as available" basis without warranties of any kind, whether express or implied. While we strive to maintain uninterrupted website availability and accurate technical information, we do not guarantee continuous, error-free site operation.
+          </p>
+        </section>
+
+        {/* Section 5 */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-white">5. Limitation of Liability & Contact</h2>
+          <p>
+            To the fullest extent permitted by applicable law, Kyzor shall not be liable for any indirect, incidental, or consequential damages resulting from your use or inability to use this website.
+          </p>
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-2 mt-4">
+            <div className="flex items-center gap-2 text-white font-semibold">
+              <Mail className="h-4 w-4 text-purple-400" />
+              Questions Regarding Terms
+            </div>
+            <p className="text-xs text-zinc-400">
+              If you have any questions regarding these Terms of Service, please contact us at:{" "}
+              <a href="mailto:contact@kyzor.online" className="text-purple-400 hover:underline">
+                contact@kyzor.online
+              </a>
+            </p>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

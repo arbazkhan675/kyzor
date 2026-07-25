@@ -1,103 +1,137 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Code2, Cpu, Shield, Zap, Terminal } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, Database, HeartHandshake, CheckCircle2, UserCheck } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Kyzor | Engineering Custom E-commerce & Business Automations",
   description:
-    "Learn about Kyzor's mission: engineering bespoke e-commerce applications from scratch and building autonomous business workflows with software clarity.",
+    "Kyzor is a digital product and automation agency that builds complete custom systems from the ground up. Technology should adapt to the business - not force the business to adapt to a template.",
 };
 
 export default function AboutPage() {
+  const processStages = [
+    { name: "Understand", description: "We analyze your business operations, workflows, catalog requirements, and technical goals." },
+    { name: "Design", description: "We architect custom database schemas, API contracts, and user-centric interfaces." },
+    { name: "Build", description: "We write clean, high-performance code from scratch with zero template or platform dependencies." },
+    { name: "Deploy", description: "We configure edge hosting, production databases, SSL certificates, and launch to your domain." },
+    { name: "Support", description: "We provide ongoing maintenance, feature enhancements, and system monitoring post-launch." },
+  ];
+
+  const differentiators = [
+    { title: "Custom-Built", description: "Every line of code is written specifically for your application. No rigid templates, bloatware, or platform locks.", icon: ShieldCheck },
+    { title: "Business-First", description: "Software engineered around your existing operational processes rather than forcing your business into pre-set workflows.", icon: HeartHandshake },
+    { title: "Fully Deployed", description: "Complete end-to-end launch on your custom domain with production-ready security and performance.", icon: Database },
+    { title: "Supported After Launch", description: "We remain your dedicated engineering partner for long-term maintenance, updates, and scaling.", icon: Zap },
+  ];
+
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 space-y-20">
-      {/* Header */}
-      <div className="max-w-3xl space-y-6">
-        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold text-purple-300">
-          <Terminal className="h-3.5 w-3.5" />
-          <span>Agency Philosophy & Engineering Standards</span>
+    <div className="space-y-16 lg:space-y-24 pb-16">
+      {/* 1. Hero & Opening Statement */}
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-zinc-800/60 bg-zinc-950">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-3 py-1 rounded">
+            Agency Philosophy
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            Kyzor is a digital product and automation agency that builds complete custom systems from the ground up.
+          </h1>
+          <p className="text-xl sm:text-2xl font-bold text-purple-400 max-w-3xl mx-auto leading-snug pt-2">
+            “Technology should adapt to the business - not force the business to adapt to a template.”
+          </p>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          Software Built for Performance, <span className="text-gradient">Not Platform Constraints.</span>
-        </h1>
-        <p className="text-lg text-zinc-300 leading-relaxed">
-          Kyzor is a specialized product agency focused on two core disciplines: building custom e-commerce applications from scratch and engineering intelligent business automations.
-        </p>
-      </div>
+      </section>
 
-      {/* Values Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-            <Code2 className="h-5 w-5" />
+      {/* 2. The One-Team Approach */}
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 sm:p-12 space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">The One-Team Idea-to-Deployment Approach</h2>
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            At Kyzor, we eliminate the friction of coordinating separate design studios, freelance contractors, and external deployment engineers. A single dedicated product engineering team handles your project from initial concept definition to final domain launch and ongoing maintenance.
+          </p>
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            This unified structure ensures total accountability, rapid iteration cycles, and a deeply cohesive technical architecture tailored specifically to your business goals.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. Five Process Stages */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="text-center space-y-3">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Our Method</h2>
+          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+            Five Stages of Engineering Delivery
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {processStages.map((stage, idx) => (
+            <div key={stage.name} className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-3">
+              <span className="text-2xl font-mono font-extrabold text-purple-400">0{idx + 1}</span>
+              <h3 className="text-lg font-bold text-white">{stage.name}</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">{stage.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Four Core Differentiators */}
+      <section className="border-t border-zinc-800/80 bg-zinc-950 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center space-y-3">
+            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Why Work With Us</h2>
+            <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+              Four Kyzor Engineering Standards
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white">Built From Scratch</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            We write clean, bespoke code tailored specifically to your business logic without template bloated code.
-          </p>
-        </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-            <Zap className="h-5 w-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {differentiators.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                </div>
+              );
+            })}
           </div>
-          <h3 className="text-lg font-bold text-white">Speed & Reliability</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            High-speed server rendering, edge delivery, and reliable automated error recovery.
+        </div>
+      </section>
+
+      {/* 5. Team Section Note */}
+      <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+        <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-8 space-y-3">
+          <UserCheck className="mx-auto h-8 w-8 text-purple-400 opacity-80" />
+          <h3 className="text-lg font-bold text-white">Direct Engineer Communication</h3>
+          <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+            You work directly with senior product engineers who architect and write your code - no account managers or middle layers.
           </p>
         </div>
+      </section>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-            <Shield className="h-5 w-5" />
+      {/* Final Consultation CTA */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 p-10 sm:p-14 text-center space-y-6 shadow-2xl">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Ready to Build Your Custom Software Solution?
+          </h2>
+          <p className="text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">
+            Book a direct consultation with our engineering team to review your technical goals and project scope.
+          </p>
+          <div>
+            <Link
+              href="/consultation"
+              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all"
+            >
+              Book a Consultation
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
           </div>
-          <h3 className="text-lg font-bold text-white">Data Sovereignty</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            Full control over database schemas, customer data, and security policies without lock-in.
-          </p>
         </div>
-
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-            <Cpu className="h-5 w-5" />
-          </div>
-          <h3 className="text-lg font-bold text-white">Autonomous Workflows</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            WhatsApp API integrations, AI agents, document OCR, and CRM automations that run 24/7.
-          </p>
-        </div>
-      </div>
-
-      {/* Engineering Manifesto */}
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-8 sm:p-12 space-y-6">
-        <div className="flex items-center gap-3">
-          <Image src="/logo.png" alt="Kyzor Logo" width={32} height={32} />
-          <h2 className="text-2xl font-bold text-white">Our Engineering Approach</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-zinc-300 leading-relaxed">
-          <p>
-            Standard out-of-the-box e-commerce setups work well for initial simple storefronts, but rapidly become operational bottlenecks as businesses scale. Monthly app costs compound, site speeds slow down under heavy plugin layers, and customized inventory rules become impossible to implement.
-          </p>
-          <p>
-            At Kyzor, we treat custom e-commerce as bespoke software engineering. We design custom frontend experiences, craft relational database schemas, and integrate autonomous backend workflows so your digital operations can scale smoothly without technical friction.
-          </p>
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="text-center space-y-6 pt-4">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Let’s Discuss Your Next Build</h2>
-        <div>
-          <Link
-            href="/consultation"
-            className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-3.5 text-base font-semibold text-white shadow-xl shadow-purple-500/20 hover:scale-[1.02] transition-transform"
-          >
-            Book a Technical Consultation
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
