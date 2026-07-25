@@ -53,7 +53,7 @@ export function HeroTabSection() {
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
               }`}
             >
-              <ShoppingBag className={`h-4 w-4 ${activeTab === "ecommerce" ? "text-purple-400" : "text-purple-600"}`} />
+              <ShoppingBag className={`h-4 w-4 transition-transform ${activeTab === "ecommerce" ? "text-purple-400 scale-110" : "text-purple-600"}`} />
               Custom E-commerce
             </button>
 
@@ -72,7 +72,7 @@ export function HeroTabSection() {
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
               }`}
             >
-              <Cpu className={`h-4 w-4 ${activeTab === "automations" ? "text-blue-400" : "text-blue-600"}`} />
+              <Cpu className={`h-4 w-4 transition-transform ${activeTab === "automations" ? "text-blue-400 scale-110" : "text-blue-600"}`} />
               Business Automations
             </button>
           </div>
@@ -85,9 +85,9 @@ export function HeroTabSection() {
               id="panel-ecommerce"
               role="tabpanel"
               aria-labelledby="tab-ecommerce"
-              className="space-y-6 animate-in fade-in duration-300"
+              className="space-y-6 animate-fade-in-up"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-xs font-mono text-purple-700 font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-xs font-mono text-purple-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Sparkles className="h-3.5 w-3.5 text-purple-600" />
                 Zero Platform Overhead
               </div>
@@ -107,10 +107,10 @@ export function HeroTabSection() {
                 </Link>
                 <Link
                   href="/ecommerce"
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-sm hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Explore E-commerce
-                  <ArrowRight className="ml-2 h-4 w-4 text-purple-600" />
+                  <ArrowRight className="ml-2 h-4 w-4 text-purple-600 transition-transform group-hover:translate-x-1.5" />
                 </Link>
               </div>
             </div>
@@ -119,9 +119,9 @@ export function HeroTabSection() {
               id="panel-automations"
               role="tabpanel"
               aria-labelledby="tab-automations"
-              className="space-y-6 animate-in fade-in duration-300"
+              className="space-y-6 animate-fade-in-up"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono text-blue-700 font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono text-blue-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Cpu className="h-3.5 w-3.5 text-blue-600" />
                 Autonomous Workflows & AI Agents
               </div>
@@ -141,10 +141,10 @@ export function HeroTabSection() {
                 </Link>
                 <Link
                   href="/automations"
-                  className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-sm hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Explore Automations
-                  <ArrowRight className="ml-2 h-4 w-4 text-blue-600" />
+                  <ArrowRight className="ml-2 h-4 w-4 text-blue-600 transition-transform group-hover:translate-x-1.5" />
                 </Link>
               </div>
             </div>

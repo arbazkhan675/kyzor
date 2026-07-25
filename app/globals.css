@@ -66,16 +66,6 @@ code, kbd, .font-mono, pre {
   outline-offset: 2px;
 }
 
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* Clean Futuristic Accent Gradient */
 .bg-accent-gradient {
   background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
@@ -98,4 +88,76 @@ code, kbd, .font-mono, pre {
 /* Ambient Radial Glow Container */
 .ambient-glow-top {
   background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08) 0%, rgba(37, 99, 235, 0.04) 50%, transparent 80%);
+}
+
+/* ==========================================================================
+   Native Keyframe Animations & Micro-Effects
+   ========================================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes ambientPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(124, 58, 237, 0.15);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 4s ease-in-out infinite;
+}
+
+.animate-ambient-pulse {
+  animation: ambientPulse 3s ease-in-out infinite;
+}
+
+/* Hover Shimmer & Elevation Card Classes */
+.interactive-card {
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -6px rgba(124, 58, 237, 0.1), 0 4px 12px -2px rgba(37, 99, 235, 0.05);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-in-up,
+  .animate-subtle-float,
+  .animate-ambient-pulse {
+    animation: none !important;
+  }
 }
