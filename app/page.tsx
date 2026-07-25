@@ -40,7 +40,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
-      {/* 1. Hero with accessible E-commerce / Automations tabs */}
+      {/* 1. Hero with accessible E-commerce / Automations tabs & Architecture Visual */}
       <HeroTabSection />
 
       {/* 2. Two Core Service Cards */}
@@ -123,7 +123,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Five-Step Process */}
+      {/* 3. Five-Step Process with Desktop Flow Connectors */}
       <section className="border-y border-slate-200/80 bg-gradient-to-b from-slate-100/70 via-slate-50 to-slate-100/70 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
@@ -133,11 +133,11 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {processSteps.map((step) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 relative">
+            {processSteps.map((step, idx) => (
               <div
                 key={step.number}
-                className="group rounded-2xl border border-slate-200/90 bg-white p-6 space-y-3 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                className="group rounded-2xl border border-slate-200/90 bg-white p-6 space-y-3 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative"
               >
                 <div className="space-y-2">
                   <span className="text-2xl font-mono font-extrabold text-purple-700 group-hover:scale-105 inline-block transition-transform">{step.number}</span>
@@ -257,7 +257,7 @@ export default async function HomePage() {
             <div>
               <Link
                 href="/consultation"
-                className="inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Book a Consultation
                 <ArrowRight className="ml-2 h-5 w-5" />

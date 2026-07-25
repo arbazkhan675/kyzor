@@ -90,10 +90,28 @@ code, kbd, .font-mono, pre {
   background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08) 0%, rgba(37, 99, 235, 0.04) 50%, transparent 80%);
 }
 
-/* ==========================================================================
-   Native Keyframe Animations & Micro-Effects
-   ========================================================================== */
+/* Button Shimmer / Gleam Effect */
+.btn-gleam {
+  position: relative;
+  overflow: hidden;
+}
 
+.btn-gleam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: transform 600ms ease;
+}
+
+.btn-gleam:hover::after {
+  transform: translateX(200%);
+}
+
+/* Keyframe Animations & Micro-Effects */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -114,12 +132,14 @@ code, kbd, .font-mono, pre {
   }
 }
 
-@keyframes ambientPulse {
+@keyframes nodePulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.2);
+    transform: scale(1);
+    opacity: 0.8;
   }
   50% {
-    box-shadow: 0 0 20px 4px rgba(124, 58, 237, 0.15);
+    transform: scale(1.1);
+    opacity: 1;
   }
 }
 
@@ -131,8 +151,8 @@ code, kbd, .font-mono, pre {
   animation: subtleFloat 4s ease-in-out infinite;
 }
 
-.animate-ambient-pulse {
-  animation: ambientPulse 3s ease-in-out infinite;
+.animate-node-pulse {
+  animation: nodePulse 2.5s ease-in-out infinite;
 }
 
 /* Hover Shimmer & Elevation Card Classes */
@@ -157,7 +177,7 @@ code, kbd, .font-mono, pre {
   }
   .animate-fade-in-up,
   .animate-subtle-float,
-  .animate-ambient-pulse {
+  .animate-node-pulse {
     animation: none !important;
   }
 }
