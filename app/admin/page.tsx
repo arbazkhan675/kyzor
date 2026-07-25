@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageSquare, FolderKanban, ArrowRight, Eye, Calendar, Clock } from "lucide-react";
+import { MessageSquare, FolderKanban, ArrowRight, Eye, Calendar } from "lucide-react";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const revalidate = 0;
@@ -74,8 +74,8 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white">Owner Overview Dashboard</h1>
-        <p className="text-xs text-zinc-400">Live consultation metrics and portfolio state.</p>
+        <h1 className="text-2xl font-bold text-slate-900">Owner Overview Dashboard</h1>
+        <p className="text-xs text-slate-500">Live consultation metrics and portfolio state.</p>
       </div>
 
       {/* Metrics Grid */}
@@ -86,25 +86,25 @@ export default async function AdminDashboardPage() {
             <Link
               key={card.label}
               href={card.href}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-6 space-y-3 hover:border-purple-500/50 transition-colors"
+              className="rounded-xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm hover:border-purple-300 transition-colors"
             >
-              <div className="flex items-center justify-between text-zinc-400">
+              <div className="flex items-center justify-between text-slate-500">
                 <span className="text-xs font-medium uppercase tracking-wider">{card.label}</span>
-                <Icon className="h-4 w-4 text-purple-400" />
+                <Icon className="h-4 w-4 text-purple-700" />
               </div>
-              <p className="text-3xl font-extrabold text-white">{card.value}</p>
+              <p className="text-3xl font-extrabold text-slate-900">{card.value}</p>
             </Link>
           );
         })}
       </div>
 
       {/* Recent Consultation Requests */}
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-6">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-6 shadow-sm">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">Recent Consultation Requests</h2>
+          <h2 className="text-lg font-bold text-slate-900">Recent Consultation Requests</h2>
           <Link
             href="/admin/consultations"
-            className="inline-flex items-center text-xs font-semibold text-purple-400 hover:text-purple-300"
+            className="inline-flex items-center text-xs font-semibold text-purple-700 hover:text-purple-900"
           >
             View All Requests
             <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -114,7 +114,7 @@ export default async function AdminDashboardPage() {
         {metrics.recentConsultations.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="border-b border-zinc-800 text-zinc-400 uppercase font-mono">
+              <thead className="border-b border-slate-200 bg-slate-50 text-slate-500 uppercase font-mono">
                 <tr>
                   <th className="py-3 px-4">Name</th>
                   <th className="py-3 px-4">Email</th>
@@ -123,30 +123,30 @@ export default async function AdminDashboardPage() {
                   <th className="py-3 px-4">Date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/80 text-zinc-300">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {metrics.recentConsultations.map((item) => (
-                  <tr key={item.id} className="hover:bg-zinc-900/80 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-white">{item.name}</td>
-                    <td className="py-3 px-4 font-mono text-zinc-400">
-                      <a href={`mailto:${item.email}`} className="hover:text-purple-400">
+                  <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-slate-900">{item.name}</td>
+                    <td className="py-3 px-4 font-mono text-slate-600">
+                      <a href={`mailto:${item.email}`} className="hover:text-purple-700">
                         {item.email}
                       </a>
                     </td>
-                    <td className="py-3 px-4 capitalize font-mono text-purple-400">{item.project_type}</td>
+                    <td className="py-3 px-4 capitalize font-mono text-purple-700 font-semibold">{item.project_type}</td>
                     <td className="py-3 px-4">
                       <span
                         className={`inline-flex px-2 py-0.5 rounded text-[10px] font-semibold uppercase ${
                           item.status === "new"
-                            ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                            ? "bg-purple-50 text-purple-700 border border-purple-200"
                             : item.status === "contacted"
-                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                            : "bg-zinc-800 text-zinc-400"
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                            : "bg-slate-100 text-slate-600 border border-slate-200"
                         }`}
                       >
                         {item.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-zinc-500">
+                    <td className="py-3 px-4 font-mono text-slate-500">
                       {new Date(item.created_at).toLocaleDateString()}
                     </td>
                   </tr>
@@ -155,7 +155,7 @@ export default async function AdminDashboardPage() {
             </table>
           </div>
         ) : (
-          <div className="text-center py-8 text-xs text-zinc-500">No consultation requests recorded yet.</div>
+          <div className="text-center py-8 text-xs text-slate-500">No consultation requests recorded yet.</div>
         )}
       </div>
     </div>

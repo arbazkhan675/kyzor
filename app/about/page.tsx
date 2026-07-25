@@ -27,15 +27,15 @@ export default function AboutPage() {
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
       {/* 1. Hero & Opening Statement */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-zinc-800/60 bg-zinc-950">
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-3 py-1 rounded">
+          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded">
             Agency Philosophy
           </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Kyzor is a digital product and automation agency that builds complete custom systems from the ground up.
           </h1>
-          <p className="text-xl sm:text-2xl font-bold text-purple-400 max-w-3xl mx-auto leading-snug pt-2">
+          <p className="text-xl sm:text-2xl font-bold text-purple-700 max-w-3xl mx-auto leading-snug pt-2">
             “Technology should adapt to the business - not force the business to adapt to a template.”
           </p>
         </div>
@@ -43,12 +43,12 @@ export default function AboutPage() {
 
       {/* 2. The One-Team Approach */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 sm:p-12 space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">The One-Team Idea-to-Deployment Approach</h2>
-          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+        <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 space-y-6 shadow-sm">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">The One-Team Idea-to-Deployment Approach</h2>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             At Kyzor, we eliminate the friction of coordinating separate design studios, freelance contractors, and external deployment engineers. A single dedicated product engineering team handles your project from initial concept definition to final domain launch and ongoing maintenance.
           </p>
-          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             This unified structure ensures total accountability, rapid iteration cycles, and a deeply cohesive technical architecture tailored specifically to your business goals.
           </p>
         </div>
@@ -57,29 +57,29 @@ export default function AboutPage() {
       {/* 3. Five Process Stages */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Our Method</h2>
-          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700">Our Method</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Five Stages of Engineering Delivery
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {processStages.map((stage, idx) => (
-            <div key={stage.name} className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-3">
-              <span className="text-2xl font-mono font-extrabold text-purple-400">0{idx + 1}</span>
-              <h3 className="text-lg font-bold text-white">{stage.name}</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">{stage.description}</p>
+            <div key={stage.name} className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm">
+              <span className="text-2xl font-mono font-extrabold text-purple-700">0{idx + 1}</span>
+              <h3 className="text-lg font-bold text-slate-900">{stage.name}</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">{stage.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* 4. Four Core Differentiators */}
-      <section className="border-t border-zinc-800/80 bg-zinc-950 py-16">
+      <section className="border-t border-slate-200 bg-slate-100/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Why Work With Us</h2>
-            <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700">Why Work With Us</h2>
+            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
               Four Kyzor Engineering Standards
             </p>
           </div>
@@ -88,12 +88,12 @@ export default function AboutPage() {
             {differentiators.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4">
-                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 shadow-sm">
+                  <div className="w-10 h-10 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
                 </div>
               );
             })}
@@ -103,10 +103,10 @@ export default function AboutPage() {
 
       {/* 5. Team Section Note */}
       <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-8 space-y-3">
-          <UserCheck className="mx-auto h-8 w-8 text-purple-400 opacity-80" />
-          <h3 className="text-lg font-bold text-white">Direct Engineer Communication</h3>
-          <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-3 shadow-sm">
+          <UserCheck className="mx-auto h-8 w-8 text-purple-700 opacity-80" />
+          <h3 className="text-lg font-bold text-slate-900">Direct Engineer Communication</h3>
+          <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
             You work directly with senior product engineers who architect and write your code - no account managers or middle layers.
           </p>
         </div>
@@ -114,11 +114,11 @@ export default function AboutPage() {
 
       {/* Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 p-10 sm:p-14 text-center space-y-6 shadow-2xl">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to Build Your Custom Software Solution?
           </h2>
-          <p className="text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
             Book a direct consultation with our engineering team to review your technical goals and project scope.
           </p>
           <div>

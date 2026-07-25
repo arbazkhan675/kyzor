@@ -16,14 +16,14 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 border-r border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between min-h-screen shrink-0">
+    <aside className="w-64 border-r border-slate-200 bg-white p-6 flex flex-col justify-between min-h-screen shrink-0 shadow-sm">
       <div className="space-y-8">
         {/* Brand Logo */}
-        <div className="flex items-center gap-3 border-b border-zinc-800 pb-4">
-          <Image src="/logo.png" alt="Kyzor Admin" width={32} height={32} />
+        <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+          <Image src="/logo.png" alt="Kyzor Admin" width={32} height={32} className="object-contain" />
           <div>
-            <span className="font-bold text-white text-base block leading-none">Kyzor</span>
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">Admin Portal</span>
+            <span className="font-bold text-slate-900 text-base block leading-none">Kyzor</span>
+            <span className="text-[10px] font-mono text-purple-700 uppercase tracking-wider font-semibold">Admin Portal</span>
           </div>
         </div>
 
@@ -38,8 +38,8 @@ export function AdminSidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
-                    : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+                    ? "bg-purple-50 text-purple-700 border border-purple-200 font-semibold"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -51,11 +51,11 @@ export function AdminSidebar() {
       </div>
 
       {/* Footer Links & Signout */}
-      <div className="space-y-4 pt-6 border-t border-zinc-800">
+      <div className="space-y-4 pt-6 border-t border-slate-100">
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          className="flex items-center gap-2 text-xs text-slate-500 hover:text-slate-900 transition-colors"
         >
           <Globe className="h-3.5 w-3.5" />
           View Live Website
@@ -64,7 +64,7 @@ export function AdminSidebar() {
         <form action={logoutAdminAction}>
           <button
             type="submit"
-            className="w-full flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-500/10 transition-colors"
+            className="w-full flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors"
           >
             <LogOut className="h-4 w-4" />
             Sign Out

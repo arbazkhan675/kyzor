@@ -66,7 +66,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       <div>
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Portfolio Gallery
@@ -74,35 +74,35 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       </div>
 
       {/* Hero Section */}
-      <div className="space-y-6 border-b border-zinc-800 pb-8">
+      <div className="space-y-6 border-b border-slate-200 pb-8">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-3 py-1 rounded border border-purple-500/20">
+          <span className="text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 px-3 py-1 rounded border border-purple-200">
             {item.category}
           </span>
           {item.is_demo ? (
-            <span className="text-xs font-semibold text-amber-400 border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded inline-flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-amber-700 border border-amber-200 bg-amber-50 px-3 py-1 rounded inline-flex items-center gap-1.5">
               <Sparkles className="h-3.5 w-3.5" />
               Demo / Concept Project
             </span>
           ) : (
-            <span className="text-xs font-semibold text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded inline-flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-emerald-700 border border-emerald-200 bg-emerald-50 px-3 py-1 rounded inline-flex items-center gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5" />
               Client Production Build
             </span>
           )}
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
           {item.title}
         </h1>
 
-        <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">{item.summary}</p>
+        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">{item.summary}</p>
 
         {/* Technologies Pills */}
         {item.technologies && item.technologies.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
             {item.technologies.map((tech: string) => (
-              <span key={tech} className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 px-3 py-1 rounded-md font-mono">
+              <span key={tech} className="text-xs bg-slate-100 border border-slate-200 text-slate-700 px-3 py-1 rounded-md font-mono">
                 {tech}
               </span>
             ))}
@@ -112,25 +112,25 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
       {/* Requirement / Challenge & Solution Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <h2 className="text-xl font-bold text-white">The Operational Challenge</h2>
-          <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{item.challenge}</p>
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-4 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">The Operational Challenge</h2>
+          <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{item.challenge}</p>
         </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 space-y-4">
-          <h2 className="text-xl font-bold text-white">Kyzor Custom Solution</h2>
-          <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{item.solution}</p>
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 space-y-4 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Kyzor Custom Solution</h2>
+          <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{item.solution}</p>
         </div>
       </div>
 
       {/* Outcomes & Benchmark Results */}
       {resultsList.length > 0 && (
-        <div className="rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 p-8 space-y-6">
-          <h2 className="text-xl font-bold text-white">Architectural Outcomes & Metrics</h2>
-          <ul className="grid grid-cols-1 gap-3 text-sm text-zinc-200">
+        <div className="rounded-2xl border border-slate-200 bg-slate-100/70 p-8 space-y-6">
+          <h2 className="text-xl font-bold text-slate-900">Architectural Outcomes & Metrics</h2>
+          <ul className="grid grid-cols-1 gap-3 text-sm text-slate-800">
             {resultsList.map((res: string, idx: number) => (
-              <li key={idx} className="flex items-start gap-3 bg-zinc-950/60 p-4 rounded-xl border border-zinc-800/80">
-                <CheckCircle2 className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
+              <li key={idx} className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <CheckCircle2 className="h-5 w-5 text-purple-700 shrink-0 mt-0.5" />
                 <span>{res}</span>
               </li>
             ))}
@@ -139,9 +139,9 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       )}
 
       {/* Final Consultation CTA */}
-      <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-8 sm:p-12 text-center space-y-4">
-        <h3 className="text-2xl font-bold text-white">Need a Similar Custom System Built for Your Business?</h3>
-        <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center space-y-4 shadow-sm">
+        <h3 className="text-2xl font-bold text-slate-900">Need a Similar Custom System Built for Your Business?</h3>
+        <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
           We engineer tailored custom e-commerce applications and business automations completely from scratch.
         </p>
         <div className="pt-2">

@@ -14,7 +14,7 @@ export default async function Image() {
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #09090b 0%, #18181b 100%)",
+          background: "linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -23,7 +23,7 @@ export default async function Image() {
           justifyContent: "space-between",
           padding: "80px",
           fontFamily: "sans-serif",
-          color: "#ffffff",
+          color: "#0f172a",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
@@ -38,11 +38,12 @@ export default async function Image() {
               justifyContent: "center",
               fontSize: "32px",
               fontWeight: "bold",
+              color: "#ffffff",
             }}
           >
             K
           </div>
-          <span style={{ fontSize: "36px", fontWeight: "bold", letterSpacing: "-1px" }}>Kyzor</span>
+          <span style={{ fontSize: "36px", fontWeight: "bold", letterSpacing: "-1px", color: "#0f172a" }}>Kyzor</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "900px" }}>
@@ -50,7 +51,7 @@ export default async function Image() {
             style={{
               fontSize: "18px",
               fontWeight: "600",
-              color: "#a855f7",
+              color: "#6d28d9",
               textTransform: "uppercase",
               letterSpacing: "2px",
             }}
@@ -63,7 +64,7 @@ export default async function Image() {
               fontWeight: "800",
               lineHeight: "1.15",
               margin: 0,
-              color: "#ffffff",
+              color: "#0f172a",
             }}
           >
             Custom E-commerce Applications & Business Automations
@@ -71,7 +72,7 @@ export default async function Image() {
           <p
             style={{
               fontSize: "24px",
-              color: "#a1a1aa",
+              color: "#475569",
               margin: 0,
               lineHeight: "1.4",
             }}
@@ -83,7 +84,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: "18px",
-            color: "#71717a",
+            color: "#64748b",
             fontWeight: "600",
           }}
         >

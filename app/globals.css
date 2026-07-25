@@ -2,25 +2,25 @@
 
 @layer base {
   :root {
-    --background: #09090b;
-    --foreground: #f4f4f5;
+    --background: #f8fafc;
+    --foreground: #0f172a;
     
-    --card: #18181b;
-    --card-foreground: #f4f4f5;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
     
-    --popover: #18181b;
-    --popover-foreground: #f4f4f5;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
     
-    --primary: #7c3aed;
+    --primary: #6d28d9;
     --primary-foreground: #ffffff;
     
     --secondary: #2563eb;
     --secondary-foreground: #ffffff;
     
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
     
-    --accent: #7c3aed;
+    --accent: #6d28d9;
     --accent-foreground: #ffffff;
 
     --success: #10b981;
@@ -29,9 +29,9 @@
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
 
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #a855f7;
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #7c3aed;
     
     --radius: 0.5rem;
   }
@@ -59,7 +59,7 @@ code, kbd, .font-mono, pre {
 
 /* Visible Focus Indicator for Accessibility */
 *:focus-visible {
-  outline: 2px solid #a855f7;
+  outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
 
@@ -79,7 +79,7 @@ code, kbd, .font-mono, pre {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #6d28d9 0%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

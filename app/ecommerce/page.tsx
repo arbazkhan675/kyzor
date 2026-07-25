@@ -74,21 +74,21 @@ export default function EcommercePage() {
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
       {/* 1. Hero */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-zinc-800/60 bg-zinc-950">
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-3 py-1 rounded">
+          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded">
             Custom E-commerce Engineering
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
             A complete commerce application - designed, built and deployed for your business.
           </h1>
-          <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             From product browsing and checkout to inventory, orders and administration, Kyzor builds the full system from scratch and launches it on your domain.
           </p>
           <div className="pt-4">
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all focus-visible:ring-2 focus-visible:ring-purple-400"
+              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all focus-visible:ring-2 focus-visible:ring-purple-600"
             >
               Book a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -100,8 +100,8 @@ export default function EcommercePage() {
       {/* 2. Six Capability Cards */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Core System Capabilities</h2>
-          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700">Core System Capabilities</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Everything Your E-commerce Application Requires
           </p>
         </div>
@@ -112,13 +112,13 @@ export default function EcommercePage() {
             return (
               <div
                 key={cap.title}
-                className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4 hover:border-purple-500/50 transition-colors"
+                className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 shadow-sm hover:border-purple-300 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <div className="w-10 h-10 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">{cap.title}</h3>
-                <p className="text-xs text-zinc-300 leading-relaxed">{cap.description}</p>
+                <h3 className="text-lg font-bold text-slate-900">{cap.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{cap.description}</p>
               </div>
             );
           })}
@@ -126,16 +126,16 @@ export default function EcommercePage() {
       </section>
 
       {/* 3. Compact Deliverables Strip */}
-      <section className="border-y border-zinc-800/80 bg-zinc-950/90 py-12">
+      <section className="border-y border-slate-200 bg-slate-100/70 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-400">Complete Deliverables</h2>
+          <h2 className="text-xs font-mono uppercase tracking-wider text-slate-600">Complete Deliverables</h2>
           <div className="flex flex-wrap items-center justify-center gap-3 max-w-4xl mx-auto">
             {deliverables.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 border border-zinc-800 px-4 py-2 text-xs font-semibold text-zinc-200"
+                className="inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-800 shadow-sm"
               >
-                <CheckCircle2 className="h-4 w-4 text-purple-400" />
+                <CheckCircle2 className="h-4 w-4 text-purple-700" />
                 {item}
               </span>
             ))}
@@ -146,8 +146,8 @@ export default function EcommercePage() {
       {/* 4. Optional Functionality Icon Grid (Max 8 Items) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Optional Capabilities</h2>
-          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700">Optional Capabilities</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Tailored Functionality Built to Order
           </p>
         </div>
@@ -158,12 +158,12 @@ export default function EcommercePage() {
             return (
               <div
                 key={opt.name}
-                className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-4 space-y-3 text-center flex flex-col items-center justify-center hover:border-zinc-700 transition-colors"
+                className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 text-center flex flex-col items-center justify-center shadow-sm hover:border-purple-300 transition-colors"
               >
-                <div className="w-9 h-9 rounded-lg bg-zinc-800/80 flex items-center justify-center text-purple-400">
+                <div className="w-9 h-9 rounded-lg bg-purple-50 flex items-center justify-center text-purple-700">
                   <Icon className="h-4 w-4" />
                 </div>
-                <span className="text-xs font-semibold text-zinc-200 leading-snug">{opt.name}</span>
+                <span className="text-xs font-semibold text-slate-800 leading-snug">{opt.name}</span>
               </div>
             );
           })}
@@ -171,21 +171,21 @@ export default function EcommercePage() {
       </section>
 
       {/* 5. Five-Step Process & Final CTA */}
-      <section className="border-t border-zinc-800/80 bg-zinc-950 py-16">
+      <section className="border-t border-slate-200 bg-slate-100/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-400">Process</h2>
-            <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700">Process</h2>
+            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
               How We Build Your Application
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {processSteps.map((step) => (
-              <div key={step.number} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-3">
-                <span className="text-2xl font-mono font-extrabold text-purple-400">{step.number}</span>
-                <h3 className="text-base font-bold text-white leading-snug">{step.title}</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">{step.description}</p>
+              <div key={step.number} className="rounded-xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm">
+                <span className="text-2xl font-mono font-extrabold text-purple-700">{step.number}</span>
+                <h3 className="text-base font-bold text-slate-900 leading-snug">{step.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -194,11 +194,11 @@ export default function EcommercePage() {
 
       {/* Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 p-10 sm:p-14 text-center space-y-6 shadow-2xl">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready for a Custom E-commerce Application?
           </h2>
-          <p className="text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
             Talk with our engineers to discuss your catalog requirements, custom features, and project scope.
           </p>
           <div>

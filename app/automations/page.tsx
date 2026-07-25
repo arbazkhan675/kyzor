@@ -76,21 +76,21 @@ export default function AutomationsPage() {
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
       {/* 1. Hero */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-zinc-800/60 bg-zinc-950">
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded">
+          <span className="inline-block text-xs font-mono uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded">
             Operational Business Automations
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Custom automation for the way your business works.
           </h1>
-          <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Tell us what your team repeatedly does. We design and build a reliable system that handles those steps automatically.
           </p>
           <div className="pt-4">
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all focus-visible:ring-2 focus-visible:ring-purple-400"
+              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all focus-visible:ring-2 focus-visible:ring-purple-600"
             >
               Book a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -102,8 +102,8 @@ export default function AutomationsPage() {
       {/* 2. Four Category Cards */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-400">Automation Categories</h2>
-          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Automation Categories</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Key Operational Areas We Streamline
           </p>
         </div>
@@ -114,13 +114,13 @@ export default function AutomationsPage() {
             return (
               <div
                 key={cat.title}
-                className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4 hover:border-blue-500/50 transition-colors"
+                className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 shadow-sm hover:border-blue-300 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">{cat.title}</h3>
-                <p className="text-xs text-zinc-300 leading-relaxed">{cat.description}</p>
+                <h3 className="text-lg font-bold text-slate-900">{cat.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{cat.description}</p>
               </div>
             );
           })}
@@ -130,8 +130,8 @@ export default function AutomationsPage() {
       {/* 3. Six Example Workflow Cards (Short Arrow-Based Flows) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-400">Example Workflows</h2>
-          <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Example Workflows</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             See How Custom Automation Pipelines Work
           </p>
         </div>
@@ -140,28 +140,28 @@ export default function AutomationsPage() {
           {workflows.map((wf) => (
             <div
               key={wf.title}
-              className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-5 flex flex-col justify-between"
+              className="rounded-2xl border border-slate-200 bg-white p-6 space-y-5 flex flex-col justify-between shadow-sm"
             >
               <div className="space-y-4">
-                <h3 className="text-base font-bold text-white">{wf.title}</h3>
+                <h3 className="text-base font-bold text-slate-900">{wf.title}</h3>
 
                 {/* Arrow Flow Representation */}
-                <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-zinc-300">
+                <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-slate-700">
                   {wf.flow.map((step, idx) => (
                     <span key={step} className="inline-flex items-center gap-1.5">
-                      <span className="bg-zinc-950 px-2 py-1 rounded border border-zinc-800 text-zinc-200">
+                      <span className="bg-slate-100 px-2 py-1 rounded border border-slate-200 text-slate-800">
                         {step}
                       </span>
                       {idx < wf.flow.length - 1 && (
-                        <ArrowRightCircle className="h-3.5 w-3.5 text-blue-400 shrink-0" />
+                        <ArrowRightCircle className="h-3.5 w-3.5 text-blue-600 shrink-0" />
                       )}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-zinc-800/80 flex items-start gap-2 text-xs text-zinc-400">
-                <UserCheck className="h-4 w-4 text-purple-400 shrink-0 mt-0.5" />
+              <div className="pt-2 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-600">
+                <UserCheck className="h-4 w-4 text-purple-700 shrink-0 mt-0.5" />
                 <p className="leading-relaxed">{wf.note}</p>
               </div>
             </div>
@@ -170,33 +170,33 @@ export default function AutomationsPage() {
       </section>
 
       {/* 4. Mandatory Statement Line Banner */}
-      <section className="border-y border-zinc-800/80 bg-zinc-950/90 py-12">
+      <section className="border-y border-slate-200 bg-slate-100/70 py-12">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-3">
-          <p className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-relaxed">
+          <p className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-relaxed">
             “If a process follows repeatable steps, there is a good chance Kyzor can automate it.”
           </p>
-          <p className="text-xs font-mono text-zinc-400">
+          <p className="text-xs font-mono text-slate-600">
             We focus on practical, high-impact automations with built-in human verification for sensitive decisions.
           </p>
         </div>
       </section>
 
       {/* 5. Kyzor Process & Final CTA */}
-      <section className="border-t border-zinc-800/80 bg-zinc-950 py-16">
+      <section className="border-t border-slate-200 bg-slate-100/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-blue-400">Engineering Process</h2>
-            <p className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+            <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Engineering Process</h2>
+            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
               How We Build Your Business Automations
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {processSteps.map((step) => (
-              <div key={step.number} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-3">
-                <span className="text-2xl font-mono font-extrabold text-blue-400">{step.number}</span>
-                <h3 className="text-base font-bold text-white leading-snug">{step.title}</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">{step.description}</p>
+              <div key={step.number} className="rounded-xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm">
+                <span className="text-2xl font-mono font-extrabold text-blue-700">{step.number}</span>
+                <h3 className="text-base font-bold text-slate-900 leading-snug">{step.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -205,11 +205,11 @@ export default function AutomationsPage() {
 
       {/* Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-zinc-800 bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 p-10 sm:p-14 text-center space-y-6 shadow-2xl">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to Automate Your Repetitive Workflows?
           </h2>
-          <p className="text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
             Schedule a technical consultation to review your team’s manual processes and map out custom automation solutions.
           </p>
           <div>

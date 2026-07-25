@@ -84,7 +84,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <head>
         <script
           type="application/ld+json"
@@ -92,7 +92,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-zinc-950 text-zinc-100 flex flex-col min-h-screen selection:bg-purple-500/30 selection:text-purple-200`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-slate-50 text-slate-900 flex flex-col min-h-screen selection:bg-purple-100 selection:text-purple-900`}
       >
         {/* Skip to Content Link for Accessibility */}
         <a
