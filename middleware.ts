@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
               request,
             });
             cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
+              response.cookies.set(name, value)
             );
           },
         },
@@ -43,6 +43,20 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
+      return NextResponse.redirect(url);
+    }
+
+    // Verify user exists in public.admin_users
+    const { data: adminRecord } = await supabase
+      .from("admin_users")
+      .select("id")
+      .eq("id", user.id)
+      .single();
+
+    if (!adminRecord) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("error", "unauthorized");
       return NextResponse.redirect(url);
     }
   }
