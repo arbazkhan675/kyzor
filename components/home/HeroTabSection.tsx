@@ -3,16 +3,22 @@
 import { useState, useRef, KeyboardEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, ShoppingBag, Cpu } from "lucide-react";
+import { trackEvent } from "@/lib/analytics/track";
 
 export function HeroTabSection() {
   const [activeTab, setActiveTab] = useState<"ecommerce" | "automations">("ecommerce");
   const tabListRef = useRef<HTMLDivElement>(null);
 
+  const switchTab = (tab: "ecommerce" | "automations") => {
+    setActiveTab(tab);
+    trackEvent("hero_tab_change", { tab });
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, currentTab: "ecommerce" | "automations") => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
       e.preventDefault();
       const nextTab = currentTab === "ecommerce" ? "automations" : "ecommerce";
-      setActiveTab(nextTab);
+      switchTab(nextTab);
       const nextButton = tabListRef.current?.querySelector<HTMLButtonElement>(`button[data-tab="${nextTab}"]`);
       nextButton?.focus();
     }
@@ -36,7 +42,7 @@ export function HeroTabSection() {
               aria-selected={activeTab === "ecommerce"}
               aria-controls="panel-ecommerce"
               tabIndex={activeTab === "ecommerce" ? 0 : -1}
-              onClick={() => setActiveTab("ecommerce")}
+              onClick={() => switchTab("ecommerce")}
               onKeyDown={(e) => handleKeyDown(e, "ecommerce")}
               className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 ${
                 activeTab === "ecommerce"
@@ -55,7 +61,7 @@ export function HeroTabSection() {
               aria-selected={activeTab === "automations"}
               aria-controls="panel-automations"
               tabIndex={activeTab === "automations" ? 0 : -1}
-              onClick={() => setActiveTab("automations")}
+              onClick={() => switchTab("automations")}
               onKeyDown={(e) => handleKeyDown(e, "automations")}
               className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 ${
                 activeTab === "automations"
@@ -87,6 +93,7 @@ export function HeroTabSection() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
                 <Link
                   href="/consultation"
+                  onClick={() => trackEvent("consultation_cta_click", { location: "hero_ecommerce" })}
                   className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-accent-gradient px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-400"
                 >
                   Book a Consultation
@@ -116,6 +123,7 @@ export function HeroTabSection() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
                 <Link
                   href="/consultation"
+                  onClick={() => trackEvent("consultation_cta_click", { location: "hero_automations" })}
                   className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-accent-gradient px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-400"
                 >
                   Book a Consultation
