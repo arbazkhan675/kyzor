@@ -11,6 +11,7 @@ describe("Consultation Schema Validation", () => {
       project_type: "ecommerce",
       budget: "$15,000 - $30,000",
       message: "We need a custom e-commerce application built from scratch with tailored database schemas.",
+      consent: true as const,
     };
 
     const result = consultationSchema.safeParse(validData);
@@ -23,18 +24,20 @@ describe("Consultation Schema Validation", () => {
       email: "invalid-email",
       project_type: "ecommerce",
       message: "Testing invalid email input",
+      consent: true,
     };
 
     const result = consultationSchema.safeParse(invalidData);
     expect(result.success).toBe(false);
   });
 
-  it("fails on short message (< 10 chars)", () => {
+  it("fails on short message (< 30 chars)", () => {
     const invalidData = {
       name: "Adnan",
       email: "adnan@example.com",
       project_type: "automation",
       message: "Short",
+      consent: true,
     };
 
     const result = consultationSchema.safeParse(invalidData);

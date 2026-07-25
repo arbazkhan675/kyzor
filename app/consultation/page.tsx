@@ -1,204 +1,330 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { submitConsultationAction } from "@/app/actions/consultation";
-import { CheckCircle2, Loader2, Calendar, MessageSquare, Send } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Calendar, ShieldCheck, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
-export default function ConsultationPage() {
+function ConsultationFormContent() {
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
-    project_type: "ecommerce" as "ecommerce" | "automation" | "both" | "other",
-    budget: "",
+    project_type: "ecommerce",
+    budget: "$15,000 - $30,000",
     message: "",
+    consent: false,
+    honeypot: "",
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const result = await submitConsultationAction(formData);
-
-    if (!result.success) {
-      setError(result.error || "Failed to submit form.");
-      setLoading(false);
-    } else {
-      setSubmitted(true);
-      setLoading(false);
+  // Extract non-sensitive UTM params on mount
+  useEffect(() => {
+    if (searchParams) {
+      setFormData((prev) => ({
+        ...prev,
+        utm_source: searchParams.get("utm_source") || "",
+        utm_medium: searchParams.get("utm_medium") || "",
+        utm_campaign: searchParams.get("utm_campaign") || "",
+      }));
     }
+  }, [searchParams]);
+
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [successResult, setSuccessResult] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFieldErrors({});
+    setServerError(null);
+
+    if (!formData.consent) {
+      setFieldErrors({ consent: "You must consent to be contacted regarding your consultation request." });
+      return;
+    }
+
+    startTransition(async () => {
+      const res = await submitConsultationAction({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        company: formData.company || undefined,
+        project_type: formData.project_type as any,
+        budget: formData.budget || undefined,
+        message: formData.message,
+        consent: formData.consent as true,
+        honeypot: formData.honeypot || undefined,
+        utm_source: formData.utm_source || undefined,
+        utm_medium: formData.utm_medium || undefined,
+        utm_campaign: formData.utm_campaign || undefined,
+      });
+
+      if (res.error) {
+        setServerError(res.error);
+        if (res.fieldErrors) {
+          setFieldErrors(res.fieldErrors);
+        }
+      } else if (res.success) {
+        setSuccessResult(res.message || "Consultation request submitted successfully.");
+      }
+    });
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 space-y-12">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16 space-y-8">
+      <div>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
+      </div>
+
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold text-purple-300">
+      <div className="space-y-3 text-center sm:text-left">
+        <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-3 py-1 rounded">
           <Calendar className="h-3.5 w-3.5" />
-          <span>Technical Discovery Session</span>
+          Direct Technical Discovery
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Book a <span className="text-gradient">Consultation.</span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Book a Technical Consultation
         </h1>
-        <p className="text-base text-zinc-300 leading-relaxed">
-          Tell us about your project requirements. Whether you need a custom e-commerce application built from scratch or business automations, our engineering team will get back to you within 24 hours.
+        <p className="text-sm sm:text-base text-zinc-300 max-w-2xl leading-relaxed">
+          Discuss your custom e-commerce application or business automation requirements directly with our product engineers.
         </p>
       </div>
 
-      {submitted ? (
-        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-8 sm:p-12 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-            <CheckCircle2 className="h-8 w-8" />
+      {/* Success View */}
+      {successResult ? (
+        <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-8 text-center space-y-6 animate-in fade-in duration-200">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+            <CheckCircle2 className="h-7 w-7" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Consultation Request Received</h2>
-          <p className="text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
-            Thank you for reaching out. We have received your project details and will review your technical requirements promptly.
-          </p>
-          <div className="pt-4">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold text-white">Consultation Requested!</h2>
+            <p className="text-sm text-zinc-300 max-w-lg mx-auto leading-relaxed">{successResult}</p>
+          </div>
+          <div>
             <button
+              type="button"
               onClick={() => {
-                setSubmitted(false);
-                setFormData({ name: "", email: "", company: "", project_type: "ecommerce", budget: "", message: "" });
+                setSuccessResult(null);
+                setFormData((prev) => ({ ...prev, message: "", consent: false }));
               }}
-              className="text-xs font-semibold text-purple-400 hover:text-purple-300 underline"
+              className="inline-flex items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-2.5 text-xs font-semibold text-zinc-200 hover:bg-zinc-800 hover:text-white"
             >
               Submit Another Request
             </button>
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {error && (
-              <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-xs font-medium text-red-400">
-                {error}
+        /* Consultation Form */
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-10 shadow-xl">
+          {serverError && (
+            <div className="mb-6 rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-xs text-red-400 flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-red-300">Submission Error</p>
+                <p>{serverError}</p>
               </div>
-            )}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+            {/* Hidden Honeypot Field for Bot Protection */}
+            <div style={{ display: "none" }} aria-hidden="true">
+              <label htmlFor="website_hp">Do not fill this out</label>
+              <input
+                id="website_hp"
+                type="text"
+                tabIndex={-1}
+                value={formData.honeypot}
+                onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                autoComplete="off"
+              />
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Name */}
+              {/* Full Name */}
               <div className="space-y-2">
-                <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                  Your Name <span className="text-purple-400">*</span>
+                <label htmlFor="name" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Full Name *
                 </label>
                 <input
+                  id="name"
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. Alex Morgan"
-                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="e.g. Sarah Jenkins"
+                  className={`w-full rounded-lg bg-zinc-950 border px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                    fieldErrors.name ? "border-red-500" : "border-zinc-800"
+                  }`}
                 />
+                {fieldErrors.name && <p className="text-xs text-red-400">{fieldErrors.name}</p>}
               </div>
 
               {/* Email */}
               <div className="space-y-2">
-                <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                  Email Address <span className="text-purple-400">*</span>
+                <label htmlFor="email" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Business Email *
                 </label>
                 <input
+                  id="email"
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="alex@company.com"
-                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="sarah@company.com"
+                  className={`w-full rounded-lg bg-zinc-950 border px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                    fieldErrors.email ? "border-red-500" : "border-zinc-800"
+                  }`}
                 />
+                {fieldErrors.email && <p className="text-xs text-red-400">{fieldErrors.email}</p>}
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Company */}
+              {/* Company / Business Name */}
               <div className="space-y-2">
-                <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                  Company / Organization
+                <label htmlFor="company" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Company / Business Name
                 </label>
                 <input
+                  id="company"
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="Optional"
-                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="e.g. Apex Global Ltd"
+                  className={`w-full rounded-lg bg-zinc-950 border px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                    fieldErrors.company ? "border-red-500" : "border-zinc-800"
+                  }`}
                 />
+                {fieldErrors.company && <p className="text-xs text-red-400">{fieldErrors.company}</p>}
               </div>
 
-              {/* Project Type */}
+              {/* Phone / WhatsApp */}
               <div className="space-y-2">
-                <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                  Project Focus <span className="text-purple-400">*</span>
+                <label htmlFor="phone" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Phone / WhatsApp (Optional)
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder="+1 (555) 000-0000"
+                  className={`w-full rounded-lg bg-zinc-950 border px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                    fieldErrors.phone ? "border-red-500" : "border-zinc-800"
+                  }`}
+                />
+                {fieldErrors.phone && <p className="text-xs text-red-400">{fieldErrors.phone}</p>}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Service Type */}
+              <div className="space-y-2">
+                <label htmlFor="project_type" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Primary Project Focus *
                 </label>
                 <select
+                  id="project_type"
                   value={formData.project_type}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      project_type: e.target.value as any,
-                    })
-                  }
-                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onChange={(e) => setFormData({ ...formData, project_type: e.target.value })}
+                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
                 >
                   <option value="ecommerce">Custom E-commerce Application</option>
                   <option value="automation">Business Automations & AI Workflows</option>
                   <option value="both">Both E-commerce & Automations</option>
-                  <option value="other">Other Custom Software Integration</option>
+                  <option value="not_sure">Not Sure / Needs Engineering Advice</option>
+                </select>
+              </div>
+
+              {/* Budget Range */}
+              <div className="space-y-2">
+                <label htmlFor="budget" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Estimated Investment Range
+                </label>
+                <select
+                  id="budget"
+                  value={formData.budget}
+                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                  className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+                >
+                  <option value="Under $10,000">Under $10,000</option>
+                  <option value="$10,000 - $25,000">$10,000 - $25,000</option>
+                  <option value="$25,000 - $50,000">$25,000 - $50,000</option>
+                  <option value="$50,000+">$50,000+</option>
                 </select>
               </div>
             </div>
 
-            {/* Budget */}
+            {/* Project Summary */}
             <div className="space-y-2">
-              <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                Estimated Investment Range
-              </label>
-              <select
-                value={formData.budget}
-                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                <option value="">Select an estimated range (Optional)</option>
-                <option value="$3,000 - $7,000">$3,000 - $7,000</option>
-                <option value="$7,000 - $15,000">$7,000 - $15,000</option>
-                <option value="$15,000 - $30,000">$15,000 - $30,000</option>
-                <option value="$30,000+">$30,000+</option>
-              </select>
-            </div>
-
-            {/* Message */}
-            <div className="space-y-2">
-              <label className="block text-xs font-medium text-zinc-300 uppercase tracking-wider">
-                Project Overview & Requirements <span className="text-purple-400">*</span>
+              <label htmlFor="message" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                Project Summary & Requirements (30-3000 chars) *
               </label>
               <textarea
+                id="message"
                 required
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Describe your current bottleneck, desired features, integration endpoints, or target timeline..."
-                className="w-full rounded-lg bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Describe your operational bottleneck, custom e-commerce goals, or automation workflow requirements..."
+                className={`w-full rounded-lg bg-zinc-950 border px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                  fieldErrors.message ? "border-red-500" : "border-zinc-800"
+                }`}
               />
+              <div className="flex justify-between items-center text-[10px] text-zinc-500 font-mono">
+                <span>Min 30 characters</span>
+                <span>{formData.message.length} / 3000</span>
+              </div>
+              {fieldErrors.message && <p className="text-xs text-red-400">{fieldErrors.message}</p>}
+            </div>
+
+            {/* Consent Checkbox */}
+            <div className="space-y-2 pt-2">
+              <label className="flex items-start gap-3 text-xs text-zinc-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.consent}
+                  onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
+                  className="mt-0.5 rounded border-zinc-800 bg-zinc-950 text-purple-600 focus:ring-purple-400 h-4 w-4 shrink-0"
+                />
+                <span className="leading-relaxed">
+                  I consent to Kyzor storing my submission details and contacting me regarding this technical consultation request. *
+                </span>
+              </label>
+              {fieldErrors.consent && <p className="text-xs text-red-400">{fieldErrors.consent}</p>}
             </div>
 
             {/* Submit Button */}
-            <div>
+            <div className="pt-4">
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full inline-flex items-center justify-center rounded-lg bg-accent-gradient py-4 text-base font-semibold text-white shadow-xl shadow-purple-500/20 hover:scale-[1.01] transition-all disabled:opacity-50"
+                disabled={isPending}
+                className="w-full inline-flex items-center justify-center rounded-lg bg-accent-gradient py-3.5 text-sm font-semibold text-white shadow-xl hover:scale-[1.01] transition-all disabled:opacity-50 disabled:hover:scale-100"
               >
-                {loading ? (
+                {isPending ? (
                   <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Submitting Request...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Submitting Consultation Request...
                   </>
                 ) : (
                   <>
-                    <Send className="mr-2 h-5 w-5" />
-                    Submit Consultation Request
+                    <ShieldCheck className="mr-2 h-4 w-4" />
+                    Book Technical Consultation
                   </>
                 )}
               </button>
@@ -207,5 +333,13 @@ export default function ConsultationPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ConsultationPage() {
+  return (
+    <Suspense fallback={<div className="p-12 text-center text-zinc-400 text-xs font-mono">Loading consultation form...</div>}>
+      <ConsultationFormContent />
+    </Suspense>
   );
 }
