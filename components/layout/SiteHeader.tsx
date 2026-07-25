@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/lib/config/site";
 
 export function SiteHeader() {
@@ -80,10 +80,10 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? "border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md"
-          : "border-b border-slate-200/80 bg-white/80 backdrop-blur-sm"
+          ? "border-b border-slate-200/90 bg-white/85 shadow-sm backdrop-blur-xl"
+          : "border-b border-slate-200/60 bg-white/70 backdrop-blur-md"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 h-20">
@@ -92,13 +92,13 @@ export function SiteHeader() {
           href="/"
           className="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-purple-600 rounded-lg p-1"
         >
-          <div className="relative w-10 h-10 overflow-hidden rounded-lg">
+          <div className="relative w-10 h-10 overflow-hidden rounded-xl bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-100/80 p-1 shadow-xs group-hover:scale-105 transition-transform duration-200">
             <Image
               src="/brand/logo.png"
               alt="Kyzor Logo"
               width={40}
               height={40}
-              className="object-contain transition-transform duration-200 group-hover:scale-105"
+              className="object-contain"
               priority
             />
           </div>
@@ -130,9 +130,10 @@ export function SiteHeader() {
         <div className="hidden md:flex items-center">
           <Link
             href={siteConfig.cta.href}
-            className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-purple-600"
+            className="inline-flex items-center justify-center rounded-xl bg-accent-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
           >
             {siteConfig.cta.label}
+            <ArrowUpRight className="ml-1.5 h-4 w-4 opacity-80" />
           </Link>
         </div>
 
@@ -141,7 +142,7 @@ export function SiteHeader() {
           ref={menuButtonRef}
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-purple-600"
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 focus-visible:ring-2 focus-visible:ring-purple-600"
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-navigation-drawer"
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -152,7 +153,7 @@ export function SiteHeader() {
 
       {/* Accessible Mobile Drawer Overlay & Sheet */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex flex-col justify-between bg-white/98 backdrop-blur-lg animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 md:hidden flex flex-col justify-between bg-white/98 backdrop-blur-2xl animate-in fade-in duration-200">
           <div className="px-4 py-6 border-b border-slate-200 flex items-center justify-between">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
               <Image src="/brand/logo.png" alt="Kyzor Logo" width={36} height={36} />
@@ -178,7 +179,7 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block text-xl font-bold py-2 border-b border-slate-100 ${
+                    className={`block text-xl font-bold py-2.5 border-b border-slate-100 ${
                       isActive ? "text-purple-700" : "text-slate-800 hover:text-purple-700"
                     }`}
                   >
@@ -192,14 +193,14 @@ export function SiteHeader() {
               <Link
                 href={siteConfig.cta.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center rounded-lg bg-accent-gradient py-4 text-base font-semibold text-white shadow-lg"
+                className="block w-full text-center rounded-xl bg-accent-gradient py-4 text-base font-semibold text-white shadow-lg"
               >
                 {siteConfig.cta.label}
               </Link>
             </div>
           </div>
 
-          <div className="p-6 border-t border-slate-200 text-xs text-slate-500 text-center">
+          <div className="p-6 border-t border-slate-200 text-xs text-slate-500 text-center font-mono">
             © {new Date().getFullYear()} Kyzor. Custom e-commerce applications built from scratch.
           </div>
         </div>

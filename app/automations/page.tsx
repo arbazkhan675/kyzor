@@ -76,9 +76,9 @@ export default function AutomationsPage() {
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
       {/* 1. Hero */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 bg-white">
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200/80 bg-gradient-to-b from-blue-50/30 via-white to-slate-50/50">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded">
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-blue-700 bg-blue-50 border border-blue-200/80 px-3 py-1 rounded-full font-semibold">
             Operational Business Automations
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -90,7 +90,7 @@ export default function AutomationsPage() {
           <div className="pt-4">
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all focus-visible:ring-2 focus-visible:ring-purple-600"
+              className="inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all focus-visible:ring-2 focus-visible:ring-purple-600"
             >
               Book a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -102,7 +102,7 @@ export default function AutomationsPage() {
       {/* 2. Four Category Cards */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Automation Categories</h2>
+          <h2 className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">Automation Categories</h2>
           <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Key Operational Areas We Streamline
           </p>
@@ -114,12 +114,12 @@ export default function AutomationsPage() {
             return (
               <div
                 key={cat.title}
-                className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 shadow-sm hover:border-blue-300 transition-colors"
+                className="group rounded-3xl border border-slate-200/90 bg-white p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 transition-all duration-300"
               >
-                <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 group-hover:scale-110 transition-transform">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900">{cat.title}</h3>
+                <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{cat.title}</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">{cat.description}</p>
               </div>
             );
@@ -130,7 +130,7 @@ export default function AutomationsPage() {
       {/* 3. Six Example Workflow Cards (Short Arrow-Based Flows) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Example Workflows</h2>
+          <h2 className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">Example Workflows</h2>
           <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             See How Custom Automation Pipelines Work
           </p>
@@ -140,16 +140,16 @@ export default function AutomationsPage() {
           {workflows.map((wf) => (
             <div
               key={wf.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 space-y-5 flex flex-col justify-between shadow-sm"
+              className="group rounded-3xl border border-slate-200/90 bg-white p-6 space-y-5 flex flex-col justify-between shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               <div className="space-y-4">
-                <h3 className="text-base font-bold text-slate-900">{wf.title}</h3>
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{wf.title}</h3>
 
                 {/* Arrow Flow Representation */}
                 <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-slate-700">
                   {wf.flow.map((step, idx) => (
                     <span key={step} className="inline-flex items-center gap-1.5">
-                      <span className="bg-slate-100 px-2 py-1 rounded border border-slate-200 text-slate-800">
+                      <span className="bg-slate-50 px-2 py-1 rounded-md border border-slate-200 text-slate-800 font-semibold">
                         {step}
                       </span>
                       {idx < wf.flow.length - 1 && (
@@ -170,7 +170,7 @@ export default function AutomationsPage() {
       </section>
 
       {/* 4. Mandatory Statement Line Banner */}
-      <section className="border-y border-slate-200 bg-slate-100/70 py-12">
+      <section className="border-y border-slate-200/80 bg-slate-100/70 py-12">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-3">
           <p className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-relaxed">
             “If a process follows repeatable steps, there is a good chance Kyzor can automate it.”
@@ -182,10 +182,10 @@ export default function AutomationsPage() {
       </section>
 
       {/* 5. Kyzor Process & Final CTA */}
-      <section className="border-t border-slate-200 bg-slate-100/60 py-16">
+      <section className="border-t border-slate-200/80 bg-slate-100/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-blue-700">Engineering Process</h2>
+            <h2 className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">Engineering Process</h2>
             <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
               How We Build Your Business Automations
             </p>
@@ -193,8 +193,8 @@ export default function AutomationsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {processSteps.map((step) => (
-              <div key={step.number} className="rounded-xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm">
-                <span className="text-2xl font-mono font-extrabold text-blue-700">{step.number}</span>
+              <div key={step.number} className="group rounded-2xl border border-slate-200/90 bg-white p-6 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                <span className="text-2xl font-mono font-extrabold text-blue-700 group-hover:scale-105 inline-block transition-transform">{step.number}</span>
                 <h3 className="text-base font-bold text-slate-900 leading-snug">{step.title}</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
               </div>
@@ -205,7 +205,7 @@ export default function AutomationsPage() {
 
       {/* Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to Automate Your Repetitive Workflows?
           </h2>
@@ -215,7 +215,7 @@ export default function AutomationsPage() {
           <div>
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all"
+              className="inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               Book a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
