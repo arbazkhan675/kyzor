@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kyzor Agency Website & Admin Portal
 
-## Getting Started
+Production website for **Kyzor** (https://kyzor.online), an agency that builds complete custom e-commerce applications from scratch and creates end-to-end business automations.
 
-First, run the development server:
+---
 
+## 🚀 Key Features & Architecture
+
+- **Next.js 16 App Router & React 19**: Modern full-stack architecture with React Server Components (RSC) by default.
+- **Strict Brand Design System**: Dark theme derived from official logo (`public/brand/logo.png`) with Violet (`#7C3AED`) and Electric Blue (`#2563EB`) accents. Loaded with `Geist` Sans and `Geist_Mono` fonts.
+- **Fixed Public Routes**:
+  - `/` - Home Page (Accessible hero tabs, 6 core sections)
+  - `/ecommerce` - Custom E-commerce Application Service Page
+  - `/automations` - Business Automations Service Page
+  - `/work` & `/work/[slug]` - Portfolio Gallery & Dynamic Case Study Detail Page
+  - `/about` - Agency Mission & 5-Step Process
+  - `/consultation` - Interactive Booking Form (Zod + Supabase + Resend + Hashed-IP Rate Limiting)
+  - `/privacy` & `/terms` - Legal Compliance Pages
+- **Protected Admin Portal**:
+  - `/admin/login` - Admin authentication
+  - `/admin` - Live dashboard overview
+  - `/admin/consultations` - Search, filter, and manage lead status
+  - `/admin/work` - Full CRUD case study manager with `work-media` storage upload
+- **Security & Privacy**:
+  - Row Level Security (RLS) enabled on every database table.
+  - Server-only modules (`import 'server-only'`) guarding service role keys.
+  - Non-PII analytics tracking via `@vercel/analytics`.
+  - Security headers (`X-Frame-Options`, `CSP`, `HSTS`).
+
+---
+
+## 🛠️ Local Development Setup
+
+### 1. Prerequisites
+- Node.js 20.x or higher
+- Git & npm
+
+### 2. Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone repository
+git clone https://github.com/arbazkhan675/kyzor.git
+cd kyzor
+
+# Install dependencies
+npm install --legacy-peer-deps
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Environment Variables
+Create `.env.local` in the root directory:
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://hfquhgaertysebvdpojn.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+RATE_LIMIT_SALT=your_secure_salt_here
+RESEND_API_KEY=your_resend_api_key_here
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Running Locally
+```bash
+# Start Next.js development server
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Open http://localhost:3000 in your browser
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧪 Testing & Validation Commands
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Run TypeScript typecheck
+npx tsc --noEmit
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run Vitest unit & integration test matrix (53 tests)
+npx vitest run
 
-## Deploy on Vercel
+# Run production build
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Database Migrations & Supabase CLI
+
+Database structure and Row Level Security rules are stored in `supabase/migrations/`:
+- `supabase/migrations/001_initial_schema.sql`
+- `supabase/migrations/002_reproducible_foundation.sql`
+
+To apply migrations locally or to linked project:
+```bash
+npx supabase db query --linked -f supabase/migrations/002_reproducible_foundation.sql
+```
+
+---
+
+## 🚢 Deployment & Production Operations
+
+Refer to detailed operational documentation:
+- [docs/admin-guide.md](file:///c:/Users/hp/kyzor/docs/admin-guide.md) - Admin portal operations and lead management
+- [docs/operations.md](file:///c:/Users/hp/kyzor/docs/operations.md) - Backups, key rotation, and incident response
+- [docs/content-guide.md](file:///c:/Users/hp/kyzor/docs/content-guide.md) - Copy rules and Demo/Concept labeling guidelines
+- [docs/product-decisions.md](file:///c:/Users/hp/kyzor/docs/product-decisions.md) - Master architecture specification
