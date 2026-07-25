@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Kyzor",
   },
   description:
-    "Kyzor builds custom e-commerce applications from scratch and creates end-to-end business automations, AI chatbots, voice assistants, and operational integrations.",
+    "Kyzor builds complete custom e-commerce applications from scratch and creates business automations including WhatsApp workflows, email automation, AI chatbots, voice assistants, and operational integrations.",
   keywords: [
     "custom e-commerce application",
     "built from scratch",
@@ -72,9 +72,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-zinc-950 text-zinc-100 flex flex-col min-h-screen selection:bg-purple-500/30 selection:text-purple-200`}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {/* Skip to Content Link for Accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-purple-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-xl focus:outline-none"
+        >
+          Skip to main content
+        </a>
+
+        <SiteHeader />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );
