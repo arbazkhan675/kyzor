@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { siteConfig } from "@/lib/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,13 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kyzor.online"),
+  metadataBase: new URL(siteConfig.domain),
   title: {
     default: "Kyzor | Custom E-commerce Applications & Business Automations",
     template: "%s | Kyzor",
   },
-  description:
-    "Kyzor builds complete custom e-commerce applications from scratch and creates business automations including WhatsApp workflows, email automation, AI chatbots, voice assistants, and operational integrations.",
+  description: siteConfig.description,
   keywords: [
     "custom e-commerce application",
     "built from scratch",
@@ -33,18 +35,20 @@ export const metadata: Metadata = {
     "Kyzor",
   ],
   authors: [{ name: "Kyzor Agency" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Kyzor | Custom E-commerce Applications & Business Automations",
-    description:
-      "Bespoke e-commerce software built from scratch and high-impact operational automations.",
-    url: "https://kyzor.online",
-    siteName: "Kyzor",
+    description: siteConfig.description,
+    url: siteConfig.domain,
+    siteName: siteConfig.name,
     images: [
       {
-        url: "/brand/logo.png",
-        width: 1024,
-        height: 1024,
-        alt: "Kyzor Agency Logo",
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Kyzor Agency Logo & Positioning",
       },
     ],
     locale: "en_US",
@@ -53,8 +57,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Kyzor | Custom E-commerce & Automations",
-    description: "Bespoke e-commerce software built from scratch and high-impact business automations.",
-    images: ["/brand/logo.png"],
+    description: siteConfig.description,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -67,8 +71,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Verified Organization JSON-LD
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.domain,
+    logo: `${siteConfig.domain}/brand/logo.png`,
+    description: siteConfig.description,
+    email: siteConfig.contactEmail,
+    sameAs: [],
+  };
+
   return (
     <html lang="en" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-zinc-950 text-zinc-100 flex flex-col min-h-screen selection:bg-purple-500/30 selection:text-purple-200`}
       >
@@ -85,6 +107,9 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
