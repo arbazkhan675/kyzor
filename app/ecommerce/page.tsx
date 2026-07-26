@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Layout, Package, CreditCard, Truck, Users, ShieldCheck, CheckCircle2, Repeat, Store, Building2, Sliders, Award, MapPin, BarChart3, Layers } from "lucide-react";
 import type { Metadata } from "next";
+import { VideoShowcaseCard } from "@/components/ecommerce/VideoShowcaseCard";
 
 export const metadata: Metadata = {
   title: "Custom E-commerce Application Development India",
@@ -130,6 +131,24 @@ export default function EcommercePage() {
             );
           })}
         </div>
+      </section>
+
+      {/* Live Interface Video Showcase Section */}
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center space-y-3">
+          <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">Live System Showcase</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            See Custom Architecture in Motion
+          </p>
+        </div>
+
+        <VideoShowcaseCard
+          videoUrl="/video/1.mp4"
+          title="Sub-Second Custom Storefront & Dynamic Interactions"
+          description="Experience sub-200ms page transitions, instant product filtering, and smooth cart drawer interactions engineered from scratch."
+          badgeText="Live System Interface Demo"
+          tags={["React Server Components", "Edge Gateway", "Zero Plugin Overhead", "Postgres Database"]}
+        />
       </section>
 
       {/* 3. Compact Deliverables Strip */}
