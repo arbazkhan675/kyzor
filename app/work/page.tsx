@@ -8,9 +8,15 @@ import type { Database } from "@/lib/types/database.types";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Work & Case Studies | Kyzor",
+  title: "Engineering Work & Case Studies | Kyzor",
   description:
-    "Explore Kyzor custom e-commerce applications and business automation case studies. Built from scratch with transparent benchmark metrics.",
+    "Explore Kyzor portfolio of custom e-commerce applications built from scratch and business automation case studies with verified benchmark metrics.",
+  keywords: [
+    "custom e-commerce portfolio India",
+    "business automation case studies",
+    "Kyzor engineering portfolio",
+    "software concept benchmark builds",
+  ],
 };
 
 type WorkItem = Database["public"]["Tables"]["work_items"]["Row"];

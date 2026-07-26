@@ -20,26 +20,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: "Kyzor | Custom E-commerce Applications & Business Automations",
+    default: "Kyzor | Custom E-commerce Development & Business Automation Agency India",
     template: "%s | Kyzor",
   },
   description: siteConfig.description,
-  keywords: [
-    "custom e-commerce application",
-    "built from scratch",
-    "business automation",
-    "WhatsApp workflows",
-    "AI agents",
-    "voice assistants",
-    "custom software agency",
-    "Kyzor",
-  ],
+  keywords: siteConfig.keywords,
   authors: [{ name: "Kyzor Agency" }],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Kyzor | Custom E-commerce Applications & Business Automations",
+    title: "Kyzor | Custom E-commerce Development & Business Automations India",
     description: siteConfig.description,
     url: siteConfig.domain,
     siteName: siteConfig.name,
@@ -48,15 +39,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Kyzor Agency Logo & Positioning",
+        alt: "Kyzor Agency Logo & Custom Engineering Positioning",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kyzor | Custom E-commerce & Automations",
+    title: "Kyzor | Custom E-commerce & Automations India",
     description: siteConfig.description,
     images: ["/opengraph-image"],
   },
@@ -71,16 +62,60 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Verified Organization JSON-LD
+  // Verified Organization & ProfessionalService JSON-LD with India Location Metadata
   const organizationJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: siteConfig.name,
-    url: siteConfig.domain,
-    logo: `${siteConfig.domain}/brand/logo.png`,
-    description: siteConfig.description,
-    email: siteConfig.contactEmail,
-    sameAs: [],
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${siteConfig.domain}/#organization`,
+        name: siteConfig.name,
+        url: siteConfig.domain,
+        logo: `${siteConfig.domain}/brand/logo.png`,
+        description: siteConfig.description,
+        email: siteConfig.contactEmail,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: siteConfig.location.city,
+          addressRegion: siteConfig.location.region,
+          addressCountry: siteConfig.location.countryCode,
+        },
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteConfig.domain}/#service`,
+        name: siteConfig.name,
+        url: siteConfig.domain,
+        logo: `${siteConfig.domain}/brand/logo.png`,
+        image: `${siteConfig.domain}/opengraph-image`,
+        description: "India-based agency engineering custom e-commerce applications built from scratch and autonomous business workflows.",
+        priceRange: "₹₹₹",
+        email: siteConfig.contactEmail,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: siteConfig.location.city,
+          addressRegion: siteConfig.location.region,
+          addressCountry: siteConfig.location.countryCode,
+        },
+        areaServed: [
+          {
+            "@type": "Country",
+            name: "India",
+          },
+          {
+            "@type": "Country",
+            name: "Global",
+          },
+        ],
+        knowsAbout: [
+          "Custom E-commerce Application Development",
+          "WhatsApp Cloud API Automations",
+          "Autonomous AI Agents",
+          "Next.js Software Engineering",
+          "Supabase Database Architecture",
+        ],
+      },
+    ],
   };
 
   return (

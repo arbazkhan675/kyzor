@@ -3,8 +3,9 @@
 import { useState, useTransition, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { submitConsultationAction } from "@/app/actions/consultation";
-import { Loader2, CheckCircle2, AlertCircle, Calendar, ShieldCheck, ArrowLeft } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Calendar, ShieldCheck, ArrowLeft, MessageSquare, PhoneCall } from "lucide-react";
 import Link from "next/link";
+import { siteConfig } from "@/lib/config/site";
 
 function ConsultationFormContent() {
   const searchParams = useSearchParams();
@@ -16,7 +17,8 @@ function ConsultationFormContent() {
     phone: "",
     company: "",
     project_type: "ecommerce",
-    budget: "$15,000 - $30,000",
+    budget: "₹1.5L - ₹3.5L (~$1,800 - $4,200)",
+    contact_preference: "whatsapp",
     message: "",
     consent: false,
     honeypot: "",
@@ -52,6 +54,9 @@ function ConsultationFormContent() {
     }
 
     startTransition(async () => {
+      // Include preferred contact method in message payload for full server compatibility
+      const enrichedMessage = `[Preferred Contact: ${formData.contact_preference.toUpperCase()}]\n\n${formData.message}`;
+
       const res = await submitConsultationAction({
         name: formData.name,
         email: formData.email,
@@ -59,7 +64,7 @@ function ConsultationFormContent() {
         company: formData.company || undefined,
         project_type: formData.project_type as any,
         budget: formData.budget || undefined,
-        message: formData.message,
+        message: enrichedMessage,
         consent: formData.consent as true,
         honeypot: formData.honeypot || undefined,
         utm_source: formData.utm_source || undefined,
@@ -92,16 +97,45 @@ function ConsultationFormContent() {
 
       {/* Header */}
       <div className="space-y-3 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded">
-          <Calendar className="h-3.5 w-3.5" />
-          Direct Technical Discovery
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full font-semibold">
+            <Calendar className="h-3.5 w-3.5" />
+            Direct Technical Discovery
+          </div>
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            India & Global Project Intake
+          </span>
         </div>
+
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Book a Technical Consultation
         </h1>
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-          Discuss your custom e-commerce application or business automation requirements directly with our product engineers.
+          Discuss your custom e-commerce application or business automation requirements directly with our senior product engineers.
         </p>
+      </div>
+
+      {/* Instant WhatsApp Connect Helper Banner */}
+      <div className="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+        <div className="flex items-center gap-3 text-emerald-900">
+          <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+            <MessageSquare className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-900">Prefer Instant Communication?</h3>
+            <p className="text-xs text-emerald-800 leading-snug">Connect directly with our engineering lead on WhatsApp for quick inquiries.</p>
+          </div>
+        </div>
+        <a
+          href={`https://wa.me/${siteConfig.whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Kyzor%20Team,%20I'd%20like%20to%20discuss%20a%20custom%20software%20project.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 shadow-sm transition-all shrink-0"
+        >
+          <MessageSquare className="h-4 w-4" />
+          Chat on WhatsApp
+        </a>
       </div>
 
       {/* Success View */}
@@ -166,7 +200,7 @@ function ConsultationFormContent() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. Sarah Jenkins"
+                  placeholder="e.g. Aarav Sharma"
                   className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
                     fieldErrors.name ? "border-red-500" : "border-slate-200"
                   }`}
@@ -185,7 +219,7 @@ function ConsultationFormContent() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="sarah@company.com"
+                  placeholder="aarav@company.in"
                   className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
                     fieldErrors.email ? "border-red-500" : "border-slate-200"
                   }`}
@@ -205,7 +239,7 @@ function ConsultationFormContent() {
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="e.g. Apex Global Ltd"
+                  placeholder="e.g. Nexus Tech India Pvt Ltd"
                   className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
                     fieldErrors.company ? "border-red-500" : "border-slate-200"
                   }`}
@@ -216,15 +250,15 @@ function ConsultationFormContent() {
               {/* Phone / WhatsApp */}
               <div className="space-y-2">
                 <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  Phone / WhatsApp (Optional)
+                  Phone / WhatsApp (Preferred for India)
                 </label>
                 <input
                   id="phone"
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+1 (555) 000-0000"
-                  className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
+                  placeholder="+91 98765 43210"
+                  className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-purple-600 ${
                     fieldErrors.phone ? "border-red-500" : "border-slate-200"
                   }`}
                 />
@@ -251,10 +285,10 @@ function ConsultationFormContent() {
                 </select>
               </div>
 
-              {/* Budget Range */}
+              {/* Budget Range (INR + USD) */}
               <div className="space-y-2">
                 <label htmlFor="budget" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  Estimated Investment Range
+                  Estimated Investment Range (INR / USD)
                 </label>
                 <select
                   id="budget"
@@ -262,11 +296,43 @@ function ConsultationFormContent() {
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                   className="w-full rounded-lg bg-slate-50 border border-slate-200 px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600"
                 >
-                  <option value="Under $10,000">Under $10,000</option>
-                  <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                  <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                  <option value="$50,000+">$50,000+</option>
+                  <option value="₹50,000 - ₹1.5L (~$600 - $1,800)">₹50,000 - ₹1.5 Lakhs (~$600 - $1,800)</option>
+                  <option value="₹1.5L - ₹3.5L (~$1,800 - $4,200)">₹1.5 Lakhs - ₹3.5 Lakhs (~$1,800 - $4,200)</option>
+                  <option value="₹3.5L - ₹7.5L (~$4,200 - $9,000)">₹3.5 Lakhs - ₹7.5 Lakhs (~$4,200 - $9,000)</option>
+                  <option value="₹7.5L+ ($9,000+)">₹7.5 Lakhs+ ($9,000+)</option>
                 </select>
+              </div>
+            </div>
+
+            {/* Preferred Contact Mode Selector */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Preferred Communication Channel
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { value: "whatsapp", label: "WhatsApp", icon: MessageSquare },
+                  { value: "email", label: "Email", icon: Calendar },
+                  { value: "phone", label: "Phone Call", icon: PhoneCall },
+                ].map((mode) => {
+                  const Icon = mode.icon;
+                  const isSelected = formData.contact_preference === mode.value;
+                  return (
+                    <button
+                      key={mode.value}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, contact_preference: mode.value })}
+                      className={`flex items-center justify-center gap-2 p-2.5 rounded-xl border text-xs font-semibold transition-all ${
+                        isSelected
+                          ? "bg-purple-50 border-purple-600 text-purple-700 shadow-xs"
+                          : "bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900"
+                      }`}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {mode.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -314,7 +380,7 @@ function ConsultationFormContent() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full inline-flex items-center justify-center rounded-lg bg-accent-gradient py-3.5 text-sm font-semibold text-white shadow-xl hover:scale-[1.01] transition-all disabled:opacity-50 disabled:hover:scale-100"
+                className="btn-gleam w-full inline-flex items-center justify-center rounded-xl bg-accent-gradient py-3.5 text-sm font-semibold text-white shadow-xl hover:scale-[1.01] transition-all disabled:opacity-50 disabled:hover:scale-100"
               >
                 {isPending ? (
                   <>

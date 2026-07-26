@@ -3,9 +3,16 @@ import { ArrowRight, MessageSquare, TrendingUp, Cog, Bot, ArrowRightCircle, User
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Business Automations & AI Workflows | Kyzor",
+  title: "Business Automations & AI Workflows Agency India",
   description:
-    "Custom automation for the way your business works. Tell us what your team repeatedly does, and Kyzor builds a reliable system that handles those steps automatically.",
+    "Custom software automations, WhatsApp Cloud API workflows, AI chatbots, autonomous voice agents, and CRM integrations for Indian enterprises and global teams.",
+  keywords: [
+    "business automation agency India",
+    "WhatsApp Cloud API automation India",
+    "AI workflow automation agency",
+    "autonomous AI agents India",
+    "CRM software integration agency",
+  ],
 };
 
 export default function AutomationsPage() {

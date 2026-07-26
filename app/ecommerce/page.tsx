@@ -3,9 +3,16 @@ import { ArrowRight, Layout, Package, CreditCard, Truck, Users, ShieldCheck, Che
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Custom E-commerce Applications | Kyzor",
+  title: "Custom E-commerce Application Development India",
   description:
-    "A complete commerce application - designed, built and deployed for your business. Storefront, admin dashboard, payments, orders, inventory and deployment.",
+    "Engineering custom e-commerce applications built completely from scratch for Indian businesses and global brands. Storefronts, admin back-offices, inventory, and payment integrations with zero platform subscription fees.",
+  keywords: [
+    "custom e-commerce development India",
+    "custom e-commerce application built from scratch",
+    "bespoke online store engineering",
+    "Next.js e-commerce development India",
+    "zero platform fee e-commerce",
+  ],
 };
 
 export default function EcommercePage() {
