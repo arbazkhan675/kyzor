@@ -17,7 +17,7 @@ function ConsultationFormContent() {
     phone: "",
     company: "",
     project_type: "ecommerce",
-    budget: "₹1.5L - ₹3.5L (~$1,800 - $4,200)",
+    budget: "",
     contact_preference: "whatsapp",
     message: "",
     consent: false,
@@ -285,22 +285,22 @@ function ConsultationFormContent() {
                 </select>
               </div>
 
-              {/* Budget Range (INR + USD) */}
+              {/* Budget in INR (Free Text Input) */}
               <div className="space-y-2">
                 <label htmlFor="budget" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  Estimated Investment Range (INR / USD)
+                  Estimated Budget (in INR ₹)
                 </label>
-                <select
+                <input
                   id="budget"
+                  type="text"
                   value={formData.budget}
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  className="w-full rounded-lg bg-slate-50 border border-slate-200 px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600"
-                >
-                  <option value="₹50,000 - ₹1.5L (~$600 - $1,800)">₹50,000 - ₹1.5 Lakhs (~$600 - $1,800)</option>
-                  <option value="₹1.5L - ₹3.5L (~$1,800 - $4,200)">₹1.5 Lakhs - ₹3.5 Lakhs (~$1,800 - $4,200)</option>
-                  <option value="₹3.5L - ₹7.5L (~$4,200 - $9,000)">₹3.5 Lakhs - ₹7.5 Lakhs (~$4,200 - $9,000)</option>
-                  <option value="₹7.5L+ ($9,000+)">₹7.5 Lakhs+ ($9,000+)</option>
-                </select>
+                  placeholder="e.g. ₹1,50,000 or ₹2 Lakhs"
+                  className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
+                    fieldErrors.budget ? "border-red-500" : "border-slate-200"
+                  }`}
+                />
+                {fieldErrors.budget && <p className="text-xs text-red-600">{fieldErrors.budget}</p>}
               </div>
             </div>
 
