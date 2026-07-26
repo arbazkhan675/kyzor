@@ -5,7 +5,8 @@ export const siteConfig = {
     "Kyzor is an India-based digital product and automation agency building complete custom e-commerce applications from scratch and autonomous business workflows (WhatsApp Cloud API, AI agents, voice assistants, CRM integrations).",
   contactEmail: "contact@kyzor.online",
   notificationEmail: "notifications@kyzor.online",
-  whatsappNumber: "+919876543210", // Placeholder for instant direct founder chat
+  // Official WhatsApp number for direct client consultation
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+918864938636",
   location: {
     city: "Ahmedabad",
     region: "Gujarat",
