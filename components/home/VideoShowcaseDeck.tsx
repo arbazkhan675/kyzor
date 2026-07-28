@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 
 export interface VideoItem {
   id: string;
@@ -34,7 +34,7 @@ export function VideoShowcaseDeck() {
     }
   }, []);
 
-  // Handle playing only the active centre video
+  // Play active centre video
   const playActiveVideo = useCallback(() => {
     if (!videoRef.current) return;
     videoRef.current.currentTime = 0;
@@ -122,11 +122,6 @@ export function VideoShowcaseDeck() {
     handleShuffle(nextIdx);
   }, [currentIndex, handleShuffle]);
 
-  const handlePrev = useCallback(() => {
-    const prevIdx = (currentIndex - 1 + ecommerceVideos.length) % ecommerceVideos.length;
-    handleShuffle(prevIdx);
-  }, [currentIndex, handleShuffle]);
-
   // Centre video ends -> auto shuffle to next video
   const handleVideoEnded = () => {
     handleNext();
@@ -143,12 +138,11 @@ export function VideoShowcaseDeck() {
     <div
       ref={containerRef}
       aria-label="E-commerce Vertical Video Showcase Deck"
-      className="space-y-4 max-w-full overflow-hidden"
+      className="my-4 py-4 px-2 sm:px-6 max-w-full overflow-hidden"
     >
-      {/* 3 Vertical Mobile-Style Video Cards Deck Stage */}
-      <div className="relative w-full max-w-[500px] h-[380px] sm:h-[440px] flex items-center justify-center mx-auto overflow-hidden">
+      {/* 3 Vertical Mobile-Style Video Cards Deck Stage with Generous Margins */}
+      <div className="relative w-full max-w-[520px] h-[390px] sm:h-[450px] flex items-center justify-center mx-auto overflow-hidden">
         {ecommerceVideos.map((item, index) => {
-          // Compute relative card position: 0 = Centre (Front), 1 = Right (Side), 2 = Left (Side)
           const diff = (index - currentIndex + ecommerceVideos.length) % ecommerceVideos.length;
           let position: "centre" | "right" | "left" = "centre";
           if (diff === 1) position = "right";
@@ -158,18 +152,17 @@ export function VideoShowcaseDeck() {
           const isRight = position === "right";
           const isLeft = position === "left";
 
-          // Dynamic 3D transform for Left, Centre, and Right cards
           let transformStyle = "";
           let zIndex = 10;
 
           if (isCentre) {
-            transformStyle = "translate3d(0, 0, 0) scale(1) rotate(0deg) opacity-100 shadow-2xl border-slate-700";
+            transformStyle = "translate3d(0, 0, 0) scale(1) rotate(0deg) opacity-100 shadow-2xl border-slate-700/90";
             zIndex = 30;
           } else if (isRight) {
-            transformStyle = "translate3d(85px, 0, 0) sm:translate-3d(115px, 0, 0) scale-[0.82] rotate(4deg) opacity-75 shadow-lg border-slate-800 hover:opacity-90 cursor-pointer";
+            transformStyle = "translate3d(90px, 0, 0) sm:translate-3d(120px, 0, 0) scale-[0.83] rotate(3.5deg) opacity-80 shadow-lg border-slate-800 hover:opacity-95 cursor-pointer";
             zIndex = 15;
           } else if (isLeft) {
-            transformStyle = "translate3d(-85px, 0, 0) sm:translate-3d(-115px, 0, 0) scale-[0.82] rotate(-4deg) opacity-75 shadow-lg border-slate-800 hover:opacity-90 cursor-pointer";
+            transformStyle = "translate3d(-90px, 0, 0) sm:translate-3d(-120px, 0, 0) scale-[0.83] rotate(-3.5deg) opacity-80 shadow-lg border-slate-800 hover:opacity-95 cursor-pointer";
             zIndex = 15;
           }
 
@@ -179,7 +172,7 @@ export function VideoShowcaseDeck() {
               onClick={!isCentre && !isTransitioning ? () => handleShuffle(index) : undefined}
               aria-hidden={!isCentre}
               style={{ zIndex }}
-              className={`absolute w-[190px] sm:w-[230px] aspect-[9/16] rounded-[28px] border-2 bg-slate-950 overflow-hidden transition-all duration-700 ease-out transform-gpu flex items-center justify-center ${transformStyle}`}
+              className={`absolute w-[195px] sm:w-[235px] aspect-[9/16] rounded-[32px] border-2 bg-slate-950 overflow-hidden transition-all duration-700 ease-out transform-gpu flex items-center justify-center ${transformStyle}`}
             >
               {/* Vertical Mobile Video Viewport */}
               <div className="relative w-full h-full bg-slate-950 flex items-center justify-center overflow-hidden">
@@ -193,10 +186,10 @@ export function VideoShowcaseDeck() {
                       autoPlay
                       preload="metadata"
                       onEnded={handleVideoEnded}
-                      className="w-full h-full object-cover block rounded-[26px]"
+                      className="w-full h-full object-cover block rounded-[30px]"
                     />
 
-                    {/* Manual Play Overlay if Browser Autoplay Blocked */}
+                    {/* Autoplay blocked manual play button overlay */}
                     {autoplayBlocked && (
                       <button
                         type="button"
@@ -216,61 +209,13 @@ export function VideoShowcaseDeck() {
                     playsInline
                     muted
                     preload="metadata"
-                    className="w-full h-full object-cover block opacity-80 rounded-[26px]"
+                    className="w-full h-full object-cover block opacity-80 rounded-[30px]"
                   />
                 )}
               </div>
             </div>
           );
         })}
-      </div>
-
-      {/* Restrained Manual Controls Below Deck */}
-      <div className="flex items-center justify-between max-w-[480px] mx-auto pt-1 px-2">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handlePrev}
-            disabled={isTransitioning}
-            className="w-9 h-9 rounded-[12px] border border-slate-200 bg-white text-slate-700 flex items-center justify-center hover:bg-slate-50 hover:text-slate-900 shadow-xs min-h-[44px] min-w-[44px] focus-visible:ring-2 focus-visible:ring-purple-600 disabled:opacity-50"
-            aria-label="Previous video"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={isTransitioning}
-            className="w-9 h-9 rounded-[12px] border border-slate-200 bg-white text-slate-700 flex items-center justify-center hover:bg-slate-50 hover:text-slate-900 shadow-xs min-h-[44px] min-w-[44px] focus-visible:ring-2 focus-visible:ring-purple-600 disabled:opacity-50"
-            aria-label="Next video"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* 3 Progress Indicators */}
-        <div className="flex items-center gap-2" role="tablist" aria-label="Video deck position">
-          {ecommerceVideos.map((item, idx) => (
-            <button
-              key={item.id}
-              type="button"
-              role="tab"
-              aria-selected={currentIndex === idx}
-              onClick={() => handleShuffle(idx)}
-              className={`rounded-full transition-all duration-300 min-h-[44px] flex items-center justify-center ${
-                currentIndex === idx
-                  ? "w-7 h-2.5 bg-purple-700"
-                  : "w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400"
-              }`}
-              aria-label={`Go to video ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        <span className="text-[11px] font-mono text-slate-500 font-semibold">
-          Auto-shuffles on end
-        </span>
       </div>
     </div>
   );
