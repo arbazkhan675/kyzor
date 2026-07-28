@@ -8,8 +8,24 @@ import {
   ShoppingBag,
   Cpu,
   Sparkles,
-  CheckCircle2,
+  Database,
+  Server,
+  Zap,
+  Shield,
+  MessageSquare,
+  Workflow,
+  Layout,
+  Package,
+  CreditCard,
+  Truck,
+  Users,
+  ShieldCheck,
+  FileText,
+  Repeat,
+  UserPlus,
+  Calendar,
   ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
 import { VideoShowcaseCard } from "@/components/ecommerce/VideoShowcaseCard";
@@ -55,12 +71,32 @@ function HeroTabContent() {
     }
   };
 
+  const ecommerceCapabilities = [
+    { title: "Storefront Experience", description: "Bespoke, fast buyer interfaces tailored to your brand without dependence on a theme or plugin marketplace.", icon: Layout },
+    { title: "Products & Inventory", description: "Flexible catalog schemas supporting product variants, stock tracking, and automated inventory sync.", icon: Package },
+    { title: "Payments & Checkout", description: "Direct payment gateway integrations with streamlined checkout flows optimized for speed.", icon: CreditCard },
+    { title: "Orders & Fulfilment", description: "Fulfillment pipeline tracking order statuses and notifying customers.", icon: Truck },
+    { title: "Customer Accounts", description: "Secure buyer portals for order history, saved addresses, and profile preferences.", icon: Users },
+    { title: "Administration & Reporting", description: "Back-office management console for full control over catalog, orders, and customer data.", icon: ShieldCheck },
+  ];
+
+  const automationCapabilities = [
+    { title: "WhatsApp & Lead Qualification", description: "Automated inquiry capture, qualification, and routing via official WhatsApp Cloud API.", icon: MessageSquare },
+    { title: "Document Processing", description: "Automated document parsing, OCR extraction, and interactive verification.", icon: FileText },
+    { title: "CRM & Data Routing", description: "Instant webhook enrichment connecting customer inquiries directly into your internal database.", icon: UserPlus },
+    { title: "Inventory & ERP Synchronisation", description: "Bi-directional stock level synchronization across storefronts and ERP backend databases.", icon: Repeat },
+    { title: "Invoicing & Payment Status", description: "Instant invoice generation, PDF delivery, and payment status Webhook tracking.", icon: CreditCard },
+    { title: "Booking & Reminders", description: "Automated calendar availability, client reminders, and confirmation workflows.", icon: Calendar },
+  ];
+
+  const currentCapabilities = activeTab === "ecommerce" ? ecommerceCapabilities : automationCapabilities;
+
   return (
     <section id="services" className="relative overflow-hidden py-12 md:py-16 lg:py-20 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/30 via-white to-slate-50/40">
       {/* Ambient Radial Top Glow */}
       <div className="absolute inset-0 pointer-events-none ambient-glow-top" />
 
-      <EditorialContainer className="relative">
+      <EditorialContainer className="relative space-y-16">
         {/* Editorial Split Hero 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
@@ -250,8 +286,143 @@ function HeroTabContent() {
           </div>
         </div>
 
-        {/* Lower Anchor Section ID for Capabilities Link */}
-        <div id="service-capabilities" className="scroll-mt-24" />
+        {/* 1. Capabilities Two-Column Editorial Layout */}
+        <div id="service-capabilities" className="pt-12 border-t border-slate-200/80 scroll-mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+            
+            {/* Left Column: Eyebrow, H2, Short Explanation */}
+            <div className="md:col-span-5 space-y-4">
+              <span className="inline-block text-xs font-mono uppercase tracking-widest text-purple-700 bg-purple-50 border border-purple-200/80 px-3 py-1 rounded-[12px] font-semibold">
+                {activeTab === "ecommerce" ? "System Capabilities" : "Workflow Capabilities"}
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                {activeTab === "ecommerce"
+                  ? "Storefront & Back-Office Capabilities"
+                  : "Automation & Integration Capabilities"}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {activeTab === "ecommerce"
+                  ? "Tailored software modules engineered specifically for your commercial catalog, customer workflows, and back-office management."
+                  : "Reliable automated workflows designed to reduce repetitive tasks and route business operations automatically."}
+              </p>
+            </div>
+
+            {/* Right Column: 6 Borderless Rows separated by thin horizontal lines */}
+            <div className="md:col-span-7 divide-y divide-slate-200/80">
+              {currentCapabilities.map((cap) => {
+                const Icon = cap.icon;
+                return (
+                  <div key={cap.title} className="py-4 first:pt-0 last:pb-0 flex items-start gap-4">
+                    <div className="w-9 h-9 rounded-[12px] bg-purple-50 border border-purple-200/80 flex items-center justify-center text-purple-700 shrink-0 mt-0.5">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-bold text-slate-900">{cap.title}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">{cap.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Collapsed Accessible Technical Architecture Disclosure */}
+        <div className="pt-4 text-center">
+          <details className="group inline-block text-left max-w-4xl w-full">
+            <summary className="cursor-pointer inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[12px] border border-slate-200/90 bg-white text-xs font-mono font-semibold text-slate-700 hover:text-purple-700 hover:border-purple-300 shadow-xs transition-all mx-auto select-none min-h-[44px]">
+              <span>View technical architecture</span>
+              <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
+
+            <div className="mt-6 rounded-[22px] border border-slate-200/90 bg-white p-6 sm:p-8 shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-red-400" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                  <span className="text-xs font-mono text-slate-500 ml-2 font-semibold">
+                    {activeTab === "ecommerce" ? "kyzor-custom-engine-architecture.schema" : "kyzor-automation-pipeline.workflow"}
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded-[8px] border border-purple-200 font-bold uppercase">
+                  Live Schema Architecture
+                </span>
+              </div>
+
+              {activeTab === "ecommerce" ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-purple-50 text-purple-700 flex items-center justify-center mx-auto">
+                      <ShoppingBag className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Custom Storefront</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Fast Navigation</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-indigo-50 text-indigo-700 flex items-center justify-center mx-auto">
+                      <Server className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Edge API Gateway</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Strict Data Validation</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-blue-50 text-blue-700 flex items-center justify-center mx-auto">
+                      <Database className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Postgres Database</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Direct Control</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto">
+                      <Shield className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Owner Admin Portal</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Orders & Inventory</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-blue-50 text-blue-700 flex items-center justify-center mx-auto">
+                      <Zap className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Webhook Trigger</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Form / Event Listener</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-indigo-50 text-indigo-700 flex items-center justify-center mx-auto">
+                      <Workflow className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Router & Transformation</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Automated Parsing</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-purple-50 text-purple-700 flex items-center justify-center mx-auto">
+                      <Cpu className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">Automated Logic Engine</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Human Escalation Guard</span>
+                  </div>
+
+                  <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-4 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-[8px] bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto">
+                      <MessageSquare className="h-4 w-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 block">WhatsApp / CRM Action</span>
+                    <span className="text-[10px] font-mono text-slate-500 block">Instant Dispatch</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </details>
+        </div>
+
       </EditorialContainer>
     </section>
   );

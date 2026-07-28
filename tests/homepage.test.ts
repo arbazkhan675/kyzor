@@ -15,18 +15,18 @@ describe("Homepage Architecture & Section Order Verification", () => {
     expect(content).toContain("Kyzor is a good fit when:");
     expect(content).toContain("A standard platform may be better when:");
 
-    // Section 3: Five-step Process
-    expect(content).toContain("Our 5-Step Engineering Process");
+    // Section 3: Five-stage Connected Engineering Process
+    expect(content).toContain("Connected Engineering Process");
 
-    // Section 4: Four Reasons to Choose Kyzor
-    expect(content).toContain("Why Businesses Choose Custom Engineering");
+    // Section 4: Three Principles of Custom Engineering
+    expect(content).toContain("Three Principles of Custom Engineering");
 
     // Section 5: Founder Trust Strip
     expect(content).toContain("Arbaz Khan");
     expect(content).toContain("Founder & Principal Engineer");
 
-    // Section 6: Final Consultation CTA
-    expect(content).toContain("Ready to Build Your Custom Application or Automation?");
-    expect(content).toContain("Request a Free 20-Min Call");
+    // Section 6: Final Consultation Dark Panel
+    expect(content).toContain("Have a workflow or commerce requirement that standard tools cannot handle?");
+    expect(content).toContain("Request a Free Consultation");
   });
 });
