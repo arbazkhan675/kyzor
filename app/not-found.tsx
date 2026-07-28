@@ -10,7 +10,7 @@ export default function NotFound() {
       <div className="space-y-2">
         <h1 className="text-3xl font-extrabold text-slate-900">404 - Page Not Found</h1>
         <p className="text-sm text-slate-600 leading-relaxed">
-          The page or case study you are looking for does not exist or has been moved.
+          The page you are looking for does not exist or has been moved.
         </p>
       </div>
       <div>

@@ -3,35 +3,24 @@ import fs from "fs";
 import path from "path";
 
 describe("Public Work Gallery & Visibility Rules Tests", () => {
-  it("verifies /work query filters exclusively published work items", () => {
+  it("verifies /work executes permanentRedirect to homepage /", () => {
     const workPagePath = path.join(process.cwd(), "app/work/page.tsx");
     const content = fs.readFileSync(workPagePath, "utf-8");
 
-    expect(content).toContain('.eq("published", true)');
+    expect(content).toContain('permanentRedirect("/")');
   });
 
-  it("verifies /work/[slug] returns notFound() for missing or unpublished draft items", () => {
+  it("verifies /work/[slug] executes permanentRedirect to homepage /", () => {
     const slugPagePath = path.join(process.cwd(), "app/work/[slug]/page.tsx");
     const content = fs.readFileSync(slugPagePath, "utf-8");
 
-    expect(content).toContain('.eq("published", true)');
-    expect(content).toContain("notFound()");
+    expect(content).toContain('permanentRedirect("/")');
   });
 
-  it("verifies /work page includes category filters: All, E-commerce, Automations only", () => {
-    const workPagePath = path.join(process.cwd(), "app/work/page.tsx");
-    const content = fs.readFileSync(workPagePath, "utf-8");
-
-    expect(content).toContain("All Work");
-    expect(content).toContain("E-commerce");
-    expect(content).toContain("Automations");
-  });
-
-  it("verifies dynamic sitemap fetches published work items", () => {
+  it("verifies sitemap excludes /work route", () => {
     const sitemapPath = path.join(process.cwd(), "app/sitemap.ts");
     const content = fs.readFileSync(sitemapPath, "utf-8");
 
-    expect(content).toContain('.eq("published", true)');
-    expect(content).toContain("`${baseUrl}/work/${item.slug}`");
+    expect(content).not.toContain('`${baseUrl}/work`');
   });
 });

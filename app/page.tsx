@@ -1,28 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, ShoppingBag, Cpu, CheckCircle2, ShieldCheck, Zap, Database, Bot, Sparkles } from "lucide-react";
+import { ArrowRight, ShoppingBag, CheckCircle2, ShieldCheck, Zap, Database, Bot } from "lucide-react";
 import { HeroTabSection } from "@/components/home/HeroTabSection";
-import { createAdminClient } from "@/lib/supabase/admin";
 
 export const revalidate = 60;
 
-async function getFeaturedWorkItems() {
-  try {
-    const supabase = createAdminClient();
-    const { data } = await supabase
-      .from("work_items")
-      .select("*")
-      .eq("published", true)
-      .order("created_at", { ascending: false })
-      .limit(3);
-    return data || [];
-  } catch {
-    return [];
-  }
-}
-
-export default async function HomePage() {
-  const featuredWork = await getFeaturedWorkItems();
-
+export default function HomePage() {
   const processSteps = [
     { number: "01", title: "Discovery & Strategy", description: "We analyze your business workflows, operational bottlenecks, and technology goals to define a precise engineering roadmap." },
     { number: "02", title: "Bespoke Architecture & Design", description: "We model custom database schemas, API contracts, and user flows designed specifically around your business operations." },
@@ -79,33 +61,33 @@ export default async function HomePage() {
             <div>
               <Link
                 href="/ecommerce"
-                className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 transition-colors"
+                className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
               >
-                Learn about Custom E-commerce
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Explore Custom E-commerce Solutions
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
           </div>
 
           {/* Card 2: Business Automations */}
-          <div className="group rounded-3xl border border-slate-200/90 bg-white/90 p-8 sm:p-10 space-y-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 backdrop-blur-md">
+          <div className="group rounded-3xl border border-slate-200/90 bg-white/90 p-8 sm:p-10 space-y-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-purple-300 transition-all duration-300 backdrop-blur-md">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-700 shadow-xs group-hover:scale-110 transition-transform">
-                <Cpu className="h-6 w-6" />
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200/80 flex items-center justify-center text-purple-700 shadow-xs group-hover:scale-110 transition-transform">
+                <Bot className="h-6 w-6" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors">Business Automations</h3>
+              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-700 transition-colors">Business Automations</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Eliminate repetitive operational tasks with custom software automation. We build WhatsApp Cloud API workflows, AI chatbots, autonomous voice assistants, document OCR extractors, and CRM lead integrations.
+                Automated operational workflows designed to eliminate manual data entry. We integrate official WhatsApp APIs, document parsers, AI customer assistants, webhook routing, and internal backend databases.
               </p>
               <ul className="space-y-2.5 text-xs text-slate-600 pt-2 font-mono">
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-blue-700 shrink-0" /> WhatsApp & Email auto-responses
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Official WhatsApp Cloud API integration
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-blue-700 shrink-0" /> Autonomous AI agents & voice pipelines
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Autonomous lead qualification pipelines
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-blue-700 shrink-0" /> Custom CRM & operational webhooks
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Custom AI document extraction engines
                 </li>
               </ul>
             </div>
@@ -113,108 +95,42 @@ export default async function HomePage() {
             <div>
               <Link
                 href="/automations"
-                className="inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors"
+                className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
               >
-                Learn about Business Automations
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Explore Business Automations
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Five-Step Process with Desktop Flow Connectors */}
-      <section className="border-y border-slate-200/80 bg-gradient-to-b from-slate-100/70 via-slate-50 to-slate-100/70 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">Methodology</h2>
-            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-              Our 5-Step Engineering Process
-            </p>
-          </div>
+      {/* 3. Five-Step Process */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="text-center space-y-3">
+          <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">How We Work</h2>
+          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Our 5-Step Engineering Process
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 relative">
-            {processSteps.map((step, idx) => (
-              <div
-                key={step.number}
-                className="group rounded-2xl border border-slate-200/90 bg-white p-6 space-y-3 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative"
-              >
-                <div className="space-y-2">
-                  <span className="text-2xl font-mono font-extrabold text-purple-700 group-hover:scale-105 inline-block transition-transform">{step.number}</span>
-                  <h3 className="text-base font-bold text-slate-900 leading-snug">{step.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {processSteps.map((step) => (
+            <div
+              key={step.number}
+              className="group rounded-2xl border border-slate-200/90 bg-white p-6 space-y-3 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative"
+            >
+              <div className="space-y-2">
+                <span className="text-2xl font-mono font-extrabold text-purple-700 group-hover:scale-105 inline-block transition-transform">{step.number}</span>
+                <h3 className="text-base font-bold text-slate-900 leading-snug">{step.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* 4. Maximum Three Selected Work Items */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">Selected Work</h2>
-            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-              Featured Case Studies & Concepts
-            </p>
-          </div>
-          <Link
-            href="/work"
-            className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900"
-          >
-            View All Work
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </div>
-
-        {featuredWork.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredWork.map((item) => (
-              <div
-                key={item.id}
-                className="group rounded-3xl border border-slate-200 bg-white p-6 space-y-4 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-1 hover:border-purple-300 transition-all duration-300"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-200">
-                      {item.category}
-                    </span>
-                    {item.is_demo && (
-                      <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
-                        Demo / Concept
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors line-clamp-2">{item.title}</h3>
-                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">{item.summary}</p>
-                </div>
-
-                <div className="pt-2">
-                  <Link
-                    href={`/work/${item.slug}`}
-                    className="inline-flex items-center text-xs font-semibold text-purple-700 hover:text-purple-900"
-                  >
-                    Read Case Study
-                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          /* Graceful non-embarrassing fallback state for zero work items */
-          <div className="rounded-3xl border border-slate-200/90 bg-white p-10 text-center space-y-3 shadow-xs">
-            <Sparkles className="mx-auto h-8 w-8 text-purple-600 opacity-80" />
-            <h3 className="text-lg font-semibold text-slate-900">Custom Engineering Portfolio</h3>
-            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-              Our initial client builds and benchmark concepts are currently being compiled. Explore our technical capabilities or book a consultation.
-            </p>
-          </div>
-        )}
-      </section>
-
-      {/* 5. Four Reasons to Choose Kyzor */}
+      {/* 4. Four Reasons to Choose Kyzor */}
       <section className="border-t border-slate-200/80 bg-slate-100/60 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
@@ -244,7 +160,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 6. Final Consultation CTA */}
+      {/* 5. Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-2xl text-white relative overflow-hidden">
           <div className="relative z-10 space-y-6">

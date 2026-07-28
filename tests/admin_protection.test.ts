@@ -27,10 +27,10 @@ describe("Admin Authorization & Protection Security Tests", () => {
     expect(content).not.toContain('CREATE POLICY "Public can insert consultation_requests"');
   });
 
-  it("verifies draft work items are filtered out from public queries", () => {
-    const workPagePath = path.join(process.cwd(), "app/work/page.tsx");
-    const content = fs.readFileSync(workPagePath, "utf-8");
+  it("verifies RLS policy filters published work items for public access", () => {
+    const migrationPath = path.join(process.cwd(), "supabase/migrations/002_reproducible_foundation.sql");
+    const content = fs.readFileSync(migrationPath, "utf-8");
 
-    expect(content).toContain('.eq("published", true)');
+    expect(content).toContain("published = true");
   });
 });

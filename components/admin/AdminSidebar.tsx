@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Calendar, Briefcase, LogOut, Globe } from "lucide-react";
+import { LayoutDashboard, Calendar, Globe, LogOut } from "lucide-react";
 import { logoutAdminAction } from "@/app/actions/admin";
 
 export function AdminSidebar() {
@@ -12,7 +12,6 @@ export function AdminSidebar() {
   const navItems = [
     { label: "Overview", href: "/admin", icon: LayoutDashboard },
     { label: "Consultations", href: "/admin/consultations", icon: Calendar },
-    { label: "Case Studies", href: "/admin/work", icon: Briefcase },
   ];
 
   return (

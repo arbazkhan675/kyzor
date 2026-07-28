@@ -38,16 +38,15 @@ describe("Release Gate & Test Matrix Verification", () => {
     expect(content).toContain("createAdminClient");
   });
 
-  it("4. Work Visibility: verifies published vs draft and missing 404 slug handling", () => {
+  it("4. Work Redirection: verifies permanentRedirect to homepage for /work routes", () => {
     const workPath = path.join(process.cwd(), "app/work/page.tsx");
     const slugPath = path.join(process.cwd(), "app/work/[slug]/page.tsx");
 
     const workContent = fs.readFileSync(workPath, "utf-8");
     const slugContent = fs.readFileSync(slugPath, "utf-8");
 
-    expect(workContent).toContain('.eq("published", true)');
-    expect(slugContent).toContain('.eq("published", true)');
-    expect(slugContent).toContain("notFound()");
+    expect(workContent).toContain('permanentRedirect("/")');
+    expect(slugContent).toContain('permanentRedirect("/")');
   });
 
   it("5. Admin Protection: verifies middleware redirects unauthenticated and non-admin requests", () => {
@@ -75,7 +74,6 @@ describe("Release Gate & Test Matrix Verification", () => {
       "app/page.tsx",
       "app/ecommerce/page.tsx",
       "app/automations/page.tsx",
-      "app/work/page.tsx",
       "app/about/page.tsx",
       "app/consultation/page.tsx",
       "app/privacy/page.tsx",

@@ -35,11 +35,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/work" className="hover:text-white transition-colors duration-200">
-                  Our Work
-                </Link>
-              </li>
-              <li>
                 <Link href="/about" className="hover:text-white transition-colors duration-200">
                   About Kyzor
                 </Link>

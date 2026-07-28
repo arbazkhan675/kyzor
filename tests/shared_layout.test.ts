@@ -10,7 +10,7 @@ describe("Shared Layout Configuration & Navigation Integrity", () => {
 
   it("verifies navigation items are flat without nested dropdown data structures", () => {
     expect(Array.isArray(siteConfig.navItems)).toBe(true);
-    expect(siteConfig.navItems.length).toBe(4);
+    expect(siteConfig.navItems.length).toBe(3);
 
     siteConfig.navItems.forEach((item) => {
       expect(item).toHaveProperty("label");

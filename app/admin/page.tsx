@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageSquare, FolderKanban, ArrowRight, Eye, Calendar } from "lucide-react";
+import { MessageSquare, ArrowRight, Calendar } from "lucide-react";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const revalidate = 0;
@@ -24,19 +24,7 @@ async function getDashboardMetrics() {
       .select("*", { count: "exact", head: true })
       .gte("created_at", firstDayOfMonth.toISOString());
 
-    // 3. Published work count
-    const { count: publishedWorkCount } = await supabase
-      .from("work_items")
-      .select("*", { count: "exact", head: true })
-      .eq("published", true);
-
-    // 4. Draft work count
-    const { count: draftWorkCount } = await supabase
-      .from("work_items")
-      .select("*", { count: "exact", head: true })
-      .eq("published", false);
-
-    // 5. Recent consultation list
+    // 3. Recent consultation list
     const { data: recentConsultations } = await supabase
       .from("consultation_requests")
       .select("*")
@@ -46,16 +34,12 @@ async function getDashboardMetrics() {
     return {
       newConsultationsCount: newConsultationsCount || 0,
       monthConsultationsCount: monthConsultationsCount || 0,
-      publishedWorkCount: publishedWorkCount || 0,
-      draftWorkCount: draftWorkCount || 0,
       recentConsultations: recentConsultations || [],
     };
   } catch {
     return {
       newConsultationsCount: 0,
       monthConsultationsCount: 0,
-      publishedWorkCount: 0,
-      draftWorkCount: 0,
       recentConsultations: [],
     };
   }
@@ -67,19 +51,17 @@ export default async function AdminDashboardPage() {
   const statCards = [
     { label: "New Consultation Requests", value: metrics.newConsultationsCount, icon: MessageSquare, href: "/admin/consultations?status=new" },
     { label: "Consultations This Month", value: metrics.monthConsultationsCount, icon: Calendar, href: "/admin/consultations" },
-    { label: "Published Case Studies", value: metrics.publishedWorkCount, icon: Eye, href: "/admin/work" },
-    { label: "Draft / Concept Items", value: metrics.draftWorkCount, icon: FolderKanban, href: "/admin/work" },
   ];
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Owner Overview Dashboard</h1>
-        <p className="text-xs text-slate-500">Live consultation metrics and portfolio state.</p>
+        <p className="text-xs text-slate-500">Live consultation metrics and customer request status.</p>
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {statCards.map((card) => {
           const Icon = card.icon;
           return (

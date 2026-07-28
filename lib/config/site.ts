@@ -28,7 +28,6 @@ export const siteConfig = {
   navItems: [
     { label: "E-commerce", href: "/ecommerce" },
     { label: "Automations", href: "/automations" },
-    { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
   ],
   cta: {
