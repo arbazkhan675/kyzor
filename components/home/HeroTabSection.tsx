@@ -107,13 +107,13 @@ function HeroTabContent() {
           {/* Left Column: Switcher, Copy, CTAs, Trust Line */}
           <div className="lg:col-span-6 space-y-6 text-left">
             
-            {/* 1. Compact Service Switcher */}
+            {/* 1. Premium Service Switcher */}
             <div className="flex justify-start">
               <div
                 ref={tabListRef}
                 role="tablist"
                 aria-label="Core Agency Capabilities"
-                className="inline-flex items-center rounded-[16px] bg-white p-1 border border-slate-200/90 shadow-xs"
+                className="inline-flex items-center rounded-full bg-slate-100/80 p-1 border border-slate-200/60 shadow-sm backdrop-blur-sm"
               >
                 <button
                   id="tab-ecommerce"
@@ -124,13 +124,15 @@ function HeroTabContent() {
                   tabIndex={activeTab === "ecommerce" ? 0 : -1}
                   onClick={() => switchTab("ecommerce")}
                   onKeyDown={(e) => handleKeyDown(e, "ecommerce")}
-                  className={`inline-flex items-center gap-2 rounded-[12px] px-4 py-2.5 text-xs sm:text-sm font-semibold min-h-[44px] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
+                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold min-h-[44px] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:ring-offset-2 ${
                     activeTab === "ecommerce"
-                      ? "bg-slate-900 text-white shadow-sm border border-slate-800"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
+                      ? "bg-white text-slate-900 shadow-md ring-1 ring-slate-900/5"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
-                  <ShoppingBag className={`h-4 w-4 transition-transform ${activeTab === "ecommerce" ? "text-purple-400 scale-105" : "text-purple-600"}`} />
+                  <ShoppingBag className={`h-4 w-4 transition-colors duration-300 ${
+                    activeTab === "ecommerce" ? "text-purple-600" : "text-slate-400"
+                  }`} />
                   Custom E-commerce
                 </button>
 
@@ -143,13 +145,15 @@ function HeroTabContent() {
                   tabIndex={activeTab === "automations" ? 0 : -1}
                   onClick={() => switchTab("automations")}
                   onKeyDown={(e) => handleKeyDown(e, "automations")}
-                  className={`inline-flex items-center gap-2 rounded-[12px] px-4 py-2.5 text-xs sm:text-sm font-semibold min-h-[44px] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
+                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold min-h-[44px] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
                     activeTab === "automations"
-                      ? "bg-slate-900 text-white shadow-sm border border-slate-800"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
+                      ? "bg-white text-slate-900 shadow-md ring-1 ring-slate-900/5"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
-                  <Cpu className={`h-4 w-4 transition-transform ${activeTab === "automations" ? "text-blue-400 scale-105" : "text-blue-600"}`} />
+                  <Cpu className={`h-4 w-4 transition-colors duration-300 ${
+                    activeTab === "automations" ? "text-blue-600" : "text-slate-400"
+                  }`} />
                   Business Automations
                 </button>
               </div>
@@ -157,29 +161,33 @@ function HeroTabContent() {
 
             {/* 2. Dynamic Eyebrow, H1 Headline & Description */}
             {activeTab === "ecommerce" ? (
-              <div className="space-y-4 animate-fade-in-up">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] bg-purple-50 border border-purple-200 text-xs font-mono text-purple-700 font-semibold uppercase tracking-wider">
-                  <Sparkles className="h-3.5 w-3.5 text-purple-600" />
+              <div className="space-y-5 animate-fade-in-up" key="ecom-copy">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200/80 text-[11px] font-mono text-purple-700 font-semibold uppercase tracking-widest">
+                  <Sparkles className="h-3 w-3 text-purple-500" />
                   Custom Commerce Engineering
                 </span>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-                  Custom e-commerce systems for businesses that have outgrown templates.
+                <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+                  Your business is unique.
+                  <br />
+                  <span className="bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-600 bg-clip-text text-transparent">Your store should be too.</span>
                 </h1>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
-                  We design and build complete online stores—including the storefront, administration, inventory, payments and order workflows—around how your business actually operates.
+                <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed max-w-lg">
+                  We build complete e-commerce applications from scratch—storefront, admin panel, inventory, payments, and order workflows—engineered around how your business actually runs.
                 </p>
               </div>
             ) : (
-              <div className="space-y-4 animate-fade-in-up">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] bg-blue-50 border border-blue-200 text-xs font-mono text-blue-700 font-semibold uppercase tracking-wider">
-                  <Cpu className="h-3.5 w-3.5 text-blue-600" />
+              <div className="space-y-5 animate-fade-in-up" key="auto-copy">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-[11px] font-mono text-blue-700 font-semibold uppercase tracking-widest">
+                  <Zap className="h-3 w-3 text-blue-500" />
                   Business Automation
                 </span>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-                  Automate the work slowing your business down.
+                <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+                  Stop doing manually
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 bg-clip-text text-transparent">what software can handle.</span>
                 </h1>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
-                  We connect WhatsApp, leads, documents, CRM systems and internal operations into reliable automated workflows—with human review where important decisions require it.
+                <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed max-w-lg">
+                  We connect WhatsApp, CRM, documents, and internal operations into reliable automated workflows—with human review built in where decisions require judgement.
                 </p>
               </div>
             )}
@@ -219,65 +227,84 @@ function HeroTabContent() {
                   <VideoShowcaseDeck />
                 </div>
               ) : (
-                /* Restored Original Automation Visual Workflow Card */
-                <div className="animate-fade-in-up rounded-[22px] border border-slate-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-sm border-blue-100">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] bg-blue-900 text-white text-[11px] font-mono font-semibold border border-blue-700">
-                        <Sparkles className="h-3 w-3 text-blue-300" />
-                        Kyzor-built workflow demonstration
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-mono text-slate-500 font-semibold hidden sm:inline">
-                      6-Step Automated Execution
-                    </span>
+                /* Premium Automation Pipeline Flow Visual */
+                <div className="animate-fade-in-up relative">
+                  {/* Atmospheric blue glow behind the card */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] rounded-full bg-gradient-to-br from-blue-500/15 via-indigo-400/10 to-cyan-500/15 blur-3xl" />
                   </div>
 
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-slate-900">WhatsApp Lead Qualification & CRM Workflow</h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Demonstration of instant customer inquiry intake, automated WhatsApp qualification, direct CRM record insertion, sales team notification, and human escalation guardrails.
-                    </p>
-                  </div>
+                  <div className="relative rounded-[24px] bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 border border-slate-700/50 p-6 sm:p-8 space-y-6 shadow-[0_20px_60px_-12px_rgba(37,99,235,0.25),0_8px_24px_-8px_rgba(0,0,0,0.3)] overflow-hidden">
+                    {/* Subtle grid texture overlay */}
+                    <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-                  {/* 6-Step Visual Process Card Flow */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-1">
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-blue-100 text-blue-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">1</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Lead Form Submission</span>
+                    {/* Header bar */}
+                    <div className="relative flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-[10px] bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                          <Workflow className="h-4 w-4 text-white" />
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-mono text-blue-400 font-semibold uppercase tracking-wider block">Kyzor Automation</span>
+                          <span className="text-xs text-slate-400 font-medium">Live workflow demonstration</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-[10px] font-mono text-emerald-400 font-semibold">ACTIVE</span>
+                      </div>
                     </div>
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">2</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">WhatsApp Response</span>
-                    </div>
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-purple-100 text-purple-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">3</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Qualification Questions</span>
-                    </div>
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">4</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">CRM/DB Insertion</span>
-                    </div>
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">5</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Sales Notification</span>
-                    </div>
-                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
-                      <div className="w-7 h-7 rounded-[8px] bg-red-100 text-red-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">6</div>
-                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Human Escalation</span>
-                    </div>
-                  </div>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["Official WhatsApp Cloud API", "Custom Webhooks", "Validation Guardrails", "Human Review Handoff"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[8px] bg-slate-50 border border-slate-200 text-[11px] font-mono text-slate-700"
-                      >
-                        <CheckCircle2 className="h-3 w-3 text-blue-700" />
-                        {tag}
-                      </span>
-                    ))}
+                    {/* Pipeline flow — vertical connected steps */}
+                    <div className="relative space-y-1">
+                      {[
+                        { step: 1, label: "Lead Form Submitted", detail: "Website form → webhook trigger", icon: Zap, color: "from-blue-500 to-blue-600", iconBg: "bg-blue-500/20", textColor: "text-blue-400" },
+                        { step: 2, label: "WhatsApp Auto-Response", detail: "Instant confirmation sent via API", icon: MessageSquare, color: "from-emerald-500 to-emerald-600", iconBg: "bg-emerald-500/20", textColor: "text-emerald-400" },
+                        { step: 3, label: "Qualification & Scoring", detail: "Budget, timeline, scope evaluated", icon: Shield, color: "from-purple-500 to-purple-600", iconBg: "bg-purple-500/20", textColor: "text-purple-400" },
+                        { step: 4, label: "CRM Record Created", detail: "Contact + deal inserted in database", icon: Database, color: "from-indigo-500 to-indigo-600", iconBg: "bg-indigo-500/20", textColor: "text-indigo-400" },
+                        { step: 5, label: "Team Notification", detail: "Slack + email alert to sales", icon: Zap, color: "from-amber-500 to-amber-600", iconBg: "bg-amber-500/20", textColor: "text-amber-400" },
+                        { step: 6, label: "Human Review Gate", detail: "High-value leads escalated instantly", icon: Users, color: "from-rose-500 to-rose-600", iconBg: "bg-rose-500/20", textColor: "text-rose-400" },
+                      ].map((item, i) => {
+                        const StepIcon = item.icon;
+                        return (
+                          <div key={item.step} className="relative flex items-center gap-4 group">
+                            {/* Vertical connector line */}
+                            {i < 5 && (
+                              <div className="absolute left-[19px] top-[40px] w-px h-[calc(100%)] bg-gradient-to-b from-slate-600 to-slate-700/50" />
+                            )}
+
+                            {/* Step node */}
+                            <div className={`relative z-10 w-10 h-10 rounded-xl ${item.iconBg} border border-slate-700/60 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                              <StepIcon className={`h-4 w-4 ${item.textColor}`} />
+                            </div>
+
+                            {/* Step content */}
+                            <div className="flex-1 py-2.5 flex items-center justify-between rounded-xl px-3 bg-slate-800/40 border border-slate-700/30 group-hover:bg-slate-800/60 group-hover:border-slate-600/40 transition-all duration-300">
+                              <div>
+                                <span className="text-sm font-semibold text-slate-200 block leading-tight">{item.label}</span>
+                                <span className="text-[11px] text-slate-500 font-mono">{item.detail}</span>
+                              </div>
+                              <span className={`text-[10px] font-mono font-bold ${item.textColor} bg-slate-800 px-2 py-0.5 rounded-md border border-slate-700/60 hidden sm:inline`}>
+                                STEP {item.step}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Bottom tech stack tags */}
+                    <div className="relative flex flex-wrap gap-2 pt-2 border-t border-slate-700/40">
+                      {["WhatsApp Cloud API", "Webhooks", "Validation Guards", "Human Escalation"].map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800/60 border border-slate-700/50 text-[10px] font-mono text-slate-400"
+                        >
+                          <CheckCircle2 className="h-3 w-3 text-blue-500" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

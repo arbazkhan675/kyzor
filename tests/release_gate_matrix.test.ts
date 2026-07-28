@@ -14,8 +14,8 @@ describe("Release Gate & Test Matrix Verification", () => {
     expect(content).toContain("ArrowRight");
     expect(content).toContain("ArrowLeft");
     expect(content).toContain("focus-visible:ring-2");
-    expect(content).toContain("Custom e-commerce systems for businesses that have outgrown templates.");
-    expect(content).toContain("Automate the work slowing your business down.");
+    expect(content).toContain("Your business is unique.");
+    expect(content).toContain("Stop doing manually");
   });
 
   it("2. Mobile Menu: verifies open, close, Escape key listener, focus trap, and navigation auto-close", () => {
