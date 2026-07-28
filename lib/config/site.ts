@@ -26,8 +26,7 @@ export const siteConfig = {
     "bespoke e-commerce software",
   ],
   navItems: [
-    { label: "E-commerce", href: "/ecommerce" },
-    { label: "Automations", href: "/automations" },
+    { label: "Home", href: "/" },
     { label: "About", href: "/about" },
   ],
   cta: {

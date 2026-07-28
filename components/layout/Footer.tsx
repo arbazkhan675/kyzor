@@ -25,16 +25,6 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Capabilities</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/ecommerce" className="hover:text-white transition-colors duration-200">
-                  Custom E-commerce
-                </Link>
-              </li>
-              <li>
-                <Link href="/automations" className="hover:text-white transition-colors duration-200">
-                  Business Automations
-                </Link>
-              </li>
-              <li>
                 <Link href="/about" className="hover:text-white transition-colors duration-200">
                   About Kyzor
                 </Link>

@@ -2,8 +2,31 @@
 
 import { useState, useRef, KeyboardEvent } from "react";
 import Link from "next/link";
-import { ArrowRight, ShoppingBag, Cpu, Sparkles, Database, Server, Zap, Shield, MessageSquare, Workflow } from "lucide-react";
+import {
+  ArrowRight,
+  ShoppingBag,
+  Cpu,
+  Sparkles,
+  Database,
+  Server,
+  Zap,
+  Shield,
+  MessageSquare,
+  Workflow,
+  Layout,
+  Package,
+  CreditCard,
+  Truck,
+  Users,
+  ShieldCheck,
+  CheckCircle2,
+  FileText,
+  Repeat,
+  UserPlus,
+  Calendar,
+} from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
+import { VideoShowcaseCard } from "@/components/ecommerce/VideoShowcaseCard";
 
 export function HeroTabSection() {
   const [activeTab, setActiveTab] = useState<"ecommerce" | "automations">("ecommerce");
@@ -23,6 +46,24 @@ export function HeroTabSection() {
       nextButton?.focus();
     }
   };
+
+  const ecommerceCapabilities = [
+    { title: "Custom Storefront", description: "Bespoke, ultra-fast buyer interfaces tailored to your brand without generic themes or plugin lag.", icon: Layout },
+    { title: "Products & Inventory", description: "Flexible catalog schemas supporting product variants, stock tracking, and automated inventory sync.", icon: Package },
+    { title: "Cart & Payments", description: "Direct payment gateway integrations with secure, sub-second checkout flows.", icon: CreditCard },
+    { title: "Orders & Delivery", description: "Automated fulfillment pipelines tracking order statuses and notifying customers instantly.", icon: Truck },
+    { title: "Customer Accounts", description: "Secure buyer portals for order history, saved addresses, and profile preferences.", icon: Users },
+    { title: "Admin Dashboard", description: "Back-office management console for full control over catalog, orders, and customer data.", icon: ShieldCheck },
+  ];
+
+  const automationWorkflows = [
+    { title: "WhatsApp Lead Qualification", description: "Autonomous 24/7 lead capture, qualification, and routing via official WhatsApp Cloud API.", icon: MessageSquare },
+    { title: "AI Document Processing Engine", description: "Automated document parsing, OCR extraction, and interactive voice assistant verification.", icon: FileText },
+    { title: "Real-Time Inventory Sync", description: "Bi-directional stock level synchronization across storefronts and ERP backend databases.", icon: Repeat },
+    { title: "CRM Lead Enrichment", description: "Instant webhook enrichment connecting customer inquiries directly into your internal database.", icon: UserPlus },
+    { title: "Automated Invoicing & Billing", description: "Instant invoice generation, PDF delivery, and payment status Webhook tracking.", icon: CreditCard },
+    { title: "Booking & Appointment Scheduling", description: "Automated calendar availability, client reminders, and confirmation workflows.", icon: Calendar },
+  ];
 
   return (
     <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/40 via-white to-slate-50/50">
@@ -47,7 +88,7 @@ export function HeroTabSection() {
               tabIndex={activeTab === "ecommerce" ? 0 : -1}
               onClick={() => switchTab("ecommerce")}
               onKeyDown={(e) => handleKeyDown(e, "ecommerce")}
-              className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
+              className={`inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
                 activeTab === "ecommerce"
                   ? "bg-slate-900 text-white shadow-md border border-slate-800"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
@@ -66,7 +107,7 @@ export function HeroTabSection() {
               tabIndex={activeTab === "automations" ? 0 : -1}
               onClick={() => switchTab("automations")}
               onKeyDown={(e) => handleKeyDown(e, "automations")}
-              className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
+              className={`inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600 ${
                 activeTab === "automations"
                   ? "bg-slate-900 text-white shadow-md border border-slate-800"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
@@ -79,14 +120,15 @@ export function HeroTabSection() {
         </div>
 
         {/* Tab Panel Content */}
-        <div className="mx-auto max-w-3xl text-center space-y-6">
-          {activeTab === "ecommerce" ? (
-            <div
-              id="panel-ecommerce"
-              role="tabpanel"
-              aria-labelledby="tab-ecommerce"
-              className="space-y-6 animate-fade-in-up"
-            >
+        {activeTab === "ecommerce" ? (
+          <div
+            id="panel-ecommerce"
+            role="tabpanel"
+            aria-labelledby="tab-ecommerce"
+            className="space-y-12 animate-fade-in-up"
+          >
+            {/* Header & Hero Text */}
+            <div className="mx-auto max-w-3xl text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-xs font-mono text-purple-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Sparkles className="h-3.5 w-3.5 text-purple-600" />
                 Zero Platform Overhead
@@ -97,30 +139,63 @@ export function HeroTabSection() {
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                 We design and build complete online stores from scratch - storefront, admin dashboard, payments, orders, inventory, deployment and ongoing support.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <div className="pt-2">
                 <Link
                   href="/consultation"
                   onClick={() => trackEvent("consultation_cta_click", { location: "hero_ecommerce" })}
-                  className="btn-gleam w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
+                  className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Book a Consultation
-                </Link>
-                <Link
-                  href="/ecommerce"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
-                >
-                  Explore E-commerce
-                  <ArrowRight className="ml-2 h-4 w-4 text-purple-600 transition-transform group-hover:translate-x-1.5" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </div>
-          ) : (
-            <div
-              id="panel-automations"
-              role="tabpanel"
-              aria-labelledby="tab-automations"
-              className="space-y-6 animate-fade-in-up"
-            >
+
+            {/* Embedded Live Interface Video Showcase */}
+            <div className="max-w-4xl mx-auto pt-4">
+              <VideoShowcaseCard
+                videoUrl="/video/1.mp4"
+                title="Sub-Second Custom Storefront & Dynamic Interactions"
+                description="Experience sub-200ms page transitions, instant product filtering, and smooth cart drawer interactions engineered from scratch."
+                badgeText="Live System Showcase"
+                tags={["React Server Components", "Edge Gateway", "Zero Plugin Overhead", "Postgres Database"]}
+              />
+            </div>
+
+            {/* Core E-commerce Capabilities Grid */}
+            <div className="space-y-6 pt-4">
+              <div className="text-center space-y-2">
+                <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">System Capabilities</h2>
+                <h3 className="text-2xl font-extrabold text-slate-900">Storefront & Administrative Back-Office</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {ecommerceCapabilities.map((cap) => {
+                  const Icon = cap.icon;
+                  return (
+                    <div
+                      key={cap.title}
+                      className="group rounded-3xl border border-slate-200/90 bg-white p-6 space-y-3 shadow-xs hover:shadow-xl hover:-translate-y-1 hover:border-purple-300 transition-all duration-300"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 group-hover:scale-110 transition-transform">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h4 className="text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors">{cap.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{cap.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div
+            id="panel-automations"
+            role="tabpanel"
+            aria-labelledby="tab-automations"
+            className="space-y-12 animate-fade-in-up"
+          >
+            {/* Header & Hero Text */}
+            <div className="mx-auto max-w-3xl text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono text-blue-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Cpu className="h-3.5 w-3.5 text-blue-600" />
                 Autonomous Workflows & AI Agents
@@ -131,25 +206,44 @@ export function HeroTabSection() {
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                 We build custom workflows, AI agents, chatbots, voice assistants and integrations that help your business run with less manual effort.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <div className="pt-2">
                 <Link
                   href="/consultation"
                   onClick={() => trackEvent("consultation_cta_click", { location: "hero_automations" })}
-                  className="btn-gleam w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
+                  className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Book a Consultation
-                </Link>
-                <Link
-                  href="/automations"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 text-base font-semibold text-slate-800 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
-                >
-                  Explore Automations
-                  <ArrowRight className="ml-2 h-4 w-4 text-blue-600 transition-transform group-hover:translate-x-1.5" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </div>
-          )}
-        </div>
+
+            {/* Core Automation Workflows Grid */}
+            <div className="space-y-6 pt-4">
+              <div className="text-center space-y-2">
+                <h2 className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">Workflow Capabilities</h2>
+                <h3 className="text-2xl font-extrabold text-slate-900">Custom Automation Pipelines & AI Integrations</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {automationWorkflows.map((flow) => {
+                  const Icon = flow.icon;
+                  return (
+                    <div
+                      key={flow.title}
+                      className="group rounded-3xl border border-slate-200/90 bg-white p-6 space-y-3 shadow-xs hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 transition-all duration-300"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 group-hover:scale-110 transition-transform">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{flow.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{flow.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Visual Engine Node Diagram Floating Preview */}
         <div className="pt-6 max-w-4xl mx-auto">
