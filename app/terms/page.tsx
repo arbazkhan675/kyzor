@@ -37,7 +37,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900">1. Informational Website Use</h2>
           <p>
-            Welcome to Kyzor (https://www.kyzor.online). By accessing or browsing this website, you agree to comply with and be bound by these Terms of Service. This website is provided solely to present our custom software engineering capabilities, business automation services, concept portfolios, and consultation scheduling mechanisms.
+            Welcome to Kyzor (https://www.kyzor.online). By accessing or browsing this website, you agree to comply with and be bound by these Terms of Service. This website is provided solely to present our custom software engineering capabilities, business automation services, interface demonstrations, and consultation scheduling mechanisms.
           </p>
         </section>
 
