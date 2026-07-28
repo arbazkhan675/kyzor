@@ -25,6 +25,7 @@ import {
   UserPlus,
   Calendar,
   ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
 import { VideoShowcaseDeck } from "@/components/home/VideoShowcaseDeck";
@@ -206,10 +207,76 @@ function HeroTabContent() {
             </div>
           </div>
 
-          {/* Right Column: Compact 3-Card Video Showcase Deck */}
+          {/* Right Column: E-commerce Video Deck or Automation Visual Card */}
           <div className="lg:col-span-6">
             <div id="panel-ecommerce" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
-              <VideoShowcaseDeck activeTab={activeTab} />
+              {activeTab === "ecommerce" ? (
+                <div className="animate-fade-in-up">
+                  <VideoShowcaseDeck />
+                </div>
+              ) : (
+                /* Restored Original Automation Visual Workflow Card */
+                <div className="animate-fade-in-up rounded-[22px] border border-slate-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-sm border-blue-100">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] bg-blue-900 text-white text-[11px] font-mono font-semibold border border-blue-700">
+                        <Sparkles className="h-3 w-3 text-blue-300" />
+                        Kyzor-built workflow demonstration
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono text-slate-500 font-semibold hidden sm:inline">
+                      6-Step Automated Execution
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold text-slate-900">WhatsApp Lead Qualification & CRM Workflow</h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Demonstration of instant customer inquiry intake, automated WhatsApp qualification, direct CRM record insertion, sales team notification, and human escalation guardrails.
+                    </p>
+                  </div>
+
+                  {/* 6-Step Visual Process Card Flow */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-1">
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-blue-100 text-blue-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">1</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Lead Form Submission</span>
+                    </div>
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">2</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">WhatsApp Response</span>
+                    </div>
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-purple-100 text-purple-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">3</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Qualification Questions</span>
+                    </div>
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">4</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">CRM/DB Insertion</span>
+                    </div>
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">5</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Sales Notification</span>
+                    </div>
+                    <div className="rounded-[12px] border border-slate-200 bg-slate-50 p-2.5 space-y-1.5 text-center">
+                      <div className="w-7 h-7 rounded-[8px] bg-red-100 text-red-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">6</div>
+                      <span className="text-[11px] font-bold text-slate-900 block leading-tight">Human Escalation</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {["Official WhatsApp Cloud API", "Custom Webhooks", "Validation Guardrails", "Human Review Handoff"].map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[8px] bg-slate-50 border border-slate-200 text-[11px] font-mono text-slate-700"
+                      >
+                        <CheckCircle2 className="h-3 w-3 text-blue-700" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
