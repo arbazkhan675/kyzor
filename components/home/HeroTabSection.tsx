@@ -92,9 +92,13 @@ function HeroTabContent() {
   const currentCapabilities = activeTab === "ecommerce" ? ecommerceCapabilities : automationCapabilities;
 
   return (
-    <section id="services" className="relative overflow-hidden py-12 md:py-16 lg:py-20 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/30 via-white to-slate-50/40">
+    <section id="services" className="relative overflow-hidden py-16 md:py-20 lg:py-28 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/40 via-white to-slate-50/30">
       {/* Ambient Radial Top Glow */}
       <div className="absolute inset-0 pointer-events-none ambient-glow-top" />
+
+      {/* Decorative Floating Orbs for Visual Depth */}
+      <div className="absolute top-16 right-[15%] w-[280px] h-[280px] rounded-full bg-gradient-to-br from-purple-400/8 to-indigo-400/6 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-20 left-[10%] w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-blue-400/6 to-purple-300/5 blur-3xl pointer-events-none" />
 
       <EditorialContainer className="relative space-y-16">
         {/* Editorial Split Hero 2-Column Grid */}
@@ -208,7 +212,7 @@ function HeroTabContent() {
           </div>
 
           {/* Right Column: E-commerce Video Deck or Automation Visual Card */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 py-4 lg:py-8">
             <div id="panel-ecommerce" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
               {activeTab === "ecommerce" ? (
                 <div className="animate-fade-in-up">

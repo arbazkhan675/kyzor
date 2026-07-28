@@ -96,7 +96,7 @@ export function VideoShowcaseDeck() {
     };
   }, [playActiveVideo]);
 
-  // Execute smooth shuffle transition between Left, Centre, and Right positions
+  // Execute smooth shuffle transition
   const handleShuffle = useCallback(
     (targetIndex: number) => {
       if (isTransitioning || targetIndex === currentIndex) return;
@@ -107,7 +107,7 @@ export function VideoShowcaseDeck() {
         videoRef.current.pause();
       }
 
-      const duration = isReducedMotion ? 50 : 650;
+      const duration = isReducedMotion ? 50 : 700;
 
       setTimeout(() => {
         setCurrentIndex(targetIndex);
@@ -122,7 +122,7 @@ export function VideoShowcaseDeck() {
     handleShuffle(nextIdx);
   }, [currentIndex, handleShuffle]);
 
-  // Centre video ends -> auto shuffle to next video
+  // Centre video ends -> auto shuffle
   const handleVideoEnded = () => {
     handleNext();
   };
@@ -134,14 +134,49 @@ export function VideoShowcaseDeck() {
     }
   };
 
+  // Compute inline transforms for precise positioning
+  const getCardTransform = (position: "centre" | "left" | "right") => {
+    switch (position) {
+      case "centre":
+        return {
+          transform: "translateX(0) scale(1) rotate(0deg)",
+          opacity: 1,
+          zIndex: 30,
+          filter: "brightness(1)",
+        };
+      case "left":
+        return {
+          transform: "translateX(-62%) scale(0.78) rotate(-6deg)",
+          opacity: 0.6,
+          zIndex: 15,
+          filter: "brightness(0.7) blur(1px)",
+        };
+      case "right":
+        return {
+          transform: "translateX(62%) scale(0.78) rotate(6deg)",
+          opacity: 0.6,
+          zIndex: 15,
+          filter: "brightness(0.7) blur(1px)",
+        };
+    }
+  };
+
   return (
     <div
       ref={containerRef}
       aria-label="E-commerce Vertical Video Showcase Deck"
-      className="my-4 py-4 px-2 sm:px-6 max-w-full overflow-hidden"
+      className="relative w-full"
     >
-      {/* 3 Vertical Mobile-Style Video Cards Deck Stage with Generous Margins */}
-      <div className="relative w-full max-w-[520px] h-[390px] sm:h-[450px] flex items-center justify-center mx-auto overflow-hidden">
+      {/* Atmospheric glow behind the deck */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full bg-gradient-to-br from-purple-500/20 via-indigo-400/15 to-blue-500/20 blur-3xl" />
+      </div>
+
+      {/* Deck Stage */}
+      <div
+        className="relative w-full flex items-center justify-center mx-auto"
+        style={{ height: "clamp(380px, 50vw, 520px)", perspective: "1200px" }}
+      >
         {ecommerceVideos.map((item, index) => {
           const diff = (index - currentIndex + ecommerceVideos.length) % ecommerceVideos.length;
           let position: "centre" | "right" | "left" = "centre";
@@ -149,33 +184,44 @@ export function VideoShowcaseDeck() {
           if (diff === 2) position = "left";
 
           const isCentre = position === "centre";
-          const isRight = position === "right";
-          const isLeft = position === "left";
-
-          let transformStyle = "";
-          let zIndex = 10;
-
-          if (isCentre) {
-            transformStyle = "translate3d(0, 0, 0) scale(1) rotate(0deg) opacity-100 shadow-2xl border-slate-700/90";
-            zIndex = 30;
-          } else if (isRight) {
-            transformStyle = "translate3d(90px, 0, 0) sm:translate-3d(120px, 0, 0) scale-[0.83] rotate(3.5deg) opacity-80 shadow-lg border-slate-800 hover:opacity-95 cursor-pointer";
-            zIndex = 15;
-          } else if (isLeft) {
-            transformStyle = "translate3d(-90px, 0, 0) sm:translate-3d(-120px, 0, 0) scale-[0.83] rotate(-3.5deg) opacity-80 shadow-lg border-slate-800 hover:opacity-95 cursor-pointer";
-            zIndex = 15;
-          }
+          const styles = getCardTransform(position);
 
           return (
             <div
               key={item.id}
               onClick={!isCentre && !isTransitioning ? () => handleShuffle(index) : undefined}
               aria-hidden={!isCentre}
-              style={{ zIndex }}
-              className={`absolute w-[195px] sm:w-[235px] aspect-[9/16] rounded-[32px] border-2 bg-slate-950 overflow-hidden transition-all duration-700 ease-out transform-gpu flex items-center justify-center ${transformStyle}`}
+              style={{
+                zIndex: styles.zIndex,
+                transform: styles.transform,
+                opacity: styles.opacity,
+                filter: styles.filter,
+                transition: isReducedMotion
+                  ? "none"
+                  : "transform 700ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 700ms ease, filter 700ms ease",
+              }}
+              className={`absolute rounded-[28px] overflow-hidden transform-gpu ${
+                isCentre
+                  ? "shadow-[0_20px_60px_-12px_rgba(124,58,237,0.35),0_8px_24px_-8px_rgba(0,0,0,0.25)] ring-1 ring-white/20"
+                  : "shadow-[0_12px_32px_-8px_rgba(0,0,0,0.3)] cursor-pointer hover:opacity-70"
+              }`}
+              /* Responsive card sizing using clamp */
+              /* Mobile: ~160px wide, Desktop: up to 220px wide */
             >
-              {/* Vertical Mobile Video Viewport */}
-              <div className="relative w-full h-full bg-slate-950 flex items-center justify-center overflow-hidden">
+              {/* Phone frame shell */}
+              <div
+                className="relative bg-slate-950 overflow-hidden rounded-[28px]"
+                style={{
+                  width: "clamp(160px, 18vw, 220px)",
+                  aspectRatio: "9 / 16",
+                }}
+              >
+                {/* Subtle phone notch */}
+                {isCentre && (
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 w-16 h-[5px] rounded-full bg-black/60 backdrop-blur-sm" />
+                )}
+
+                {/* Video content */}
                 {isCentre ? (
                   <>
                     <video
@@ -186,22 +232,25 @@ export function VideoShowcaseDeck() {
                       autoPlay
                       preload="metadata"
                       onEnded={handleVideoEnded}
-                      className="w-full h-full object-cover block rounded-[30px]"
+                      className="w-full h-full object-cover block"
                     />
 
-                    {/* Autoplay blocked manual play button overlay */}
+                    {/* Autoplay blocked overlay */}
                     {autoplayBlocked && (
                       <button
                         type="button"
                         onClick={handleManualPlay}
-                        className="absolute inset-0 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center group focus:outline-none"
+                        className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center group focus:outline-none"
                         aria-label="Play video demonstration"
                       >
-                        <div className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="h-5 w-5 ml-0.5 fill-white" />
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 text-white flex items-center justify-center shadow-xl shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                          <Play className="h-6 w-6 ml-0.5 fill-white" />
                         </div>
                       </button>
                     )}
+
+                    {/* Bottom gradient fade for polish */}
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
                   </>
                 ) : (
                   <video
@@ -209,13 +258,30 @@ export function VideoShowcaseDeck() {
                     playsInline
                     muted
                     preload="metadata"
-                    className="w-full h-full object-cover block opacity-80 rounded-[30px]"
+                    className="w-full h-full object-cover block"
                   />
                 )}
               </div>
             </div>
           );
         })}
+      </div>
+
+      {/* Subtle progress dots at the bottom */}
+      <div className="flex items-center justify-center gap-2 mt-4">
+        {ecommerceVideos.map((item, idx) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => handleShuffle(idx)}
+            className={`rounded-full transition-all duration-500 min-h-[44px] flex items-center justify-center ${
+              currentIndex === idx
+                ? "w-8 h-2 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-sm shadow-purple-500/30"
+                : "w-2 h-2 bg-slate-300/80 hover:bg-slate-400"
+            }`}
+            aria-label={`Go to video ${idx + 1}`}
+          />
+        ))}
       </div>
     </div>
   );
