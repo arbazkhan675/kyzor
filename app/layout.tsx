@@ -75,7 +75,6 @@ export default function RootLayout({
         email: siteConfig.contactEmail,
         sameAs: [
           "https://instagram.com/kyzorcommerce",
-          "https://linkedin.com/company/kyzor",
         ],
         address: {
           "@type": "PostalAddress",

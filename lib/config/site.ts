@@ -30,7 +30,7 @@ export const siteConfig = {
     { label: "About", href: "/about" },
   ],
   cta: {
-    label: "Book a Consultation",
+    label: "Request a Free Consultation",
     href: "/consultation",
   },
   legalLinks: [

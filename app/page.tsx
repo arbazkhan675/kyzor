@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ShoppingBag, CheckCircle2, ShieldCheck, Zap, Database, Bot } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Zap, Database, Bot, XCircle, MapPin, Instagram } from "lucide-react";
 import { HeroTabSection } from "@/components/home/HeroTabSection";
 
 export const revalidate = 60;
@@ -14,8 +14,8 @@ export default function HomePage() {
   ];
 
   const reasons = [
-    { title: "Custom-Built Codebase Without Lock-in", description: "No required marketplace-plugin stack, rigid themes, or platform transaction cuts. Source-code terms defined clearly in your agreement.", icon: ShieldCheck },
-    { title: "Fast, Responsive Navigation", description: "Engineered for rapid load times and responsive page navigation, supporting a faster customer experience and technical SEO.", icon: Zap },
+    { title: "Custom-Built Codebase Without Lock-in", description: "No required marketplace-plugin stack, rigid themes, or platform transaction cuts. Source-code terms defined clearly in your project agreement.", icon: ShieldCheck },
+    { title: "Fast, Responsive Navigation", description: "Engineered for rapid load times and responsive page navigation, supporting a faster customer experience and stronger technical SEO.", icon: Zap },
     { title: "Direct Data Ownership", description: "Direct access to and control over your application data, customer records, and internal backend database schemas.", icon: Database },
     { title: "End-to-End Operational Automation", description: "Seamlessly connect WhatsApp Cloud API, email, AI agents, and internal CRMs into unified automated workflows.", icon: Bot },
   ];
@@ -25,82 +25,77 @@ export default function HomePage() {
       {/* 1. Hero with accessible E-commerce / Automations tabs & Architecture Visual */}
       <HeroTabSection />
 
-      {/* 2. Two Core Service Cards */}
+      {/* 2. Who Kyzor Is For (Qualification Grid) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">Core Services</h2>
+          <h2 className="text-xs font-mono uppercase tracking-widest text-purple-700 font-semibold">Project Fit</h2>
           <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-            What We Build for Growing Businesses
+            Who Kyzor Is For
+          </p>
+          <p className="text-sm text-slate-600 max-w-xl mx-auto">
+            We operate as a focused engineering studio. Clear boundaries help ensure every engagement succeeds.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Custom E-commerce */}
-          <div className="group rounded-3xl border border-slate-200/90 bg-white/90 p-8 sm:p-10 space-y-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-purple-300 transition-all duration-300 backdrop-blur-md">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200/80 flex items-center justify-center text-purple-700 shadow-xs group-hover:scale-110 transition-transform">
-                <ShoppingBag className="h-6 w-6" />
+          {/* Card 1: Good Fit */}
+          <div className="rounded-3xl border border-purple-200/90 bg-gradient-to-b from-purple-50/40 via-white to-white p-8 sm:p-10 space-y-6 shadow-sm">
+            <div className="flex items-center gap-3 border-b border-purple-100 pb-4">
+              <div className="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0">
+                <CheckCircle2 className="h-5 w-5" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-700 transition-colors">Custom E-commerce Applications</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Bespoke online stores built completely from scratch. We engineer tailored storefronts, administrative management portals, inventory synchronization, order fulfillment engines, and custom payment integrations.
-              </p>
-              <ul className="space-y-2.5 text-xs text-slate-600 pt-2 font-mono">
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Tailored database architecture & schemas
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Fast load times & edge infrastructure
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> No required marketplace-plugin stack
-                </li>
-              </ul>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">Kyzor is a good fit when:</h3>
+                <p className="text-xs text-slate-500 font-mono">Custom engineering & bespoke operations</p>
+              </div>
             </div>
 
-            <div>
-              <Link
-                href="/?service=ecommerce#services"
-                className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
-              >
-                View E-commerce Demonstration
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
+            <ul className="space-y-3.5 text-xs sm:text-sm text-slate-700">
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0 mt-0.5" />
+                <span>Your workflows cannot be handled cleanly by standard website templates.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0 mt-0.5" />
+                <span>You need custom API integrations, administrative portals, or specialized database logic.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0 mt-0.5" />
+                <span>Your team repeatedly transfers information manually between separate software systems.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0 mt-0.5" />
+                <span>You want direct communication with the engineer designing and building your application.</span>
+              </li>
+            </ul>
           </div>
 
-          {/* Card 2: Business Automations */}
-          <div className="group rounded-3xl border border-slate-200/90 bg-white/90 p-8 sm:p-10 space-y-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-purple-300 transition-all duration-300 backdrop-blur-md">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200/80 flex items-center justify-center text-purple-700 shadow-xs group-hover:scale-110 transition-transform">
-                <Bot className="h-6 w-6" />
+          {/* Card 2: Standard Platform Fit */}
+          <div className="rounded-3xl border border-slate-200 bg-slate-50/70 p-8 sm:p-10 space-y-6 shadow-xs">
+            <div className="flex items-center gap-3 border-b border-slate-200/80 pb-4">
+              <div className="w-10 h-10 rounded-2xl bg-slate-200 text-slate-600 flex items-center justify-center font-bold shrink-0">
+                <XCircle className="h-5 w-5" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-700 transition-colors">Business Automations</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Automated operational workflows designed to reduce repetitive manual data entry. We integrate official WhatsApp APIs, document parsers, AI customer assistants, webhook routing, and internal backend databases.
-              </p>
-              <ul className="space-y-2.5 text-xs text-slate-600 pt-2 font-mono">
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Official WhatsApp Cloud API integration
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Automated lead qualification pipelines
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Custom AI document extraction engines
-                </li>
-              </ul>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">A standard platform may be better when:</h3>
+                <p className="text-xs text-slate-500 font-mono">Off-the-shelf templates</p>
+              </div>
             </div>
 
-            <div>
-              <Link
-                href="/?service=automation#services"
-                className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
-              >
-                View Automations Demonstration
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
+            <ul className="space-y-3.5 text-xs sm:text-sm text-slate-600">
+              <li className="flex items-start gap-3">
+                <XCircle className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+                <span>You only need a basic online store with standard catalog fields.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <XCircle className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+                <span>You want a do-it-yourself website built within a few days without custom code.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <XCircle className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+                <span>Your operational requirements are already handled completely by an existing plug-and-play tool.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -160,7 +155,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Final Consultation CTA */}
+      {/* 5. Founder Trust Strip */}
+      <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+          <div className="flex items-center gap-4 text-center sm:text-left">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-lg shrink-0 shadow-sm">
+              AK
+            </div>
+            <div>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                <h3 className="text-base font-bold text-slate-900">Arbaz Khan</h3>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 font-semibold">
+                  Founder & Principal Engineer
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 leading-snug pt-0.5">
+                Work directly with the engineer designing and building your system - no account managers or middle layers.
+              </p>
+              <p className="text-[11px] font-mono text-slate-500 flex items-center justify-center sm:justify-start gap-1 pt-1">
+                <MapPin className="h-3 w-3 text-purple-600" />
+                Ahmedabad, Gujarat, India
+              </p>
+            </div>
+          </div>
+
+          <div className="shrink-0">
+            <a
+              href="https://instagram.com/kyzorcommerce"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-purple-700 transition-colors bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl"
+            >
+              <Instagram className="h-4 w-4 text-pink-600" />
+              @kyzorcommerce
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Final Consultation CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-2xl text-white relative overflow-hidden">
           <div className="relative z-10 space-y-6">
@@ -168,14 +201,14 @@ export default function HomePage() {
               Ready to Build Your Custom Application or Automation?
             </h2>
             <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-              Request a free discovery call with our engineering team to map out your architecture and project timelines.
+              Request a free discovery call to discuss your requirements, possible architecture and next steps.
             </p>
             <div>
               <Link
                 href="/consultation"
                 className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
-                Request a Free Consultation
+                Request a Free 20-Min Call
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>

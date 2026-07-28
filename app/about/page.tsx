@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ShieldCheck, Zap, Database, HeartHandshake, MapPin, Instagram, Linkedin } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, Database, HeartHandshake, MapPin, Instagram } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -37,7 +36,7 @@ export default function AboutPage() {
             Software Studio Philosophy
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Kyzor is a software studio that builds custom e-commerce applications and business automations.
+            Kyzor is a founder-led software studio that builds custom e-commerce applications and business automations.
           </h1>
           <p className="text-xl sm:text-2xl font-bold text-purple-700 max-w-3xl mx-auto leading-snug pt-2">
             “Technology should adapt to the business - not force the business to adapt to a template.”
@@ -78,15 +77,6 @@ export default function AboutPage() {
                 >
                   <Instagram className="h-4 w-4 text-pink-600" />
                   @kyzorcommerce
-                </a>
-                <a
-                  href="https://linkedin.com/company/kyzor"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-purple-700 transition-colors bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl"
-                >
-                  <Linkedin className="h-4 w-4 text-blue-600" />
-                  LinkedIn Profile
                 </a>
               </div>
             </div>
@@ -148,7 +138,7 @@ export default function AboutPage() {
             Ready to Build Your Custom Software Solution?
           </h2>
           <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Request a free discovery call with our engineering team to review your technical goals and project scope.
+            Request a free discovery call directly with Kyzor&apos;s founder and principal engineer to review your technical goals and project scope.
           </p>
           <div>
             <Link

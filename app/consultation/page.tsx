@@ -84,7 +84,7 @@ function ConsultationFormContent() {
         }
       } else if (res.success) {
         trackEvent("consultation_form_submitted");
-        setSuccessResult("Thank you! Our engineering team will review your project details and respond within 1 business day.");
+        setSuccessResult("Thank you! Kyzor's founder and principal engineer will review your project details and respond within 1 business day.");
       }
     });
   };
@@ -110,7 +110,7 @@ function ConsultationFormContent() {
           </div>
           <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full font-semibold">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Response within 1 business day
+            Response within one business day
           </span>
         </div>
 
@@ -118,7 +118,7 @@ function ConsultationFormContent() {
           Request a Free Consultation
         </h1>
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-          Discuss your custom e-commerce application or business automation requirements directly with our senior product engineers.
+          Discuss your custom e-commerce or automation requirements directly with Kyzor&apos;s founder and principal engineer.
         </p>
 
         {/* Discovery Call Guarantee Strip */}
@@ -136,7 +136,7 @@ function ConsultationFormContent() {
           <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
             <Calendar className="h-4 w-4 text-purple-700 mx-auto" />
             <span className="text-[11px] font-bold text-slate-900 block">1 Business Day</span>
-            <span className="text-[10px] text-slate-500 block">Guaranteed Response</span>
+            <span className="text-[10px] text-slate-500 block">Response Within 24h</span>
           </div>
           <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
             <Globe className="h-4 w-4 text-purple-700 mx-auto" />
@@ -154,7 +154,7 @@ function ConsultationFormContent() {
           </div>
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-900">Prefer Instant Communication?</h3>
-            <p className="text-xs text-emerald-800 leading-snug">Connect directly with our engineering lead on WhatsApp for quick project inquiries.</p>
+            <p className="text-xs text-emerald-800 leading-snug">Connect directly with Kyzor&apos;s founder on WhatsApp for quick project inquiries.</p>
           </div>
         </div>
         <a

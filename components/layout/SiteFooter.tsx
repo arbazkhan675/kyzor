@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, Linkedin, MapPin } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 import { siteConfig } from "@/lib/config/site";
 
 export function SiteFooter() {
@@ -42,15 +42,6 @@ export function SiteFooter() {
                 className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600 hover:bg-slate-50 transition-colors"
               >
                 <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href="https://linkedin.com/company/kyzor"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Kyzor LinkedIn"
-                className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
-              >
-                <Linkedin className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -10,10 +10,10 @@ describe("Homepage Architecture & Section Order Verification", () => {
     // Section 1: Hero
     expect(content).toContain("<HeroTabSection />");
 
-    // Section 2: Two Core Service Cards
-    expect(content).toContain("What We Build for Growing Businesses");
-    expect(content).toContain("Custom E-commerce Applications");
-    expect(content).toContain("Business Automations");
+    // Section 2: Who Kyzor Is For Qualification Section
+    expect(content).toContain("Who Kyzor Is For");
+    expect(content).toContain("Kyzor is a good fit when:");
+    expect(content).toContain("A standard platform may be better when:");
 
     // Section 3: Five-step Process
     expect(content).toContain("Our 5-Step Engineering Process");
@@ -21,7 +21,12 @@ describe("Homepage Architecture & Section Order Verification", () => {
     // Section 4: Four Reasons to Choose Kyzor
     expect(content).toContain("Why Businesses Choose Custom Engineering");
 
-    // Section 5: Final Consultation CTA
+    // Section 5: Founder Trust Strip
+    expect(content).toContain("Arbaz Khan");
+    expect(content).toContain("Founder & Principal Engineer");
+
+    // Section 6: Final Consultation CTA
     expect(content).toContain("Ready to Build Your Custom Application or Automation?");
+    expect(content).toContain("Request a Free 20-Min Call");
   });
 });

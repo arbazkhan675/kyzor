@@ -25,8 +25,6 @@ import {
   UserPlus,
   Calendar,
   CheckCircle2,
-  Bell,
-  UserCheck,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
 import { VideoShowcaseCard } from "@/components/ecommerce/VideoShowcaseCard";
@@ -57,7 +55,7 @@ function HeroTabContent() {
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("service", tab === "ecommerce" ? "ecommerce" : "automation");
-      url.hash = "services";
+      url.hash = "service-showcase";
       window.history.replaceState({}, "", url.toString());
     }
   };
@@ -83,7 +81,7 @@ function HeroTabContent() {
 
   const automationWorkflows = [
     { title: "WhatsApp Lead Qualification", description: "Automated inquiry capture, qualification, and routing via official WhatsApp Cloud API.", icon: MessageSquare },
-    { title: "AI Document Processing Engine", description: "Automated document parsing, OCR extraction, and interactive voice assistant verification.", icon: FileText },
+    { title: "AI Document Processing Engine", description: "Automated document parsing, OCR extraction, and interactive verification.", icon: FileText },
     { title: "Real-Time Inventory Sync", description: "Bi-directional stock level synchronization across storefronts and ERP backend databases.", icon: Repeat },
     { title: "CRM Lead Enrichment", description: "Instant webhook enrichment connecting customer inquiries directly into your internal database.", icon: UserPlus },
     { title: "Automated Invoicing & Billing", description: "Instant invoice generation, PDF delivery, and payment status Webhook tracking.", icon: CreditCard },
@@ -159,10 +157,10 @@ function HeroTabContent() {
                 No commerce-platform transaction cuts
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                Custom e-commerce applications, built around your business.
+                Custom e-commerce systems for businesses that have outgrown templates.
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                We design and build complete online stores from scratch - storefront, admin dashboard, payments, orders, inventory, deployment and ongoing support.
+                We design and build complete online stores—including the storefront, administration, inventory, payments and order workflows—around how your business actually operates.
               </p>
               <div className="pt-2">
                 <Link
@@ -170,19 +168,19 @@ function HeroTabContent() {
                   onClick={() => trackEvent("consultation_cta_clicked", { location: "hero_ecommerce" })}
                   className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
-                  Book a Consultation
+                  Request a Free 20-Min Call
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </div>
 
-            {/* Embedded Live Interface Video Showcase */}
-            <div className="max-w-4xl mx-auto pt-4">
+            {/* Target Demonstration Scroll Showcase Container */}
+            <div id="service-showcase" className="max-w-4xl mx-auto pt-4 scroll-mt-24">
               <VideoShowcaseCard
                 videoUrl="/video/1.mp4"
-                title="Kyzor-built interface demonstration"
-                description="Experience responsive storefront navigation, instant product variant updates, and streamlined checkout flows optimized for speed."
-                badgeText="Kyzor-built interface demonstration"
+                title="Custom Fashion Storefront Experience"
+                description="A responsive storefront demonstration featuring product variants, cart interactions and a streamlined checkout experience."
+                badgeText="Kyzor-built demonstration"
                 tags={["React Server Components", "Edge Gateway", "No Required Plugin Stack", "Postgres Database"]}
               />
             </div>
@@ -223,13 +221,13 @@ function HeroTabContent() {
             <div className="mx-auto max-w-3xl text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono text-blue-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Cpu className="h-3.5 w-3.5 text-blue-600" />
-                Autonomous Workflows & AI Agents
+                Autonomous Workflows & Integrations
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 Automate the work slowing your business down.
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                We build custom workflows, AI agents, chatbots, voice assistants and integrations that help reduce repetitive manual data entry.
+                We connect WhatsApp, leads, documents, CRM systems and internal operations into reliable automated workflows—with human review where important decisions require it.
               </p>
               <div className="pt-2">
                 <Link
@@ -237,20 +235,20 @@ function HeroTabContent() {
                   onClick={() => trackEvent("consultation_cta_clicked", { location: "hero_automations" })}
                   className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
-                  Book a Consultation
+                  Request a Free 20-Min Call
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </div>
 
-            {/* Honest Automation Demonstration Container (Step 6) */}
-            <div className="max-w-4xl mx-auto pt-4">
+            {/* Automation Demonstration Container */}
+            <div id="service-showcase" className="max-w-4xl mx-auto pt-4 scroll-mt-24">
               <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-sm border-blue-100">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900 text-white text-[11px] font-mono font-semibold border border-blue-700">
                       <Sparkles className="h-3 w-3 text-blue-300" />
-                      Kyzor-built interface demonstration
+                      Kyzor-built workflow demonstration
                     </span>
                   </div>
                   <span className="text-xs font-mono text-slate-500 font-semibold hidden sm:inline">
@@ -259,7 +257,7 @@ function HeroTabContent() {
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-slate-900">End-to-End WhatsApp Lead Qualification & CRM Pipeline</h3>
+                  <h3 className="text-xl font-bold text-slate-900">WhatsApp Lead Qualification & CRM Workflow</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     Demonstration of instant customer inquiry intake, automated WhatsApp qualification, direct CRM record insertion, sales team notification, and human escalation guardrails.
                   </p>
@@ -294,7 +292,7 @@ function HeroTabContent() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {["Official WhatsApp Cloud API", "Custom Webhooks", "Zod Validation", "Human Handoff Guard"].map((tag) => (
+                  {["Official WhatsApp Cloud API", "Custom Webhooks", "Validation Guardrails", "Human Review Handoff"].map((tag) => (
                     <span
                       key={tag}
                       className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700"
@@ -311,7 +309,7 @@ function HeroTabContent() {
             <div className="space-y-6 pt-4">
               <div className="text-center space-y-2">
                 <h2 className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">Workflow Capabilities</h2>
-                <h3 className="text-2xl font-extrabold text-slate-900">Custom Automation Pipelines & AI Integrations</h3>
+                <h3 className="text-2xl font-extrabold text-slate-900">Custom Automation Pipelines & System Integrations</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {automationWorkflows.map((flow) => {
@@ -367,14 +365,14 @@ function HeroTabContent() {
                     <Server className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 block">Edge API Gateway</span>
-                  <span className="text-[10px] font-mono text-slate-500 block">Strict Zod Validation</span>
+                  <span className="text-[10px] font-mono text-slate-500 block">Strict Data Validation</span>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 space-y-2 text-center group hover:border-purple-300 transition-colors">
                   <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
                     <Database className="h-4 w-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-900 block">Postgres RLS Database</span>
+                  <span className="text-xs font-bold text-slate-900 block">Postgres Database</span>
                   <span className="text-[10px] font-mono text-slate-500 block">Direct Application Control</span>
                 </div>
 
@@ -408,7 +406,7 @@ function HeroTabContent() {
                   <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
                     <Cpu className="h-4 w-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-900 block">AI Agent Decision</span>
+                  <span className="text-xs font-bold text-slate-900 block">Automated Logic Engine</span>
                   <span className="text-[10px] font-mono text-slate-500 block">Human Escalation Guard</span>
                 </div>
 

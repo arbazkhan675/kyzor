@@ -22,7 +22,7 @@ describe("Shared Layout Configuration & Navigation Integrity", () => {
   });
 
   it("verifies single CTA button target", () => {
-    expect(siteConfig.cta.label).toBe("Book a Consultation");
+    expect(siteConfig.cta.label).toBe("Request a Free Consultation");
     expect(siteConfig.cta.href).toBe("/consultation");
   });
 

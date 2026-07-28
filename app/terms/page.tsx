@@ -54,12 +54,12 @@ export default function TermsPage() {
 
         {/* Section 3 */}
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-slate-900">3. Intellectual Property Rights</h2>
+          <h2 className="text-xl font-bold text-slate-900">3. Intellectual Property Rights & System Demonstrations</h2>
           <p>
             All original content, branding, visual designs, brand artwork (`public/logo.png`), code architecture, and documentation published on this website are the exclusive intellectual property of Kyzor. Unauthorised reproduction, copying, or redistribution of our brand materials or site content without express written consent is prohibited.
           </p>
           <p className="text-slate-600">
-            Portfolio case studies marked as "Demo" or "Concept" represent internal engineering benchmarks and design demonstrations created by Kyzor to illustrate system capabilities.
+            Interface demonstrations, workflow visualizations and system mockups displayed on this website illustrate Kyzor’s design and engineering capabilities. They should not be interpreted as client projects or measured client outcomes unless explicitly stated.
           </p>
         </section>
 
