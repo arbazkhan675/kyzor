@@ -95,8 +95,8 @@ export default function PrivacyPage() {
             </div>
             <p className="text-xs text-slate-600">
               For any privacy-related requests or data inquiries, please email us directly at:{" "}
-              <a href="mailto:contact@kyzor.online" className="text-purple-700 hover:underline font-semibold">
-                contact@kyzor.online
+              <a href="mailto:kyzorcommerce@gmail.com" className="text-purple-700 hover:underline font-semibold">
+                kyzorcommerce@gmail.com
               </a>
             </p>
           </div>

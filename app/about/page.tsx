@@ -94,9 +94,9 @@ export default function AboutPage() {
                     <Instagram className="h-4 w-4 text-pink-600" />
                     @kyzorcommerce
                   </a>
-                  <a href="mailto:contact@kyzor.online" className="inline-flex items-center gap-1.5 hover:text-purple-700 transition-colors">
+                  <a href="mailto:kyzorcommerce@gmail.com" className="inline-flex items-center gap-1.5 hover:text-purple-700 transition-colors">
                     <Mail className="h-4 w-4 text-purple-600" />
-                    contact@kyzor.online
+                    kyzorcommerce@gmail.com
                   </a>
                 </div>
               </div>

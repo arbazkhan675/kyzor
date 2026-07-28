@@ -35,7 +35,7 @@ describe("About Page & Legal Trust Pages Specifications", () => {
     expect(content).toContain("Last Updated: July 2026");
     expect(content).toContain("Supabase");
     expect(content).toContain("Resend");
-    expect(content).toContain("contact@kyzor.online");
+    expect(content).toContain("kyzorcommerce@gmail.com");
   });
 
   it("verifies Terms page includes separate client project contracts clause", () => {

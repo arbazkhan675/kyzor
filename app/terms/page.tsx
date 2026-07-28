@@ -84,8 +84,8 @@ export default function TermsPage() {
             </div>
             <p className="text-xs text-slate-600">
               If you have any questions regarding these Terms of Service, please contact us at:{" "}
-              <a href="mailto:contact@kyzor.online" className="text-purple-700 hover:underline font-semibold">
-                contact@kyzor.online
+              <a href="mailto:kyzorcommerce@gmail.com" className="text-purple-700 hover:underline font-semibold">
+                kyzorcommerce@gmail.com
               </a>
             </p>
           </div>

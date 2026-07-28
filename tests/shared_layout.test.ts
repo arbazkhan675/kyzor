@@ -5,7 +5,7 @@ describe("Shared Layout Configuration & Navigation Integrity", () => {
   it("verifies siteConfig contains valid Kyzor brand metadata", () => {
     expect(siteConfig.name).toBe("Kyzor");
     expect(siteConfig.domain).toBe("https://www.kyzor.online");
-    expect(siteConfig.contactEmail).toContain("@kyzor.online");
+    expect(siteConfig.contactEmail).toBe("kyzorcommerce@gmail.com");
   });
 
   it("verifies navigation items are flat without nested dropdown data structures", () => {
