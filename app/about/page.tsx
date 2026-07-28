@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Instagram, Mail } from "lucide-react";
 import type { Metadata } from "next";
@@ -8,6 +9,11 @@ export const metadata: Metadata = {
   description: "Learn about Kyzor, a founder-led software engineering studio based in Ahmedabad, Gujarat, India, specializing in custom e-commerce applications and business automations.",
   alternates: {
     canonical: "https://www.kyzor.online/about",
+  },
+  openGraph: {
+    title: "About Kyzor | Founder-Led Custom Software Studio",
+    description: "Learn about Kyzor, a founder-led software engineering studio based in Ahmedabad, Gujarat, India, specializing in custom e-commerce applications and business automations.",
+    url: "https://www.kyzor.online/about",
   },
 };
 
@@ -72,8 +78,13 @@ export default function AboutPage() {
             <div className="md:col-span-5">
               <div className="rounded-[22px] border border-slate-200 bg-white p-6 sm:p-8 space-y-4 shadow-xs">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[16px] bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-xs">
-                    AK
+                  <div className="relative w-16 h-16 rounded-[16px] overflow-hidden shrink-0 shadow-sm border border-slate-200">
+                    <Image
+                      src="/founder-arbaz-khan.jpg"
+                      alt="Arbaz Khan - Founder & Principal Engineer at Kyzor"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h2 className="text-lg font-bold text-slate-900">Arbaz Khan</h2>

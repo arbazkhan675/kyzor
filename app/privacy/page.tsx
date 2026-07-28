@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.kyzor.online/privacy",
   },
+  openGraph: {
+    title: "Privacy Policy | Kyzor",
+    description: "Privacy Policy and data processing terms for Kyzor agency website and consultation bookings.",
+    url: "https://www.kyzor.online/privacy",
+  },
 };
 
 export default function PrivacyPage() {

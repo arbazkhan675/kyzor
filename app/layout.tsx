@@ -51,6 +51,11 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: ["/opengraph-image"],
   },
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   robots: {
     index: true,
     follow: true,

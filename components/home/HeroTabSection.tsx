@@ -456,11 +456,33 @@ function HeroTabContent() {
 
 export function HeroTabSection() {
   return (
-    <Suspense fallback={
-      <section id="services" className="py-20 text-center text-slate-500">
-        Loading service showcase...
-      </section>
-    }>
+    <Suspense
+      fallback={
+        <section id="services" className="relative overflow-hidden py-16 md:py-20 lg:py-28 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/40 via-white to-slate-50/30">
+          <EditorialContainer className="relative space-y-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 space-y-6 animate-pulse">
+                <div className="h-10 w-64 bg-slate-200/80 rounded-full" />
+                <div className="space-y-3">
+                  <div className="h-4 w-32 bg-purple-100/80 rounded-md" />
+                  <div className="h-10 w-full bg-slate-200/80 rounded-xl" />
+                  <div className="h-10 w-3/4 bg-slate-200/80 rounded-xl" />
+                  <div className="h-4 w-5/6 bg-slate-100 rounded-md" />
+                  <div className="h-4 w-4/6 bg-slate-100 rounded-md" />
+                </div>
+                <div className="flex gap-4 pt-2">
+                  <div className="h-12 w-48 bg-purple-200/60 rounded-[12px]" />
+                  <div className="h-12 w-40 bg-slate-200/60 rounded-[12px]" />
+                </div>
+              </div>
+              <div className="lg:col-span-6 flex justify-center items-center py-8 animate-pulse">
+                <div className="w-[200px] h-[360px] bg-slate-900/10 rounded-[28px] border-2 border-slate-200" />
+              </div>
+            </div>
+          </EditorialContainer>
+        </section>
+      }
+    >
       <HeroTabContent />
     </Suspense>
   );

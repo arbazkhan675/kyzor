@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.kyzor.online/terms",
   },
+  openGraph: {
+    title: "Terms of Service | Kyzor",
+    description: "Terms of Service governing the use of Kyzor agency website and consultation requests.",
+    url: "https://www.kyzor.online/terms",
+  },
 };
 
 export default function TermsPage() {
@@ -56,7 +61,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900">3. Intellectual Property Rights & System Demonstrations</h2>
           <p>
-            All original content, branding, visual designs, brand artwork (`public/logo.png`), code architecture, and documentation published on this website are the exclusive intellectual property of Kyzor. Unauthorised reproduction, copying, or redistribution of our brand materials or site content without express written consent is prohibited.
+            All original content, branding, visual designs, Kyzor logo artwork, code architecture, and documentation published on this website are the exclusive intellectual property of Kyzor. Unauthorised reproduction, copying, or redistribution of our brand materials or site content without express written consent is prohibited.
           </p>
           <p className="text-slate-600">
             Interface demonstrations, workflow visualizations and system mockups displayed on this website illustrate Kyzor’s design and engineering capabilities. They should not be interpreted as client projects or measured client outcomes unless explicitly stated.
