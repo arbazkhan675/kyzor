@@ -3,11 +3,11 @@ import fs from "fs";
 import path from "path";
 
 describe("About Page & Legal Trust Pages Specifications", () => {
-  it("verifies exact opening statement and belief copy on About page", () => {
+  it("verifies founder identity and belief copy on About page", () => {
     const aboutPath = path.join(process.cwd(), "app/about/page.tsx");
     const content = fs.readFileSync(aboutPath, "utf-8");
 
-    expect(content).toContain("Kyzor is a digital product and automation agency that builds complete custom systems from the ground up.");
+    expect(content).toContain("Arbaz Khan");
     expect(content).toContain("Technology should adapt to the business - not force the business to adapt to a template.");
   });
 
@@ -33,7 +33,6 @@ describe("About Page & Legal Trust Pages Specifications", () => {
     const privacyPath = path.join(process.cwd(), "app/privacy/page.tsx");
     const content = fs.readFileSync(privacyPath, "utf-8");
 
-    expect(content).toContain("OWNER REVIEW REQUIRED");
     expect(content).toContain("Last Updated: July 2026");
     expect(content).toContain("Supabase");
     expect(content).toContain("Resend");
@@ -44,7 +43,6 @@ describe("About Page & Legal Trust Pages Specifications", () => {
     const termsPath = path.join(process.cwd(), "app/terms/page.tsx");
     const content = fs.readFileSync(termsPath, "utf-8");
 
-    expect(content).toContain("OWNER REVIEW REQUIRED");
     expect(content).toContain("Last Updated: July 2026");
     expect(content).toContain("Separate Client Project Contracts");
     expect(content).toContain("Master Service Agreements");

@@ -9,15 +9,15 @@ export default function HomePage() {
     { number: "01", title: "Discovery & Strategy", description: "We analyze your business workflows, operational bottlenecks, and technology goals to define a precise engineering roadmap." },
     { number: "02", title: "Bespoke Architecture & Design", description: "We model custom database schemas, API contracts, and user flows designed specifically around your business operations." },
     { number: "03", title: "Custom Code Engineering", description: "We write complete applications and automations from scratch using modern, high-performance tech stacks." },
-    { number: "04", title: "Testing & Deployment", description: "We validate system performance, security boundaries, and automated workflows before deploying to global edge infrastructure." },
+    { number: "04", title: "Testing & Deployment", description: "We validate system performance, security boundaries, and automated workflows before deploying to edge infrastructure." },
     { number: "05", title: "Support & Iteration", description: "We provide ongoing system maintenance, feature extensions, and performance monitoring as your business scales." },
   ];
 
   const reasons = [
-    { title: "100% Custom Code & Zero Platform Locks", description: "No subscription platform fees, rigid themes, or third-party plugin dependencies. You own 100% of your source code.", icon: ShieldCheck },
-    { title: "Sub-Second Speed & Edge Performance", description: "Engineered for maximum speed and sub-200ms page transitions globally, improving conversions and search rankings.", icon: Zap },
-    { title: "Full Data Sovereignty", description: "Your customer records, analytics, and automation workflows stay completely under your ownership and direct database control.", icon: Database },
-    { title: "End-to-End Operational Automation", description: "Seamlessly connect WhatsApp, email, AI agents, and internal CRMs into unified automated workflows.", icon: Bot },
+    { title: "Custom-Built Codebase Without Lock-in", description: "No required marketplace-plugin stack, rigid themes, or platform transaction cuts. Source-code terms defined clearly in your agreement.", icon: ShieldCheck },
+    { title: "Fast, Responsive Navigation", description: "Engineered for rapid load times and responsive page navigation, supporting a faster customer experience and technical SEO.", icon: Zap },
+    { title: "Direct Data Ownership", description: "Direct access to and control over your application data, customer records, and internal backend database schemas.", icon: Database },
+    { title: "End-to-End Operational Automation", description: "Seamlessly connect WhatsApp Cloud API, email, AI agents, and internal CRMs into unified automated workflows.", icon: Bot },
   ];
 
   return (
@@ -50,20 +50,20 @@ export default function HomePage() {
                   <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Tailored database architecture & schemas
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Sub-second load times & edge hosting
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Fast load times & edge infrastructure
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Zero monthly platform plugin fees
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> No required marketplace-plugin stack
                 </li>
               </ul>
             </div>
 
             <div>
               <Link
-                href="/ecommerce"
+                href="/?service=ecommerce#services"
                 className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
               >
-                Explore Custom E-commerce Solutions
+                View E-commerce Demonstration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
@@ -77,14 +77,14 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-700 transition-colors">Business Automations</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Automated operational workflows designed to eliminate manual data entry. We integrate official WhatsApp APIs, document parsers, AI customer assistants, webhook routing, and internal backend databases.
+                Automated operational workflows designed to reduce repetitive manual data entry. We integrate official WhatsApp APIs, document parsers, AI customer assistants, webhook routing, and internal backend databases.
               </p>
               <ul className="space-y-2.5 text-xs text-slate-600 pt-2 font-mono">
                 <li className="flex items-center gap-2.5">
                   <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Official WhatsApp Cloud API integration
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Autonomous lead qualification pipelines
+                  <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Automated lead qualification pipelines
                 </li>
                 <li className="flex items-center gap-2.5">
                   <CheckCircle2 className="h-4 w-4 text-purple-700 shrink-0" /> Custom AI document extraction engines
@@ -94,10 +94,10 @@ export default function HomePage() {
 
             <div>
               <Link
-                href="/automations"
+                href="/?service=automation#services"
                 className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 group-hover:translate-x-1 transition-all"
               >
-                Explore Business Automations
+                View Automations Demonstration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
@@ -168,14 +168,14 @@ export default function HomePage() {
               Ready to Build Your Custom Application or Automation?
             </h2>
             <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-              Schedule a direct technical consultation with our engineering team to map out your architecture and project timelines.
+              Request a free discovery call with our engineering team to map out your architecture and project timelines.
             </p>
             <div>
               <Link
                 href="/consultation"
                 className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
-                Book a Consultation
+                Request a Free Consultation
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>

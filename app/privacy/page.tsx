@@ -1,8 +1,3 @@
-/*
-  OWNER REVIEW REQUIRED:
-  Please have qualified legal counsel review this Privacy Policy text prior to commercial operations.
-*/
-
 import Link from "next/link";
 import { ShieldCheck, Mail, ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
@@ -10,6 +5,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | Kyzor",
   description: "Privacy Policy and data processing terms for Kyzor agency website and consultation bookings.",
+  alternates: {
+    canonical: "https://www.kyzor.online/privacy",
+  },
 };
 
 export default function PrivacyPage() {
@@ -28,7 +26,7 @@ export default function PrivacyPage() {
       <div className="border-b border-slate-200 pb-8 space-y-3">
         <div className="flex items-center gap-2 text-purple-700">
           <ShieldCheck className="h-6 w-6" />
-          <span className="text-xs font-mono uppercase tracking-wider">Legal Notice</span>
+          <span className="text-xs font-mono uppercase tracking-wider font-semibold">Legal Notice</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Privacy Policy</h1>
         <p className="text-xs font-mono text-slate-500">Last Updated: July 2026</p>
@@ -39,7 +37,7 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900">1. Information We Collect</h2>
           <p>
-            When you interact with Kyzor (https://kyzor.online) or submit a booking request through our consultation form, we collect the following types of information:
+            When you interact with Kyzor (https://www.kyzor.online) or submit a booking request through our consultation form, we collect the following types of information:
           </p>
           <ul className="list-disc pl-6 space-y-1.5 text-slate-600">
             <li><strong className="text-slate-900">Contact Details:</strong> Your full name, business email address, and company name.</li>

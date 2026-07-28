@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent } from "react";
+import { useState, useRef, useEffect, KeyboardEvent, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowRight,
   ShoppingBag,
@@ -19,22 +20,46 @@ import {
   Truck,
   Users,
   ShieldCheck,
-  CheckCircle2,
   FileText,
   Repeat,
   UserPlus,
   Calendar,
+  CheckCircle2,
+  Bell,
+  UserCheck,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
 import { VideoShowcaseCard } from "@/components/ecommerce/VideoShowcaseCard";
 
-export function HeroTabSection() {
+function HeroTabContent() {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<"ecommerce" | "automations">("ecommerce");
   const tabListRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+    if (serviceParam === "ecommerce") {
+      setActiveTab("ecommerce");
+    } else if (serviceParam === "automation" || serviceParam === "automations") {
+      setActiveTab("automations");
+    }
+  }, [searchParams]);
+
   const switchTab = (tab: "ecommerce" | "automations") => {
     setActiveTab(tab);
+    if (tab === "ecommerce") {
+      trackEvent("ecommerce_tab_selected");
+    } else {
+      trackEvent("automation_tab_selected");
+    }
     trackEvent("hero_tab_change", { tab });
+
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("service", tab === "ecommerce" ? "ecommerce" : "automation");
+      url.hash = "services";
+      window.history.replaceState({}, "", url.toString());
+    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, currentTab: "ecommerce" | "automations") => {
@@ -48,16 +73,16 @@ export function HeroTabSection() {
   };
 
   const ecommerceCapabilities = [
-    { title: "Custom Storefront", description: "Bespoke, ultra-fast buyer interfaces tailored to your brand without generic themes or plugin lag.", icon: Layout },
+    { title: "Custom Storefront", description: "Bespoke, fast buyer interfaces tailored to your brand without dependence on a theme or plugin marketplace.", icon: Layout },
     { title: "Products & Inventory", description: "Flexible catalog schemas supporting product variants, stock tracking, and automated inventory sync.", icon: Package },
-    { title: "Cart & Payments", description: "Direct payment gateway integrations with secure, sub-second checkout flows.", icon: CreditCard },
-    { title: "Orders & Delivery", description: "Automated fulfillment pipelines tracking order statuses and notifying customers instantly.", icon: Truck },
+    { title: "Cart & Payments", description: "Direct payment gateway integrations with streamlined checkout flows optimized for speed.", icon: CreditCard },
+    { title: "Orders & Delivery", description: "Fulfillment pipeline tracking order statuses and notifying customers.", icon: Truck },
     { title: "Customer Accounts", description: "Secure buyer portals for order history, saved addresses, and profile preferences.", icon: Users },
-    { title: "Admin Dashboard", description: "Back-office management console for full control over catalog, orders, and customer data.", icon: ShieldCheck },
+    { title: "Admin Dashboard", description: "Back-office management console for control over catalog, orders, and customer data.", icon: ShieldCheck },
   ];
 
   const automationWorkflows = [
-    { title: "WhatsApp Lead Qualification", description: "Autonomous 24/7 lead capture, qualification, and routing via official WhatsApp Cloud API.", icon: MessageSquare },
+    { title: "WhatsApp Lead Qualification", description: "Automated inquiry capture, qualification, and routing via official WhatsApp Cloud API.", icon: MessageSquare },
     { title: "AI Document Processing Engine", description: "Automated document parsing, OCR extraction, and interactive voice assistant verification.", icon: FileText },
     { title: "Real-Time Inventory Sync", description: "Bi-directional stock level synchronization across storefronts and ERP backend databases.", icon: Repeat },
     { title: "CRM Lead Enrichment", description: "Instant webhook enrichment connecting customer inquiries directly into your internal database.", icon: UserPlus },
@@ -66,7 +91,7 @@ export function HeroTabSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/40 via-white to-slate-50/50">
+    <section id="services" className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200/80 bg-gradient-to-b from-purple-50/40 via-white to-slate-50/50">
       {/* Ambient Top Radial Glow Background */}
       <div className="absolute inset-0 pointer-events-none ambient-glow-top" />
 
@@ -131,7 +156,7 @@ export function HeroTabSection() {
             <div className="mx-auto max-w-3xl text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-xs font-mono text-purple-700 font-semibold uppercase tracking-wider shadow-xs animate-subtle-float">
                 <Sparkles className="h-3.5 w-3.5 text-purple-600" />
-                Zero Platform Overhead
+                No commerce-platform transaction cuts
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 Custom e-commerce applications, built around your business.
@@ -142,7 +167,7 @@ export function HeroTabSection() {
               <div className="pt-2">
                 <Link
                   href="/consultation"
-                  onClick={() => trackEvent("consultation_cta_click", { location: "hero_ecommerce" })}
+                  onClick={() => trackEvent("consultation_cta_clicked", { location: "hero_ecommerce" })}
                   className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Book a Consultation
@@ -155,10 +180,10 @@ export function HeroTabSection() {
             <div className="max-w-4xl mx-auto pt-4">
               <VideoShowcaseCard
                 videoUrl="/video/1.mp4"
-                title="Sub-Second Custom Storefront & Dynamic Interactions"
-                description="Experience sub-200ms page transitions, instant product filtering, and smooth cart drawer interactions engineered from scratch."
-                badgeText="Live System Showcase"
-                tags={["React Server Components", "Edge Gateway", "Zero Plugin Overhead", "Postgres Database"]}
+                title="Kyzor-built interface demonstration"
+                description="Experience responsive storefront navigation, instant product variant updates, and streamlined checkout flows optimized for speed."
+                badgeText="Kyzor-built interface demonstration"
+                tags={["React Server Components", "Edge Gateway", "No Required Plugin Stack", "Postgres Database"]}
               />
             </div>
 
@@ -204,17 +229,81 @@ export function HeroTabSection() {
                 Automate the work slowing your business down.
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                We build custom workflows, AI agents, chatbots, voice assistants and integrations that help your business run with less manual effort.
+                We build custom workflows, AI agents, chatbots, voice assistants and integrations that help reduce repetitive manual data entry.
               </p>
               <div className="pt-2">
                 <Link
                   href="/consultation"
-                  onClick={() => trackEvent("consultation_cta_click", { location: "hero_automations" })}
+                  onClick={() => trackEvent("consultation_cta_clicked", { location: "hero_automations" })}
                   className="btn-gleam inline-flex items-center justify-center rounded-xl bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-600"
                 >
                   Book a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
+              </div>
+            </div>
+
+            {/* Honest Automation Demonstration Container (Step 6) */}
+            <div className="max-w-4xl mx-auto pt-4">
+              <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-sm border-blue-100">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900 text-white text-[11px] font-mono font-semibold border border-blue-700">
+                      <Sparkles className="h-3 w-3 text-blue-300" />
+                      Kyzor-built interface demonstration
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono text-slate-500 font-semibold hidden sm:inline">
+                    6-Step Automated Workflow Execution
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-slate-900">End-to-End WhatsApp Lead Qualification & CRM Pipeline</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Demonstration of instant customer inquiry intake, automated WhatsApp qualification, direct CRM record insertion, sales team notification, and human escalation guardrails.
+                  </p>
+                </div>
+
+                {/* 6-Step Visual Workflow Process Card Flow */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-2">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">1</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">Lead Form Submission</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">2</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">WhatsApp Response</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">3</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">Qualification Questions</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">4</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">CRM/DB Insertion</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">5</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">Sales Notification</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-xl bg-red-100 text-red-700 flex items-center justify-center mx-auto text-xs font-bold font-mono">6</div>
+                    <span className="text-xs font-bold text-slate-900 block leading-tight">Human Escalation</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {["Official WhatsApp Cloud API", "Custom Webhooks", "Zod Validation", "Human Handoff Guard"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-700" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -270,7 +359,7 @@ export function HeroTabSection() {
                     <ShoppingBag className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 block">Custom Storefront</span>
-                  <span className="text-[10px] font-mono text-slate-500 block">Sub-200ms Edge</span>
+                  <span className="text-[10px] font-mono text-slate-500 block">Fast Navigation</span>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 space-y-2 text-center group hover:border-purple-300 transition-colors">
@@ -286,7 +375,7 @@ export function HeroTabSection() {
                     <Database className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 block">Postgres RLS Database</span>
-                  <span className="text-[10px] font-mono text-slate-500 block">Full Data Ownership</span>
+                  <span className="text-[10px] font-mono text-slate-500 block">Direct Application Control</span>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 space-y-2 text-center group hover:border-purple-300 transition-colors">
@@ -336,5 +425,17 @@ export function HeroTabSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+export function HeroTabSection() {
+  return (
+    <Suspense fallback={
+      <section id="services" className="py-20 text-center text-slate-500">
+        Loading service showcase...
+      </section>
+    }>
+      <HeroTabContent />
+    </Suspense>
   );
 }

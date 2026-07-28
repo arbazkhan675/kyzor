@@ -3,9 +3,10 @@
 import { useState, useTransition, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { submitConsultationAction } from "@/app/actions/consultation";
-import { Loader2, CheckCircle2, AlertCircle, Calendar, ShieldCheck, ArrowLeft, MessageSquare, PhoneCall } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Calendar, ShieldCheck, ArrowLeft, MessageSquare, PhoneCall, Clock, Globe } from "lucide-react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/config/site";
+import { trackEvent } from "@/lib/analytics/track";
 
 function ConsultationFormContent() {
   const searchParams = useSearchParams();
@@ -17,7 +18,7 @@ function ConsultationFormContent() {
     phone: "",
     company: "",
     project_type: "ecommerce",
-    budget: "",
+    budget: "Not sure yet",
     contact_preference: "whatsapp",
     message: "",
     consent: false,
@@ -27,7 +28,6 @@ function ConsultationFormContent() {
     utm_campaign: "",
   });
 
-  // Extract non-sensitive UTM params on mount
   useEffect(() => {
     if (searchParams) {
       setFormData((prev) => ({
@@ -43,6 +43,10 @@ function ConsultationFormContent() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [successResult, setSuccessResult] = useState<string | null>(null);
 
+  const handleFormFocus = () => {
+    trackEvent("consultation_form_started");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFieldErrors({});
@@ -50,11 +54,11 @@ function ConsultationFormContent() {
 
     if (!formData.consent) {
       setFieldErrors({ consent: "You must consent to be contacted regarding your consultation request." });
+      trackEvent("consultation_form_failed", { error: "consent_missing" });
       return;
     }
 
     startTransition(async () => {
-      // Include preferred contact method in message payload for full server compatibility
       const enrichedMessage = `[Preferred Contact: ${formData.contact_preference.toUpperCase()}]\n\n${formData.message}`;
 
       const res = await submitConsultationAction({
@@ -74,11 +78,13 @@ function ConsultationFormContent() {
 
       if (res.error) {
         setServerError(res.error);
+        trackEvent("consultation_form_failed", { error: res.error });
         if (res.fieldErrors) {
           setFieldErrors(res.fieldErrors);
         }
       } else if (res.success) {
-        setSuccessResult(res.message || "Consultation request submitted successfully.");
+        trackEvent("consultation_form_submitted");
+        setSuccessResult("Thank you! Our engineering team will review your project details and respond within 1 business day.");
       }
     });
   };
@@ -96,24 +102,48 @@ function ConsultationFormContent() {
       </div>
 
       {/* Header */}
-      <div className="space-y-3 text-center sm:text-left">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="space-y-4 text-center sm:text-left">
+        <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full font-semibold">
             <Calendar className="h-3.5 w-3.5" />
-            Direct Technical Discovery
+            Discovery Request
           </div>
           <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full font-semibold">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            India & Global Project Intake
+            Response within 1 business day
           </span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Book a Technical Consultation
+          Request a Free Consultation
         </h1>
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
           Discuss your custom e-commerce application or business automation requirements directly with our senior product engineers.
         </p>
+
+        {/* Discovery Call Guarantee Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
+            <Clock className="h-4 w-4 text-purple-700 mx-auto" />
+            <span className="text-[11px] font-bold text-slate-900 block">Free 20-Min Call</span>
+            <span className="text-[10px] text-slate-500 block">Technical Discovery</span>
+          </div>
+          <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
+            <ShieldCheck className="h-4 w-4 text-purple-700 mx-auto" />
+            <span className="text-[11px] font-bold text-slate-900 block">No Obligation</span>
+            <span className="text-[10px] text-slate-500 block">Clear Scope Review</span>
+          </div>
+          <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
+            <Calendar className="h-4 w-4 text-purple-700 mx-auto" />
+            <span className="text-[11px] font-bold text-slate-900 block">1 Business Day</span>
+            <span className="text-[10px] text-slate-500 block">Guaranteed Response</span>
+          </div>
+          <div className="rounded-xl border border-slate-200/90 bg-white p-3 text-center space-y-1 shadow-xs">
+            <Globe className="h-4 w-4 text-purple-700 mx-auto" />
+            <span className="text-[11px] font-bold text-slate-900 block">India & Global</span>
+            <span className="text-[10px] text-slate-500 block">Projects Welcome</span>
+          </div>
+        </div>
       </div>
 
       {/* Instant WhatsApp Connect Helper Banner */}
@@ -124,13 +154,14 @@ function ConsultationFormContent() {
           </div>
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-900">Prefer Instant Communication?</h3>
-            <p className="text-xs text-emerald-800 leading-snug">Connect directly with our engineering lead on WhatsApp for quick inquiries.</p>
+            <p className="text-xs text-emerald-800 leading-snug">Connect directly with our engineering lead on WhatsApp for quick project inquiries.</p>
           </div>
         </div>
         <a
-          href={`https://wa.me/${siteConfig.whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Kyzor%20Team,%20I'd%20like%20to%20discuss%20a%20custom%20software%20project.`}
+          href={`https://wa.me/${siteConfig.whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Kyzor%20Team,%20I'd%20like%20to%20request%20a%20free%20consultation.`}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent("whatsapp_clicked")}
           className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 shadow-sm transition-all shrink-0"
         >
           <MessageSquare className="h-4 w-4" />
@@ -145,7 +176,7 @@ function ConsultationFormContent() {
             <CheckCircle2 className="h-7 w-7" />
           </div>
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-slate-900">Consultation Requested!</h2>
+            <h2 className="text-2xl font-bold text-slate-900">Request Submitted Successfully!</h2>
             <p className="text-sm text-slate-700 max-w-lg mx-auto leading-relaxed">{successResult}</p>
           </div>
           <div>
@@ -174,12 +205,13 @@ function ConsultationFormContent() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+          <form onSubmit={handleSubmit} onFocus={handleFormFocus} className="space-y-6" noValidate>
             {/* Hidden Honeypot Field for Bot Protection */}
-            <div style={{ display: "none" }} aria-hidden="true">
+            <div className="hidden sr-only" aria-hidden="true">
               <label htmlFor="website_hp">Do not fill this out</label>
               <input
                 id="website_hp"
+                name="honeypot"
                 type="text"
                 tabIndex={-1}
                 value={formData.honeypot}
@@ -196,8 +228,10 @@ function ConsultationFormContent() {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   required
+                  autoComplete="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Aarav Sharma"
@@ -215,8 +249,10 @@ function ConsultationFormContent() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="aarav@company.in"
@@ -236,7 +272,9 @@ function ConsultationFormContent() {
                 </label>
                 <input
                   id="company"
+                  name="company"
                   type="text"
+                  autoComplete="organization"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   placeholder="e.g. Nexus Tech India Pvt Ltd"
@@ -250,11 +288,13 @@ function ConsultationFormContent() {
               {/* Phone / WhatsApp */}
               <div className="space-y-2">
                 <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  Phone / WhatsApp (Preferred for India)
+                  Phone / WhatsApp
                 </label>
                 <input
                   id="phone"
+                  name="phone"
                   type="tel"
+                  autoComplete="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+91 98765 43210"
@@ -267,13 +307,15 @@ function ConsultationFormContent() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Service Type */}
+              {/* Primary Project Focus */}
               <div className="space-y-2">
                 <label htmlFor="project_type" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
                   Primary Project Focus *
                 </label>
                 <select
                   id="project_type"
+                  name="project_type"
+                  required
                   value={formData.project_type}
                   onChange={(e) => setFormData({ ...formData, project_type: e.target.value })}
                   className="w-full rounded-lg bg-slate-50 border border-slate-200 px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600"
@@ -283,28 +325,32 @@ function ConsultationFormContent() {
                   <option value="both">Both E-commerce & Automations</option>
                   <option value="not_sure">Not Sure / Needs Engineering Advice</option>
                 </select>
+                {fieldErrors.project_type && <p className="text-xs text-red-600">{fieldErrors.project_type}</p>}
               </div>
 
-              {/* Budget in INR (Free Text Input) */}
+              {/* Budget Range Selector */}
               <div className="space-y-2">
                 <label htmlFor="budget" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                  Estimated Budget (in INR ₹)
+                  Estimated Budget Range
                 </label>
-                <input
+                <select
                   id="budget"
-                  type="text"
+                  name="budget"
                   value={formData.budget}
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  placeholder="e.g. ₹1,50,000 or ₹2 Lakhs"
-                  className={`w-full rounded-lg bg-slate-50 border px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600 ${
-                    fieldErrors.budget ? "border-red-500" : "border-slate-200"
-                  }`}
-                />
+                  className="w-full rounded-lg bg-slate-50 border border-slate-200 px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                >
+                  <option value="Not sure yet">Not sure yet</option>
+                  <option value="Under ₹50,000 / $600">Under ₹50,000 / $600</option>
+                  <option value="₹50,000 - ₹1,50,000 / $600 - $1,800">₹50,000 - ₹1,50,000 / $600 - $1,800</option>
+                  <option value="₹1,50,000 - ₹5,00,000 / $1,800 - $6,000">₹1,50,000 - ₹5,00,000 / $1,800 - $6,000</option>
+                  <option value="₹5,00,000+ / $6,000+">₹5,00,000+ / $6,000+</option>
+                </select>
                 {fieldErrors.budget && <p className="text-xs text-red-600">{fieldErrors.budget}</p>}
               </div>
             </div>
 
-            {/* Preferred Contact Mode Selector */}
+            {/* Preferred Communication Channel */}
             <div className="space-y-2">
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 Preferred Communication Channel
@@ -343,6 +389,7 @@ function ConsultationFormContent() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 required
                 rows={5}
                 value={formData.message}
@@ -361,15 +408,18 @@ function ConsultationFormContent() {
 
             {/* Consent Checkbox */}
             <div className="space-y-2 pt-2">
-              <label className="flex items-start gap-3 text-xs text-slate-700 cursor-pointer">
+              <label htmlFor="consent" className="flex items-start gap-3 text-xs text-slate-700 cursor-pointer">
                 <input
+                  id="consent"
+                  name="consent"
                   type="checkbox"
+                  required
                   checked={formData.consent}
                   onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                   className="mt-0.5 rounded border-slate-300 bg-slate-50 text-purple-700 focus:ring-purple-600 h-4 w-4 shrink-0"
                 />
                 <span className="leading-relaxed">
-                  I consent to Kyzor storing my submission details and contacting me regarding this technical consultation request. *
+                  I consent to Kyzor storing my submission details and contacting me regarding this free consultation request. *
                 </span>
               </label>
               {fieldErrors.consent && <p className="text-xs text-red-600">{fieldErrors.consent}</p>}
@@ -385,12 +435,12 @@ function ConsultationFormContent() {
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Submitting Consultation Request...
+                    Submitting Request...
                   </>
                 ) : (
                   <>
                     <ShieldCheck className="mr-2 h-4 w-4" />
-                    Book Technical Consultation
+                    Request Free Consultation
                   </>
                 )}
               </button>

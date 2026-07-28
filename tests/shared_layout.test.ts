@@ -4,7 +4,7 @@ import { siteConfig } from "../lib/config/site";
 describe("Shared Layout Configuration & Navigation Integrity", () => {
   it("verifies siteConfig contains valid Kyzor brand metadata", () => {
     expect(siteConfig.name).toBe("Kyzor");
-    expect(siteConfig.domain).toBe("https://kyzor.online");
+    expect(siteConfig.domain).toBe("https://www.kyzor.online");
     expect(siteConfig.contactEmail).toContain("@kyzor.online");
   });
 

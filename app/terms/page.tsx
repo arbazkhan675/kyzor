@@ -1,8 +1,3 @@
-/*
-  OWNER REVIEW REQUIRED:
-  Please have qualified legal counsel review this Terms of Service text prior to commercial operations.
-*/
-
 import Link from "next/link";
 import { FileText, Mail, ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
@@ -10,6 +5,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service | Kyzor",
   description: "Terms of Service governing the use of Kyzor agency website and consultation requests.",
+  alternates: {
+    canonical: "https://www.kyzor.online/terms",
+  },
 };
 
 export default function TermsPage() {
@@ -28,7 +26,7 @@ export default function TermsPage() {
       <div className="border-b border-slate-200 pb-8 space-y-3">
         <div className="flex items-center gap-2 text-purple-700">
           <FileText className="h-6 w-6" />
-          <span className="text-xs font-mono uppercase tracking-wider">Legal Terms</span>
+          <span className="text-xs font-mono uppercase tracking-wider font-semibold">Legal Terms</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Terms of Service</h1>
         <p className="text-xs font-mono text-slate-500">Last Updated: July 2026</p>
@@ -39,7 +37,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-slate-900">1. Informational Website Use</h2>
           <p>
-            Welcome to Kyzor (https://kyzor.online). By accessing or browsing this website, you agree to comply with and be bound by these Terms of Service. This website is provided solely to present our custom software engineering capabilities, business automation services, concept portfolios, and consultation scheduling mechanisms.
+            Welcome to Kyzor (https://www.kyzor.online). By accessing or browsing this website, you agree to comply with and be bound by these Terms of Service. This website is provided solely to present our custom software engineering capabilities, business automation services, concept portfolios, and consultation scheduling mechanisms.
           </p>
         </section>
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Instagram, Linkedin, MapPin } from "lucide-react";
 import { siteConfig } from "@/lib/config/site";
 
 export function SiteFooter() {
@@ -18,12 +19,40 @@ export function SiteFooter() {
             <p className="text-sm text-slate-600 max-w-md leading-relaxed">
               {siteConfig.description}
             </p>
-            <p className="text-xs text-slate-500">
-              Official Website:{" "}
-              <a href={siteConfig.domain} className="text-purple-700 font-semibold hover:underline">
-                kyzor.online
+            <div className="space-y-1 text-xs text-slate-500">
+              <p className="flex items-center gap-1">
+                <MapPin className="h-3.5 w-3.5 text-purple-700 shrink-0" />
+                Operating Location: <span className="font-medium text-slate-700">Ahmedabad, Gujarat, India</span>
+              </p>
+              <p>
+                Official Domain:{" "}
+                <a href={siteConfig.domain} className="text-purple-700 font-semibold hover:underline">
+                  www.kyzor.online
+                </a>
+              </p>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://instagram.com/kyzorcommerce"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Kyzor Instagram"
+                className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600 hover:bg-slate-50 transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
               </a>
-            </p>
+              <a
+                href="https://linkedin.com/company/kyzor"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Kyzor LinkedIn"
+                className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           {/* Column 2: Navigation */}
@@ -58,9 +87,10 @@ export function SiteFooter() {
               ))}
               <li className="pt-2 text-xs text-slate-500">
                 Inquiries:{" "}
-                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-slate-900">
+                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-slate-900 font-medium">
                   {siteConfig.contactEmail}
                 </a>
+                <span className="block text-[11px] text-emerald-700 pt-0.5 font-medium">Response within 1 business day</span>
               </li>
             </ul>
           </div>

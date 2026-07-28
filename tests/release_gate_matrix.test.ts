@@ -86,7 +86,8 @@ describe("Release Gate & Test Matrix Verification", () => {
     });
 
     siteConfig.navItems.forEach((item) => {
-      const routePath = item.href === "/" ? "app/page.tsx" : `app${item.href}/page.tsx`;
+      const cleanPath = item.href.split("#")[0];
+      const routePath = cleanPath === "" || cleanPath === "/" ? "app/page.tsx" : `app${cleanPath}/page.tsx`;
       expect(fs.existsSync(path.join(process.cwd(), routePath))).toBe(true);
     });
   });

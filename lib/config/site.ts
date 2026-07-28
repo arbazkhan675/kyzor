@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Kyzor",
-  domain: "https://kyzor.online",
+  domain: "https://www.kyzor.online",
   description:
     "Kyzor is an India-based digital product and automation agency building complete custom e-commerce applications from scratch and autonomous business workflows (WhatsApp Cloud API, AI agents, voice assistants, CRM integrations).",
   contactEmail: "contact@kyzor.online",
@@ -26,7 +26,7 @@ export const siteConfig = {
     "bespoke e-commerce software",
   ],
   navItems: [
-    { label: "Home", href: "/" },
+    { label: "Services", href: "/#services" },
     { label: "About", href: "/about" },
   ],
   cta: {

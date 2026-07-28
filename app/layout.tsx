@@ -18,21 +18,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.domain),
+  metadataBase: new URL("https://www.kyzor.online"),
   title: {
-    default: "Kyzor | Custom E-commerce Development & Business Automation Agency India",
-    template: "%s | Kyzor",
+    default: "Kyzor | Custom E-commerce Development & Business Automations",
+    template: "%s",
   },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: "Kyzor Agency" }],
   alternates: {
-    canonical: "/",
+    canonical: "https://www.kyzor.online/",
   },
   openGraph: {
-    title: "Kyzor | Custom E-commerce Development & Business Automations India",
+    title: "Kyzor | Custom E-commerce Development & Business Automations",
     description: siteConfig.description,
-    url: siteConfig.domain,
+    url: "https://www.kyzor.online/",
     siteName: siteConfig.name,
     images: [
       {
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kyzor | Custom E-commerce & Automations India",
+    title: "Kyzor | Custom E-commerce & Automations",
     description: siteConfig.description,
     images: ["/opengraph-image"],
   },
@@ -62,18 +62,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Verified Organization & ProfessionalService JSON-LD with India Location Metadata
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": `${siteConfig.domain}/#organization`,
+        "@id": "https://www.kyzor.online/#organization",
         name: siteConfig.name,
-        url: siteConfig.domain,
-        logo: `${siteConfig.domain}/brand/logo.png`,
+        url: "https://www.kyzor.online",
+        logo: "https://www.kyzor.online/brand/logo.png",
         description: siteConfig.description,
         email: siteConfig.contactEmail,
+        sameAs: [
+          "https://instagram.com/kyzorcommerce",
+          "https://linkedin.com/company/kyzor",
+        ],
         address: {
           "@type": "PostalAddress",
           addressLocality: siteConfig.location.city,
@@ -83,11 +86,11 @@ export default function RootLayout({
       },
       {
         "@type": "ProfessionalService",
-        "@id": `${siteConfig.domain}/#service`,
+        "@id": "https://www.kyzor.online/#service",
         name: siteConfig.name,
-        url: siteConfig.domain,
-        logo: `${siteConfig.domain}/brand/logo.png`,
-        image: `${siteConfig.domain}/opengraph-image`,
+        url: "https://www.kyzor.online",
+        logo: "https://www.kyzor.online/brand/logo.png",
+        image: "https://www.kyzor.online/opengraph-image",
         description: "India-based agency engineering custom e-commerce applications built from scratch and autonomous business workflows.",
         priceRange: "₹₹₹",
         email: siteConfig.contactEmail,

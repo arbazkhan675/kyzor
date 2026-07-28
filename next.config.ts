@@ -13,12 +13,17 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/ecommerce",
-        destination: "/",
+        destination: "/?service=ecommerce",
         permanent: true,
       },
       {
         source: "/automations",
-        destination: "/",
+        destination: "/?service=automation",
+        permanent: true,
+      },
+      {
+        source: "/book",
+        destination: "/consultation",
         permanent: true,
       },
       {

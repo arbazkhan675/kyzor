@@ -3,11 +3,11 @@ import fs from "fs";
 import path from "path";
 
 describe("Discoverability, Analytics & Security Headers Specification Tests", () => {
-  it("verifies RootLayout includes metadataBase https://kyzor.online and Organization JSON-LD", () => {
+  it("verifies RootLayout includes metadataBase https://www.kyzor.online and Organization JSON-LD", () => {
     const layoutPath = path.join(process.cwd(), "app/layout.tsx");
     const content = fs.readFileSync(layoutPath, "utf-8");
 
-    expect(content).toContain("metadataBase: new URL(siteConfig.domain)");
+    expect(content).toContain('metadataBase: new URL("https://www.kyzor.online")');
     expect(content).toContain('"@type": "Organization"');
     expect(content).toContain("<Analytics />");
     expect(content).toContain("<SpeedInsights />");
