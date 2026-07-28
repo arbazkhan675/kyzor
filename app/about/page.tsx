@@ -1,156 +1,200 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Zap, Database, HeartHandshake, MapPin, Instagram } from "lucide-react";
+import { ArrowRight, MapPin, Instagram, Mail } from "lucide-react";
 import type { Metadata } from "next";
+import { EditorialContainer, EditorialSection, SectionIntro } from "@/components/ui/editorial";
 
 export const metadata: Metadata = {
-  title: "About Kyzor | Custom Engineering Studio",
-  description:
-    "Kyzor is a founder-led software studio based in Ahmedabad, India, building custom e-commerce applications from scratch and automated business workflows.",
+  title: "About Kyzor | Founder-Led Custom Software Studio",
+  description: "Learn about Kyzor, a founder-led software engineering studio based in Ahmedabad, Gujarat, India, specializing in custom e-commerce applications and business automations.",
   alternates: {
     canonical: "https://www.kyzor.online/about",
   },
 };
 
 export default function AboutPage() {
-  const processStages = [
-    { name: "Understand", description: "We analyze your business operations, workflows, catalog requirements, and technical goals." },
-    { name: "Design", description: "We architect custom database schemas, API contracts, and user-centric interfaces." },
-    { name: "Build", description: "We write clean, high-performance code from scratch without rigid template or platform lock-in." },
-    { name: "Deploy", description: "We configure edge hosting, production databases, SSL certificates, and launch to your domain." },
-    { name: "Support", description: "We provide ongoing maintenance, feature enhancements, and system monitoring post-launch." },
+  const workingStages = [
+    {
+      number: "01",
+      title: "Understand the operation",
+      description: "We analyze your exact commercial workflows, manual bottlenecks, and system requirements before proposing software architecture.",
+    },
+    {
+      number: "02",
+      title: "Design and build the system",
+      description: "We write clean, high-performance code and custom schemas tailored specifically around how your business operates.",
+    },
+    {
+      number: "03",
+      title: "Launch, support and improve",
+      description: "We validate, deploy, and maintain your application with direct engineer support and ongoing performance enhancements.",
+    },
   ];
 
-  const differentiators = [
-    { title: "Custom-Built", description: "Every line of code is written specifically for your application. No rigid templates, bloatware, or platform locks.", icon: ShieldCheck },
-    { title: "Business-First", description: "Software engineered around your existing operational processes rather than forcing your business into pre-set workflows.", icon: HeartHandshake },
-    { title: "Fully Deployed", description: "Complete end-to-end launch on your custom domain with production-ready security and performance.", icon: Database },
-    { title: "Supported After Launch", description: "We remain your dedicated engineering partner for long-term maintenance, updates, and scaling.", icon: Zap },
+  const operatingPrinciples = [
+    {
+      title: "Business-first",
+      description: "Every engineering decision is guided by your actual operational goals, commercial efficiency, and business outcomes rather than tech stack trends.",
+    },
+    {
+      title: "Custom-built",
+      description: "We engineer software from scratch without rigid template constraints, unnecessary marketplace plugins, or commercial platform cut overhead.",
+    },
+    {
+      title: "Direct communication",
+      description: "You work directly with Kyzor's founder and principal engineer who designs and writes your codebase—eliminating middle layers and miscommunication.",
+    },
+    {
+      title: "Supported after launch",
+      description: "We provide dedicated post-launch support, database monitoring, and ongoing system maintenance to keep your software running reliably.",
+    },
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 pb-16">
-      {/* 1. Hero & Opening Statement */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded font-semibold">
-            Software Studio Philosophy
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Kyzor is a founder-led software studio that builds custom e-commerce applications and business automations.
-          </h1>
-          <p className="text-xl sm:text-2xl font-bold text-purple-700 max-w-3xl mx-auto leading-snug pt-2">
-            “Technology should adapt to the business - not force the business to adapt to a template.”
-          </p>
-        </div>
-      </section>
-
-      {/* 2. Founder Identity Section */}
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 space-y-8 shadow-sm">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-3xl shrink-0 shadow-md">
-              AK
-            </div>
-
-            <div className="space-y-4 text-center md:text-left">
-              <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-200 font-semibold">
-                  Founder & Principal Engineer
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 pt-1">Arbaz Khan</h2>
-                <p className="text-xs font-mono text-slate-500 flex items-center justify-center md:justify-start gap-1 pt-1">
-                  <MapPin className="h-3.5 w-3.5 text-purple-600" />
-                  Ahmedabad, Gujarat, India
-                </p>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Kyzor is a founder-led software studio operated by Arbaz Khan, collaborating with specialist engineers when a project requires additional domain expertise. Founded in Ahmedabad, India, Kyzor was established with a clear mission: to build custom software applications and automations that fit exact business operations without forcing clients into rigid platform templates or recurring plugin fees. With experience across full-stack Next.js development, PostgreSQL architecture, and API integration, Arbaz leads system design and software delivery directly.
+    <div className="space-y-0 pb-16">
+      {/* 1. Hero: Compact Two-Column Editorial Hero */}
+      <EditorialSection className="border-b border-slate-200/80 bg-gradient-to-b from-purple-50/20 via-white to-slate-50/30 py-12 md:py-16 lg:py-20">
+        <EditorialContainer>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Eyebrow, H1, Description */}
+            <div className="md:col-span-7 space-y-4 text-left">
+              <span className="inline-block text-xs font-mono uppercase tracking-widest text-purple-700 bg-purple-50 border border-purple-200/80 px-3 py-1 rounded-[12px] font-semibold">
+                Founder-led software studio
+              </span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Custom software, designed around how your business actually works.
+              </h1>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+                Kyzor builds custom e-commerce applications and business automations for operations that cannot be handled cleanly by standard templates.
               </p>
+            </div>
 
-              <div className="flex items-center justify-center md:justify-start gap-4 pt-2">
-                <a
-                  href="https://instagram.com/kyzorcommerce"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-purple-700 transition-colors bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl"
-                >
-                  <Instagram className="h-4 w-4 text-pink-600" />
-                  @kyzorcommerce
-                </a>
+            {/* Right Column: Founder Badge */}
+            <div className="md:col-span-5">
+              <div className="rounded-[22px] border border-slate-200 bg-white p-6 sm:p-8 space-y-4 shadow-xs">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-[16px] bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xl shrink-0 shadow-xs">
+                    AK
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-bold text-slate-900">Arbaz Khan</h2>
+                    <p className="text-xs font-mono text-purple-700 font-semibold">Founder & Principal Engineer</p>
+                    <p className="text-[11px] font-mono text-slate-500 flex items-center gap-1 pt-1">
+                      <MapPin className="h-3 w-3 text-purple-600" />
+                      Ahmedabad, Gujarat, India
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-700">
+                  <a
+                    href="https://instagram.com/kyzorcommerce"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 hover:text-pink-600 transition-colors"
+                  >
+                    <Instagram className="h-4 w-4 text-pink-600" />
+                    @kyzorcommerce
+                  </a>
+                  <a href="mailto:contact@kyzor.online" className="inline-flex items-center gap-1.5 hover:text-purple-700 transition-colors">
+                    <Mail className="h-4 w-4 text-purple-600" />
+                    contact@kyzor.online
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </EditorialContainer>
+      </EditorialSection>
 
-      {/* 3. Five Process Stages */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="text-center space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700 font-semibold">Our Method</h2>
-          <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-            Five Stages of Engineering Delivery
-          </p>
-        </div>
+      {/* 2. Founder Story: Borderless Two-Column Section */}
+      <EditorialSection className="bg-white">
+        <EditorialContainer className="space-y-8">
+          <SectionIntro
+            eyebrow="Our Story"
+            title="Engineered for Businesses Outgrowing Templates"
+            align="left"
+          />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {processStages.map((stage, idx) => (
-            <div key={stage.name} className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3 shadow-sm">
-              <span className="text-2xl font-mono font-extrabold text-purple-700">0{idx + 1}</span>
-              <h3 className="text-lg font-bold text-slate-900">{stage.name}</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">{stage.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 text-sm sm:text-base text-slate-700 leading-relaxed">
+            <div className="space-y-4">
+              <p>
+                Kyzor was founded to solve a common operational problem: growing businesses forcing their unique commerce workflows into rigid off-the-shelf templates and marketplace plugins that were never designed for their business model.
+              </p>
+              <p>
+                We specialize exclusively in custom e-commerce applications, back-office administrative portals, and automated WhatsApp and CRM data pipelines built around how your organization actually operates.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. Four Core Differentiators */}
-      <section className="border-t border-slate-200 bg-slate-100/60 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-purple-700 font-semibold">Why Work With Us</h2>
-            <p className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-              Four Kyzor Engineering Standards
-            </p>
+            <div className="space-y-4">
+              <p>
+                As a founder-led software studio based in Ahmedabad, Gujarat, India, Kyzor offers direct collaboration with the principal engineer designing and building your codebase. When specialized domain expertise is required for complex integrations, Kyzor collaborates directly with specialist engineers.
+              </p>
+              <p className="text-sm text-slate-600 font-medium">
+                This direct engineering model ensures technical accountability, transparent pricing, and software tailored cleanly to your operational needs.
+              </p>
+            </div>
           </div>
+        </EditorialContainer>
+      </EditorialSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {differentiators.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* 3. Working Model: Simple 3-Stage Sequence */}
+      <EditorialSection className="border-y border-slate-200/80 bg-slate-50/50">
+        <EditorialContainer className="space-y-12">
+          <SectionIntro
+            eyebrow="Working Model"
+            title="How We Execute Projects"
+            description="A simple 3-stage sequence focused on understanding requirements, engineering clean code, and maintaining long-term stability."
+          />
 
-      {/* Final Consultation CTA */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-10 sm:p-14 text-center space-y-6 shadow-xl text-white">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Ready to Build Your Custom Software Solution?
-          </h2>
-          <p className="text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Request a free discovery call directly with Kyzor&apos;s founder and principal engineer to review your technical goals and project scope.
-          </p>
-          <div>
-            <Link
-              href="/consultation"
-              className="inline-flex items-center justify-center rounded-lg bg-accent-gradient px-8 py-4 text-base font-semibold text-white shadow-xl hover:scale-[1.02] transition-all"
-            >
-              Request a Free Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {workingStages.map((stage) => (
+              <div key={stage.number} className="border-t-2 border-purple-600 pt-4 space-y-2">
+                <span className="text-xs font-mono font-bold text-purple-700 block">{stage.number}</span>
+                <h3 className="text-lg font-bold text-slate-900 leading-snug">{stage.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{stage.description}</p>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        </EditorialContainer>
+      </EditorialSection>
+
+      {/* 4. Operating Principles: 4 Text Blocks with Top Borders */}
+      <EditorialSection className="bg-white">
+        <EditorialContainer className="space-y-12">
+          <SectionIntro
+            eyebrow="Principles"
+            title="Our Operating Principles"
+            description="Core engineering commitments that guide every project engagement."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {operatingPrinciples.map((principle) => (
+              <div key={principle.title} className="border-t border-slate-200/80 pt-6 space-y-2">
+                <h3 className="text-base font-bold text-slate-900">{principle.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{principle.description}</p>
+              </div>
+            ))}
+          </div>
+        </EditorialContainer>
+      </EditorialSection>
+
+      {/* 5. CTA: Simple CTA Band */}
+      <EditorialSection className="pt-0">
+        <EditorialContainer>
+          <div className="rounded-[22px] border border-slate-200 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-8 sm:p-12 text-center space-y-6 text-white shadow-xl">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight max-w-2xl mx-auto leading-snug">
+              Discuss your requirements directly with Kyzor’s founder and principal engineer.
+            </h2>
+            <div>
+              <Link
+                href="/consultation"
+                className="btn-gleam inline-flex items-center justify-center rounded-[12px] bg-accent-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-lg min-h-[44px] hover:scale-[1.02] active:scale-[0.98] transition-all"
+              >
+                Request a Free Consultation
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </EditorialContainer>
+      </EditorialSection>
     </div>
   );
 }

@@ -3,30 +3,29 @@ import fs from "fs";
 import path from "path";
 
 describe("About Page & Legal Trust Pages Specifications", () => {
-  it("verifies founder identity and belief copy on About page", () => {
+  it("verifies founder identity and core belief copy on About page", () => {
     const aboutPath = path.join(process.cwd(), "app/about/page.tsx");
     const content = fs.readFileSync(aboutPath, "utf-8");
 
     expect(content).toContain("Arbaz Khan");
-    expect(content).toContain("Technology should adapt to the business - not force the business to adapt to a template.");
+    expect(content).toContain("Founder & Principal Engineer");
+    expect(content).toContain("Ahmedabad, Gujarat, India");
   });
 
-  it("verifies About page includes 5 stages and 4 differentiators", () => {
+  it("verifies About page includes 3 working stages and 4 operating principles", () => {
     const aboutPath = path.join(process.cwd(), "app/about/page.tsx");
     const content = fs.readFileSync(aboutPath, "utf-8");
 
-    // 5 Stages
-    expect(content).toContain("Understand");
-    expect(content).toContain("Design");
-    expect(content).toContain("Build");
-    expect(content).toContain("Deploy");
-    expect(content).toContain("Support");
+    // 3 Working Stages
+    expect(content).toContain("Understand the operation");
+    expect(content).toContain("Design and build the system");
+    expect(content).toContain("Launch, support and improve");
 
-    // 4 Differentiators
-    expect(content).toContain("Custom-Built");
-    expect(content).toContain("Business-First");
-    expect(content).toContain("Fully Deployed");
-    expect(content).toContain("Supported After Launch");
+    // 4 Operating Principles
+    expect(content).toContain("Business-first");
+    expect(content).toContain("Custom-built");
+    expect(content).toContain("Direct communication");
+    expect(content).toContain("Supported after launch");
   });
 
   it("verifies Privacy page includes required sections and contact method", () => {
