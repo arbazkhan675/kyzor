@@ -17,14 +17,13 @@ const ecommerceVideos: VideoItem[] = [
 export function VideoShowcaseDeck() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [shufflingOutIndex, setShufflingOutIndex] = useState<number | null>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Reduced motion preference detection
+  // Reduced motion detection
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -35,7 +34,7 @@ export function VideoShowcaseDeck() {
     }
   }, []);
 
-  // Handle active video playback
+  // Handle playing only the active centre video
   const playActiveVideo = useCallback(() => {
     if (!videoRef.current) return;
     videoRef.current.currentTime = 0;
@@ -97,13 +96,12 @@ export function VideoShowcaseDeck() {
     };
   }, [playActiveVideo]);
 
-  // Execute smooth shuffle transition
+  // Execute smooth shuffle transition between Left, Centre, and Right positions
   const handleShuffle = useCallback(
     (targetIndex: number) => {
       if (isTransitioning || targetIndex === currentIndex) return;
 
       setIsTransitioning(true);
-      setShufflingOutIndex(currentIndex);
 
       if (videoRef.current) {
         videoRef.current.pause();
@@ -113,7 +111,6 @@ export function VideoShowcaseDeck() {
 
       setTimeout(() => {
         setCurrentIndex(targetIndex);
-        setShufflingOutIndex(null);
         setIsTransitioning(false);
       }, duration);
     },
@@ -130,7 +127,7 @@ export function VideoShowcaseDeck() {
     handleShuffle(prevIdx);
   }, [currentIndex, handleShuffle]);
 
-  // Video ended -> automatically shuffle to next video card
+  // Centre video ends -> auto shuffle to next video
   const handleVideoEnded = () => {
     handleNext();
   };
@@ -145,45 +142,48 @@ export function VideoShowcaseDeck() {
   return (
     <div
       ref={containerRef}
-      aria-label="E-commerce Video Showcase Deck"
+      aria-label="E-commerce Vertical Video Showcase Deck"
       className="space-y-4 max-w-full overflow-hidden"
     >
-      {/* Outer Card Deck Stage */}
-      <div className="relative w-full max-w-[540px] aspect-[16/10] pr-6 pb-6 sm:pr-7 sm:pb-7 mx-auto lg:mx-0">
+      {/* 3 Vertical Mobile-Style Video Cards Deck Stage */}
+      <div className="relative w-full max-w-[500px] h-[380px] sm:h-[440px] flex items-center justify-center mx-auto overflow-hidden">
         {ecommerceVideos.map((item, index) => {
-          let position = (index - currentIndex + ecommerceVideos.length) % ecommerceVideos.length;
-          const isFront = position === 0;
-          const isMiddle = position === 1;
-          const isShufflingOut = shufflingOutIndex === index;
+          // Compute relative card position: 0 = Centre (Front), 1 = Right (Side), 2 = Left (Side)
+          const diff = (index - currentIndex + ecommerceVideos.length) % ecommerceVideos.length;
+          let position: "centre" | "right" | "left" = "centre";
+          if (diff === 1) position = "right";
+          if (diff === 2) position = "left";
 
-          let cardStyle = "";
+          const isCentre = position === "centre";
+          const isRight = position === "right";
+          const isLeft = position === "left";
+
+          // Dynamic 3D transform for Left, Centre, and Right cards
+          let transformStyle = "";
           let zIndex = 10;
 
-          if (isShufflingOut) {
-            cardStyle = "translate-x-[-36px] translate-y-[-20px] scale-[0.88] -rotate-3 opacity-0 z-40";
-            zIndex = 40;
-          } else if (position === 0) {
-            cardStyle = "translate-x-0 translate-y-0 scale-100 rotate-0 opacity-100 z-30 shadow-xl border-slate-300";
+          if (isCentre) {
+            transformStyle = "translate3d(0, 0, 0) scale(1) rotate(0deg) opacity-100 shadow-2xl border-slate-700";
             zIndex = 30;
-          } else if (position === 1) {
-            cardStyle = "translate-x-3 translate-y-3 sm:translate-x-3.5 sm:translate-y-3.5 scale-[0.965] rotate-[0.6deg] opacity-95 z-20 shadow-md border-slate-200 hover:scale-[0.975] cursor-pointer";
-            zIndex = 20;
-          } else {
-            cardStyle = "translate-x-6 translate-y-6 sm:translate-x-7 sm:translate-y-7 scale-[0.93] -rotate-[0.8deg] opacity-85 z-10 shadow-xs border-slate-200";
-            zIndex = 10;
+          } else if (isRight) {
+            transformStyle = "translate3d(85px, 0, 0) sm:translate-3d(115px, 0, 0) scale-[0.82] rotate(4deg) opacity-75 shadow-lg border-slate-800 hover:opacity-90 cursor-pointer";
+            zIndex = 15;
+          } else if (isLeft) {
+            transformStyle = "translate3d(-85px, 0, 0) sm:translate-3d(-115px, 0, 0) scale-[0.82] rotate(-4deg) opacity-75 shadow-lg border-slate-800 hover:opacity-90 cursor-pointer";
+            zIndex = 15;
           }
 
           return (
             <div
               key={item.id}
-              onClick={isMiddle && !isTransitioning ? handleNext : undefined}
-              aria-hidden={!isFront}
+              onClick={!isCentre && !isTransitioning ? () => handleShuffle(index) : undefined}
+              aria-hidden={!isCentre}
               style={{ zIndex }}
-              className={`absolute inset-0 right-6 bottom-6 sm:right-7 sm:bottom-7 rounded-[22px] border bg-slate-950 overflow-hidden shadow-xl transition-all duration-600 ease-out transform-gpu ${cardStyle}`}
+              className={`absolute w-[190px] sm:w-[230px] aspect-[9/16] rounded-[28px] border-2 bg-slate-950 overflow-hidden transition-all duration-700 ease-out transform-gpu flex items-center justify-center ${transformStyle}`}
             >
-              {/* Clean Video Viewport (No text overlays or badges) */}
-              <div className="relative w-full h-full bg-slate-950 overflow-hidden flex items-center justify-center">
-                {isFront ? (
+              {/* Vertical Mobile Video Viewport */}
+              <div className="relative w-full h-full bg-slate-950 flex items-center justify-center overflow-hidden">
+                {isCentre ? (
                   <>
                     <video
                       ref={videoRef}
@@ -193,19 +193,19 @@ export function VideoShowcaseDeck() {
                       autoPlay
                       preload="metadata"
                       onEnded={handleVideoEnded}
-                      className="w-full h-full object-contain block rounded-[22px]"
+                      className="w-full h-full object-cover block rounded-[26px]"
                     />
 
-                    {/* Autoplay blocked play button overlay */}
+                    {/* Manual Play Overlay if Browser Autoplay Blocked */}
                     {autoplayBlocked && (
                       <button
                         type="button"
                         onClick={handleManualPlay}
-                        className="absolute inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center group focus:outline-none"
+                        className="absolute inset-0 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center group focus:outline-none"
                         aria-label="Play video demonstration"
                       >
-                        <div className="w-14 h-14 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="h-6 w-6 ml-0.5 fill-white" />
+                        <div className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="h-5 w-5 ml-0.5 fill-white" />
                         </div>
                       </button>
                     )}
@@ -216,7 +216,7 @@ export function VideoShowcaseDeck() {
                     playsInline
                     muted
                     preload="metadata"
-                    className="w-full h-full object-contain block opacity-90 rounded-[22px]"
+                    className="w-full h-full object-cover block opacity-80 rounded-[26px]"
                   />
                 )}
               </div>
@@ -226,7 +226,7 @@ export function VideoShowcaseDeck() {
       </div>
 
       {/* Restrained Manual Controls Below Deck */}
-      <div className="flex items-center justify-between max-w-[540px] mx-auto pt-1 px-1">
+      <div className="flex items-center justify-between max-w-[480px] mx-auto pt-1 px-2">
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -249,7 +249,7 @@ export function VideoShowcaseDeck() {
           </button>
         </div>
 
-        {/* 3 Progress Dots */}
+        {/* 3 Progress Indicators */}
         <div className="flex items-center gap-2" role="tablist" aria-label="Video deck position">
           {ecommerceVideos.map((item, idx) => (
             <button
